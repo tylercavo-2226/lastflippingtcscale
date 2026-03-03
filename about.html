@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+    /* Mission section */
+    .mission-section { padding: var(--section-pad) 0; }
+    .mission-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    @media (max-width: 860px) { .mission-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .mission-copy h2 { margin-bottom: 1.25rem; }
+    .mission-copy p { margin-bottom: 1.25rem; }
+    .mission-panel {
+      background: var(--navy-deep); border-radius: var(--radius-lg);
+      padding: 2.5rem; color: var(--white);
+    }
+    .mission-panel h3 { font-size: 1.125rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; }
+    .mission-panel p { font-size: .9375rem; color: var(--dm-subtle); line-height: 1.75; }
+
+    /* Values grid */
+    .values-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .values-section { background: var(--dm-bg); }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+    .value-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    }
+    html.dark .value-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    .value-icon {
+      width: 44px; height: 44px; border-radius: 8px;
+      background: rgba(28,58,138,.07); border: 1px solid rgba(28,58,138,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 1rem;
+    }
+    html.dark .value-icon { background: rgba(74,144,217,.1); border-color: rgba(74,144,217,.2); }
+    .value-card h3 { font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: .5rem; }
+    html.dark .value-card h3 { color: var(--dm-text); }
+    .value-card p { font-size: .875rem; color: var(--gray-600); line-height: 1.65; }
+    html.dark .value-card p { color: var(--dm-subtle); }
+
+    /* Approach / process */
+    .approach-section { padding: var(--section-pad) 0; }
+    .approach-steps { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+    .approach-step {
+      display: grid; grid-template-columns: 56px 1fr;
+      gap: 1.5rem; align-items: flex-start; padding-bottom: 2rem;
+      border-left: 2px solid var(--gray-100); margin-left: 28px;
+    }
+    html.dark .approach-step { border-left-color: var(--dm-border); }
+    .approach-step:last-child { border-left-color: transparent; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+      background: var(--navy); color: var(--white);
+      font-size: 1.125rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+      margin-left: -29px;
+    }
+    html.dark .step-num { background: var(--electric); }
+    .step-body h3 { font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: .5rem; padding-top: .875rem; }
+    html.dark .step-body h3 { color: var(--dm-text); }
+    .step-body p { font-size: .9rem; color: var(--gray-600); line-height: 1.65; }
+    html.dark .step-body p { color: var(--dm-subtle); }
+
+    .cta-strip { background: var(--navy-deep); padding: 64px 0; text-align: center; }
+    .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; }
+    .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-strip .btn-primary:hover { background: var(--off-white); }
+    .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Our Work</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/reviews.html">Reviews</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">About TC Scales</span></div>
+      <h1>We Build the Growth<br>Systems Brands Rely On</h1>
+      <p>Founded in 2023, TC Scales is an elite Meta advertising agency focused on one thing: building paid social systems that scale predictably and profitably.</p>
+    </div>
+  </div>
+
+  <main>
+
+    <div class="mission-section">
+      <div class="container">
+        <div class="mission-inner">
+          <div class="mission-copy">
+            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Our Mission</span></div>
+            <h2>Precision Over Promises</h2>
+            <p>Most agencies sell hope. We sell systems. Every campaign we build is grounded in data, tested rigorously, and scaled only when the numbers prove it.</p>
+            <p>We've managed over $10M in ad spend across medical practices, DTC brands, SaaS companies, and local service businesses — and our clients stay because results compound over time.</p>
+            <p>TC Scales was built for ambitious brands that treat advertising as an investment, not an expense.</p>
+          </div>
+          <div class="mission-panel">
+            <h3>Why We Exist</h3>
+            <p>The digital advertising landscape is full of agencies that over-promise and under-deliver. We built TC Scales to be the agency we wished existed when we were on the client side — one that combines creative excellence with analytical rigor and communicates with complete transparency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="values-section">
+      <div class="container">
+        <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Our Values</span></div>
+        <h2>What Drives Every Decision</h2>
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-icon">📊</div>
+            <h3>Data Over Gut</h3>
+            <p>Every creative decision, every audience target, every budget move is backed by numbers. We let data lead.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🎯</div>
+            <h3>Client Outcomes First</h3>
+            <p>We measure success by your revenue, leads, and growth — not by vanity metrics that look good in a report.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🔬</div>
+            <h3>Always Testing</h3>
+            <p>Markets change, algorithms shift, audiences evolve. We test 10+ new creatives per month per client to stay ahead.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🤝</div>
+            <h3>Radical Transparency</h3>
+            <p>No black boxes. We show you what's working, what isn't, and exactly what we're doing about it — every week.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="approach-section">
+      <div class="container">
+        <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">How We Work</span></div>
+        <h2>Our 4-Step Growth System</h2>
+        <div class="approach-steps">
+          <div class="approach-step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h3>Discovery &amp; Strategy</h3>
+              <p>We audit your existing funnel, understand your ideal customer, map your competitive landscape, and build a campaign blueprint tailored to your growth targets.</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h3>Creative &amp; Launch</h3>
+              <p>We develop multiple creative angles, write conversion-focused copy, and launch a structured campaign architecture designed to gather signal fast and identify winners within 14 days.</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h3>Optimize &amp; Scale</h3>
+              <p>Winners get budget. Losers get cut. We continuously iterate — new creatives, refined audiences, improved landing pages — until we hit your target ROAS or CPL.</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h3>Report &amp; Retain</h3>
+              <p>Weekly performance reports, monthly strategy reviews, and proactive communication keep you fully informed. Most clients stay for 12+ months because results compound.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Work With Us</span></div>
+        <h2>Ready to Build Something That Scales?</h2>
+        <p>Book a free strategy call and let's map out your growth plan.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
+          <a href="/results.html" class="btn btn-secondary" style="height:48px;">See Our Results</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+</body>
+</html>

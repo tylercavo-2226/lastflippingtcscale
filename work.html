@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Work — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+      padding: 64px 0 96px;
+    }
+    .case-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); box-shadow: 0 2px 16px rgba(0,0,0,.05);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s, border-left .15s;
+    }
+    .case-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.1); border-left: 3px solid var(--navy); }
+    html.dark .case-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    html.dark .case-card:hover { border-left-color: var(--electric); }
+
+    .case-thumb {
+      height: 160px; display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; background: var(--off-white);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    html.dark .case-thumb { background: var(--dm-bg); border-bottom-color: var(--dm-border); }
+
+    .case-body { padding: 1.75rem; }
+    .case-tag {
+      font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--navy); margin-bottom: .625rem;
+    }
+    html.dark .case-tag { color: var(--electric); }
+    .case-body h3 { font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: .625rem; line-height: 1.35; }
+    html.dark .case-body h3 { color: var(--dm-text); }
+    .case-body p { font-size: .875rem; color: var(--gray-600); line-height: 1.65; margin-bottom: 1.25rem; }
+    html.dark .case-body p { color: var(--dm-subtle); }
+
+    .case-metrics { display: flex; gap: 1.5rem; flex-wrap: wrap; border-top: 1px solid var(--gray-100); padding-top: 1.25rem; }
+    html.dark .case-metrics { border-top-color: var(--dm-border); }
+    .case-metric .num { font-size: 1.375rem; font-weight: 700; color: var(--navy); letter-spacing: -.03em; line-height: 1; }
+    html.dark .case-metric .num { color: var(--electric); }
+    .case-metric .lbl { font-size: .72rem; color: var(--gray-400); font-weight: 500; margin-top: .2rem; }
+
+    .cta-strip { background: var(--navy-deep); padding: 64px 0; text-align: center; }
+    .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; }
+    .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-strip .btn-primary:hover { background: var(--off-white); }
+    .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html" class="active">Our Work</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/reviews.html">Reviews</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Case Studies</span></div>
+      <h1>Work That Speaks<br>for Itself</h1>
+      <p>Real campaigns, real results. Explore how we've helped brands across every vertical scale profitably with Meta ads.</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+      <div class="case-grid">
+
+        <div class="case-card">
+          <div class="case-thumb">🏥</div>
+          <div class="case-body">
+            <div class="case-tag">Medical Practice · Lead Gen</div>
+            <h3>Orthopedic Clinic — 47 New Patients/Month</h3>
+            <p>A 3-location orthopedic practice needed to fill their appointment book. We built a Meta funnel + Klaviyo automation that delivers 47+ qualified new patients per month.</p>
+            <div class="case-metrics">
+              <div class="case-metric"><div class="num">$6.80</div><div class="lbl">Cost per lead</div></div>
+              <div class="case-metric"><div class="num">94%</div><div class="lbl">Show rate</div></div>
+              <div class="case-metric"><div class="num">14d</div><div class="lbl">To launch</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-thumb">🛍️</div>
+          <div class="case-body">
+            <div class="case-tag">E-Commerce · ROAS Growth</div>
+            <h3>DTC Skincare Brand — 1.8× to 4.2× ROAS in 90 Days</h3>
+            <p>A DTC skincare brand plateauing at 1.8× ROAS. We overhauled their creative strategy, restructured Meta campaigns, and built Klaviyo flows that pushed ROAS to 4.2× in 90 days.</p>
+            <div class="case-metrics">
+              <div class="case-metric"><div class="num">4.2×</div><div class="lbl">ROAS achieved</div></div>
+              <div class="case-metric"><div class="num">-38%</div><div class="lbl">CAC reduction</div></div>
+              <div class="case-metric"><div class="num">90d</div><div class="lbl">Timeline</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-thumb">💻</div>
+          <div class="case-body">
+            <div class="case-tag">SaaS · Lead Gen</div>
+            <h3>B2B SaaS Startup — 60% Drop in Cost per Lead</h3>
+            <p>A SaaS startup paying $280 per qualified demo booking. We rebuilt their Meta funnel with new creative angles and retargeting sequences, cutting CPL by 60% in the first month.</p>
+            <div class="case-metrics">
+              <div class="case-metric"><div class="num">-60%</div><div class="lbl">Cost per lead</div></div>
+              <div class="case-metric"><div class="num">3×</div><div class="lbl">Demo volume</div></div>
+              <div class="case-metric"><div class="num">30d</div><div class="lbl">To result</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-thumb">🔄</div>
+          <div class="case-body">
+            <div class="case-tag">E-Commerce · Retargeting</div>
+            <h3>Fashion Brand — 3× Retargeting Conversion Rate</h3>
+            <p>A fashion brand with massive traffic but poor conversion. We built a 7-day sequential retargeting system that tripled their conversion rate and recovered 40% of abandoned carts.</p>
+            <div class="case-metrics">
+              <div class="case-metric"><div class="num">3×</div><div class="lbl">Retargeting CVR</div></div>
+              <div class="case-metric"><div class="num">40%</div><div class="lbl">Carts recovered</div></div>
+              <div class="case-metric"><div class="num">7d</div><div class="lbl">Window</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-thumb">📦</div>
+          <div class="case-body">
+            <div class="case-tag">DTC · Scale</div>
+            <h3>Supplement Brand — $0 to $500K/Mo in 6 Months</h3>
+            <p>A new supplement brand launching from zero. We built their entire paid social infrastructure from scratch, reaching $500K/mo in revenue in 6 months.</p>
+            <div class="case-metrics">
+              <div class="case-metric"><div class="num">$500K</div><div class="lbl">Monthly revenue</div></div>
+              <div class="case-metric"><div class="num">6mo</div><div class="lbl">Timeline</div></div>
+              <div class="case-metric"><div class="num">3.8×</div><div class="lbl">ROAS maintained</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-thumb">🏠</div>
+          <div class="case-body">
+            <div class="case-tag">Home Services · Lead Gen</div>
+            <h3>HVAC Company — 120 Qualified Leads/Month</h3>
+            <p>A regional HVAC company relying on word-of-mouth. We launched a Meta lead gen campaign with CRM integration, delivering 120+ qualified service calls per month at under $12 per lead.</p>
+            <div class="case-metrics">
+              <div class="case-metric"><div class="num">120+</div><div class="lbl">Leads/month</div></div>
+              <div class="case-metric"><div class="num">$11.40</div><div class="lbl">Cost per lead</div></div>
+              <div class="case-metric"><div class="num">2×</div><div class="lbl">Revenue growth</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Ready to Scale?</span></div>
+        <h2>Want Results Like These?</h2>
+        <p>Book a free strategy call and let's map out what's possible for your brand.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
+          <a href="/services.html" class="btn btn-secondary" style="height:48px;">View Services</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+</body>
+</html>

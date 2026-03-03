@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+    .blog-section { padding: var(--section-pad) 0; }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .blog-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,.05);
+      transition: transform .2s, box-shadow .2s, border-left .15s;
+    }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.1); border-left: 3px solid var(--navy); }
+    html.dark .blog-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    html.dark .blog-card:hover { border-left-color: var(--electric); }
+
+    .blog-thumb {
+      height: 140px; background: var(--off-white);
+      border-bottom: 1px solid var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.25rem;
+    }
+    html.dark .blog-thumb { background: var(--dm-bg); border-bottom-color: var(--dm-border); }
+
+    .blog-body { padding: 1.5rem; }
+    .blog-meta { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; }
+    .blog-tag {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--navy); background: rgba(28,58,138,.07); border: 1px solid rgba(28,58,138,.1);
+      padding: .2rem .6rem; border-radius: 4px;
+    }
+    html.dark .blog-tag { color: var(--electric); background: rgba(74,144,217,.1); border-color: rgba(74,144,217,.2); }
+    .blog-date { font-size: .78rem; color: var(--gray-400); }
+    .blog-body h3 { font-size: 1rem; font-weight: 700; color: var(--charcoal); line-height: 1.35; margin-bottom: .625rem; }
+    html.dark .blog-body h3 { color: var(--dm-text); }
+    .blog-body p { font-size: .875rem; color: var(--gray-600); line-height: 1.65; margin-bottom: 1.25rem; }
+    html.dark .blog-body p { color: var(--dm-subtle); }
+    .blog-read { font-size: .8rem; font-weight: 600; color: var(--navy); text-decoration: none; }
+    html.dark .blog-read { color: var(--electric); }
+    .blog-read:hover { text-decoration: underline; }
+
+    .cta-strip { background: var(--navy-deep); padding: 64px 0; text-align: center; }
+    .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; }
+    .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-strip .btn-primary:hover { background: var(--off-white); }
+    .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Our Work</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/reviews.html">Reviews</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">TC Scales Blog</span></div>
+      <h1>Insights on Paid Social,<br>Creative, &amp; Growth</h1>
+      <p>Tactical playbooks, case study breakdowns, and data-driven insights from the TC Scales team — no fluff, just what works.</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="blog-section">
+      <div class="container">
+        <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Latest Posts</span></div>
+        <div class="blog-grid">
+
+          <div class="blog-card">
+            <div class="blog-thumb">📈</div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-tag">Meta Ads</span>
+                <span class="blog-date">Feb 2025</span>
+              </div>
+              <h3>How We Scaled a DTC Brand from 1.8× to 4.2× ROAS in 90 Days</h3>
+              <p>A step-by-step breakdown of the creative strategy, campaign restructure, and Klaviyo flows that drove a 133% ROAS improvement for a skincare brand.</p>
+              <a href="#" class="blog-read">Read article →</a>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-thumb">🎯</div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-tag">Lead Gen</span>
+                <span class="blog-date">Jan 2025</span>
+              </div>
+              <h3>The $6.80 Lead: How We Drive Qualified Medical Patients on Meta</h3>
+              <p>Most healthcare advertisers pay $40–$80 per lead. Here's the exact targeting, creative, and funnel structure we use to consistently land below $10.</p>
+              <a href="#" class="blog-read">Read article →</a>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-thumb">🔄</div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-tag">Retargeting</span>
+                <span class="blog-date">Jan 2025</span>
+              </div>
+              <h3>The 7-Day Sequential Retargeting System That Tripled CVR</h3>
+              <p>Most brands retarget with the same ad to everyone. Here's how we build sequential stories that move warm audiences through the funnel with surgical precision.</p>
+              <a href="#" class="blog-read">Read article →</a>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-thumb">✍️</div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-tag">Creative</span>
+                <span class="blog-date">Dec 2024</span>
+              </div>
+              <h3>5 Ad Creative Frameworks That Outperform on Meta in 2025</h3>
+              <p>After testing hundreds of creatives across verticals, these five frameworks consistently generate the lowest CPL and highest ROAS. We break down each one.</p>
+              <a href="#" class="blog-read">Read article →</a>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-thumb">📧</div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-tag">Email</span>
+                <span class="blog-date">Dec 2024</span>
+              </div>
+              <h3>Klaviyo + Meta: The Stack That Drives 94% Appointment Show Rates</h3>
+              <p>Leads are only valuable if they show up. Here's the exact Klaviyo sequence + AI follow-up automation that keeps appointment show rates above 90%.</p>
+              <a href="#" class="blog-read">Read article →</a>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-thumb">🚀</div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-tag">Strategy</span>
+                <span class="blog-date">Nov 2024</span>
+              </div>
+              <h3>Zero to $500K/Month: The Playbook for Launching a New DTC Brand</h3>
+              <p>How we built a supplement brand's entire paid social infrastructure from scratch and hit $500K in monthly revenue within six months of launch.</p>
+              <a href="#" class="blog-read">Read article →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Work With Us</span></div>
+        <h2>Ready to Put These Strategies to Work?</h2>
+        <p>Book a free strategy call and let's build your growth system.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
+          <a href="/services.html" class="btn btn-secondary" style="height:48px;">View Services</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+</body>
+</html>

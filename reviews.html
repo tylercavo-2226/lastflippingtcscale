@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviews — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+    /* Rating summary band */
+    .rating-band { background: var(--navy-deep); padding: 56px 0; text-align: center; }
+    .rating-band .eyebrow { justify-content: center; }
+    .rating-band h2 { color: var(--white); margin: .75rem 0 2rem; }
+    .rating-summary { display: inline-flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .rating-big { font-size: 4rem; font-weight: 700; color: var(--white); letter-spacing: -.05em; line-height: 1; }
+    .rating-stars { font-size: 1.75rem; letter-spacing: .1em; color: var(--gold); margin-bottom: .25rem; }
+    .rating-count { font-size: .875rem; color: var(--dm-subtle); }
+    .rating-divider { width: 1px; height: 60px; background: rgba(255,255,255,.15); }
+
+    /* Review cards grid */
+    .reviews-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .reviews-section { background: var(--dm-bg); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+
+    .review-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1.75rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.05);
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    html.dark .review-card { background: var(--dm-surface); border-color: var(--dm-border); }
+
+    .review-stars { font-size: 1rem; letter-spacing: .08em; color: var(--gold); }
+    .review-text { font-size: .9375rem; color: var(--gray-600); line-height: 1.75; font-style: italic; flex: 1; }
+    html.dark .review-text { color: var(--dm-subtle); }
+
+    .review-author { display: flex; align-items: center; gap: .875rem; padding-top: 1rem; border-top: 1px solid var(--gray-100); }
+    html.dark .review-author { border-top-color: var(--dm-border); }
+    .review-avatar {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      background: var(--navy); display: flex; align-items: center; justify-content: center;
+      font-size: .875rem; font-weight: 700; color: var(--white); letter-spacing: -.01em;
+    }
+    html.dark .review-avatar { background: var(--electric); }
+    .review-name { font-size: .9rem; font-weight: 600; color: var(--charcoal); line-height: 1.2; }
+    html.dark .review-name { color: var(--dm-text); }
+    .review-role { font-size: .78rem; color: var(--gray-400); }
+
+    .cta-strip { background: var(--navy-deep); padding: 64px 0; text-align: center; }
+    .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; }
+    .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-strip .btn-primary:hover { background: var(--off-white); }
+    .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Our Work</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/reviews.html" class="active">Reviews</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Client Reviews</span></div>
+      <h1>What Our Clients<br>Say About Us</h1>
+      <p>Don't take our word for it. Here's what business owners and marketing teams have to say about working with TC Scales.</p>
+    </div>
+  </div>
+
+  <main>
+
+    <div class="rating-band">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Overall Rating</span></div>
+        <h2>Consistently 5-Star Across Every Engagement</h2>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-big">5.0</div>
+            <div class="rating-stars">★★★★★</div>
+            <div class="rating-count">Based on 50+ client reviews</div>
+          </div>
+          <div class="rating-divider"></div>
+          <div style="text-align:left;">
+            <div style="font-size:.875rem;color:var(--dm-subtle);margin-bottom:.5rem;">★★★★★ &nbsp;100%</div>
+            <div style="font-size:.875rem;color:var(--dm-subtle);margin-bottom:.5rem;">★★★★☆ &nbsp;&nbsp;&nbsp;0%</div>
+            <div style="font-size:.875rem;color:var(--dm-subtle);margin-bottom:.5rem;">★★★☆☆ &nbsp;&nbsp;&nbsp;0%</div>
+            <div style="font-size:.875rem;color:var(--dm-subtle);">★★☆☆☆ &nbsp;&nbsp;&nbsp;0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-section">
+      <div class="container">
+        <div class="eyebrow" style="margin-bottom:2.5rem;"><div class="gold-rule"></div><span class="section-label">Client Testimonials</span></div>
+        <div class="reviews-grid">
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"TC Scales completely transformed our patient acquisition. We went from relying on referrals to having 47+ qualified leads coming in every single month. The cost per lead blew us away — our previous agency couldn't get below $40."</p>
+            <div class="review-author">
+              <div class="review-avatar">DR</div>
+              <div>
+                <div class="review-name">Dr. Marcus Reynolds</div>
+                <div class="review-role">Owner, Reynolds Orthopedic Group</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"In 90 days, TC Scales took our ROAS from 1.8x to 4.2x. I've worked with four other Meta agencies and none of them understood creative strategy the way these guys do. They test constantly and scale what works."</p>
+            <div class="review-author">
+              <div class="review-avatar">AS</div>
+              <div>
+                <div class="review-name">Aisha Sanders</div>
+                <div class="review-role">Founder, Luminate Skincare</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Our cost per demo booking dropped 60% in the first month. I was skeptical — we'd been burned before — but TC Scales delivered results I could actually see in our pipeline. Communication is transparent and reporting is clear."</p>
+            <div class="review-author">
+              <div class="review-avatar">JK</div>
+              <div>
+                <div class="review-name">Jordan Kim</div>
+                <div class="review-role">CEO, Nexlify SaaS</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"The retargeting system they built for us is something else. We had the traffic, we just weren't converting it. They built a 7-day sequential system that tripled our CVR and recovered 40% of our abandoned carts. Outstanding work."</p>
+            <div class="review-author">
+              <div class="review-avatar">TM</div>
+              <div>
+                <div class="review-name">Tanya Morrison</div>
+                <div class="review-role">E-Commerce Director, Vela Fashion</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"From zero to $500K per month in six months. I still can't believe it. TC Scales built every part of our paid social infrastructure from scratch and the whole thing just works. Best investment we've made in the business."</p>
+            <div class="review-author">
+              <div class="review-avatar">RB</div>
+              <div>
+                <div class="review-name">Ryan Bauer</div>
+                <div class="review-role">Co-Founder, Apex Nutrition</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"We were word-of-mouth only before TC Scales. Now we have 120+ qualified service calls booked every month at under $12 per lead. The CRM integration makes everything seamless. Our revenue doubled in 8 months."</p>
+            <div class="review-author">
+              <div class="review-avatar">CP</div>
+              <div>
+                <div class="review-name">Carlos Perez</div>
+                <div class="review-role">Owner, Precision HVAC Solutions</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Ready to Scale?</span></div>
+        <h2>Join Our Growing List of Success Stories</h2>
+        <p>Book a free strategy call and let's map out what's possible for your brand.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
+          <a href="/work.html" class="btn btn-secondary" style="height:48px;">See Case Studies</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+</body>
+</html>

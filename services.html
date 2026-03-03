@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+    .service-section { padding: var(--section-pad) 0; border-top: 1px solid var(--gray-100); }
+    html.dark .service-section { border-top-color: var(--dm-border); }
+    .service-section:first-of-type { border-top: none; }
+
+    .service-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 860px) { .service-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .service-section.flip .service-inner { direction: rtl; }
+    .service-section.flip .service-inner > * { direction: ltr; }
+    @media (max-width: 860px) { .service-section.flip .service-inner { direction: ltr; } }
+
+    .service-copy h2 { margin-bottom: 1rem; }
+    .service-copy p { margin-bottom: 1.75rem; }
+
+    .bullet-list { display: flex; flex-direction: column; gap: .625rem; margin-bottom: 2rem; }
+    .bullet-item { display: flex; align-items: flex-start; gap: .625rem; font-size: .9rem; color: var(--gray-600); }
+    html.dark .bullet-item { color: var(--dm-subtle); }
+    .bullet-check {
+      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(28,58,138,.08); border: 1px solid rgba(28,58,138,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; color: var(--navy); margin-top: 2px;
+    }
+
+    /* Metric panel */
+    .metric-panel {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    }
+    html.dark .metric-panel { background: var(--dm-surface); border-color: var(--dm-border); }
+
+    .metric-panel-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--gray-400);
+    }
+    html.dark .metric-panel-header { border-bottom-color: var(--dm-border); }
+
+    .metric-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--gray-100);
+    }
+    html.dark .metric-grid { background: var(--dm-border); }
+    .metric-cell { background: var(--white); padding: 1.5rem 1.25rem; }
+    html.dark .metric-cell { background: var(--dm-bg); }
+    .metric-num { font-size: 2rem; font-weight: 700; color: var(--navy); letter-spacing: -.04em; line-height: 1; margin-bottom: .25rem; }
+    html.dark .metric-num { color: var(--electric); }
+    .metric-lbl { font-size: .78rem; color: var(--gray-400); font-weight: 500; }
+
+    /* Bottom CTA */
+    .cta-strip {
+      background: var(--navy-deep); padding: 64px 0;
+      text-align: center;
+    }
+    .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; }
+    .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-strip .btn-primary:hover { background: var(--off-white); }
+    .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html" class="active">Services</a></li>
+          <li><a href="/work.html">Our Work</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/reviews.html">Reviews</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">What We Do</span></div>
+      <h1>Services Built to<br>Scale Your Brand</h1>
+      <p>From the first click to the final conversion, we own every layer of your paid social funnel — with precision, creativity, and relentless optimization.</p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Lead Gen -->
+    <section class="service-section" id="lead-gen">
+      <div class="container">
+        <div class="service-inner">
+          <div class="service-copy">
+            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Lead Generation</span></div>
+            <h2>Scale Your Pipeline with Paid Social</h2>
+            <p>We engineer high-converting lead gen funnels on Facebook &amp; Instagram — targeting the exact audience at the exact cost to fill your pipeline with qualified buyers, consistently.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><div class="bullet-check">✓</div>Hyper-targeted audience segmentation on Meta</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>A/B tested creative that stops the scroll</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Klaviyo email sequences that nurture leads to buyers</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>AI follow-up automations for every lead</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Weekly reporting with clear ROI attribution</div>
+            </div>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
+          </div>
+          <div class="metric-panel">
+            <div class="metric-panel-header">Lead Gen — Portfolio Averages</div>
+            <div class="metric-grid">
+              <div class="metric-cell"><div class="metric-num">47+</div><div class="metric-lbl">New leads / month avg</div></div>
+              <div class="metric-cell"><div class="metric-num">$6.80</div><div class="metric-lbl">Cost per lead</div></div>
+              <div class="metric-cell"><div class="metric-num">14</div><div class="metric-lbl">Days to first leads</div></div>
+              <div class="metric-cell"><div class="metric-num">94%</div><div class="metric-lbl">Appt. show rate</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- E-Commerce -->
+    <section class="service-section flip" id="ecommerce" style="background:var(--off-white);">
+      <div class="container" style="background:inherit;">
+        <div class="service-inner">
+          <div class="service-copy">
+            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">E-Commerce</span></div>
+            <h2>Turn Ad Spend Into Predictable Revenue</h2>
+            <p>From cold prospecting to dynamic retargeting, we build full-funnel Meta ad systems that drive ROAS-positive growth for DTC brands at any stage.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><div class="bullet-check">✓</div>Full-funnel Meta ad architecture (TOFU → BOFU)</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Dynamic product catalog ads with smart audiences</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Klaviyo abandoned cart &amp; post-purchase sequences</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Creative testing frameworks to find winners fast</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Scaling playbooks for profitable growth</div>
+            </div>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
+          </div>
+          <div class="metric-panel">
+            <div class="metric-panel-header">E-Commerce — Portfolio Averages</div>
+            <div class="metric-grid">
+              <div class="metric-cell"><div class="metric-num">4.2×</div><div class="metric-lbl">Average ROAS achieved</div></div>
+              <div class="metric-cell"><div class="metric-num">-60%</div><div class="metric-lbl">Reduction in CAC</div></div>
+              <div class="metric-cell"><div class="metric-num">90</div><div class="metric-lbl">Days to 4× ROAS</div></div>
+              <div class="metric-cell"><div class="metric-num">$10M</div><div class="metric-lbl">Ad spend managed</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Retargeting -->
+    <section class="service-section" id="retargeting">
+      <div class="container">
+        <div class="service-inner">
+          <div class="service-copy">
+            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Retargeting &amp; Scaling</span></div>
+            <h2>Re-Engage, Convert &amp; Scale Without Waste</h2>
+            <p>Smart retargeting sequences and creative-testing frameworks that recapture warm audiences, eliminate wasted spend, and scale winning campaigns with surgical precision.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><div class="bullet-check">✓</div>Custom audience segmentation (video viewers, web visitors)</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Sequential retargeting that moves people through the funnel</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Lookalike audience expansion for profitable scale</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Budget scaling frameworks that protect ROAS</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Cross-channel retargeting (Meta + Google)</div>
+            </div>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
+          </div>
+          <div class="metric-panel">
+            <div class="metric-panel-header">Retargeting — Results</div>
+            <div class="metric-grid">
+              <div class="metric-cell"><div class="metric-num">3×</div><div class="metric-lbl">Conversion rate lift</div></div>
+              <div class="metric-cell"><div class="metric-num">-40%</div><div class="metric-lbl">Wasted spend eliminated</div></div>
+              <div class="metric-cell"><div class="metric-num">7</div><div class="metric-lbl">Day retargeting window</div></div>
+              <div class="metric-cell"><div class="metric-num">50+</div><div class="metric-lbl">Clients scaled profitably</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Creative Strategy -->
+    <section class="service-section flip" id="creative" style="background:var(--off-white);">
+      <div class="container" style="background:inherit;">
+        <div class="service-inner">
+          <div class="service-copy">
+            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Creative Strategy</span></div>
+            <h2>Creative That Converts at Every Stage</h2>
+            <p>We build data-driven creative systems — from ideation and scripting to production and testing — that continuously identify your highest-performing angles.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><div class="bullet-check">✓</div>Ad concept ideation grounded in customer psychology</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>UGC, static, and video creative direction</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Rapid creative testing (5–10 new ads/month)</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Winning angle identification and scale-up</div>
+              <div class="bullet-item"><div class="bullet-check">✓</div>Landing page copy and CRO recommendations</div>
+            </div>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
+          </div>
+          <div class="metric-panel">
+            <div class="metric-panel-header">Creative — Results</div>
+            <div class="metric-grid">
+              <div class="metric-cell"><div class="metric-num">10+</div><div class="metric-lbl">New creatives tested/mo</div></div>
+              <div class="metric-cell"><div class="metric-num">2×</div><div class="metric-lbl">CTR improvement avg</div></div>
+              <div class="metric-cell"><div class="metric-num">30</div><div class="metric-lbl">Days to winning angle</div></div>
+              <div class="metric-cell"><div class="metric-num">100%</div><div class="metric-lbl">Data-driven decisions</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-strip">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Ready to Scale?</span></div>
+        <h2>Ready to Scale Your Brand?</h2>
+        <p>Book a free strategy call and we'll map out exactly how to grow your brand with Meta ads.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
+          <a href="/work.html" class="btn btn-secondary" style="height:48px;">See Case Studies</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+</body>
+</html>

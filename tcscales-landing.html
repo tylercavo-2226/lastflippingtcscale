@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TC Scales — Healthcare Performance Marketing Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+    /* ── HERO ──────────────────────────────────────────────── */
+    .hero { padding: 96px 0 80px; background: var(--white); position: relative; overflow: hidden; }
+    html.dark .hero { background: var(--dm-bg); }
+
+    /* Aurora background — ported from React aurora-background component */
+    @keyframes aurora {
+      from { background-position: 50% 50%, 50% 50%; }
+      to   { background-position: 350% 50%, 350% 50%; }
+    }
+    .hero-aurora {
+      position: absolute;
+      inset: -10px;
+      pointer-events: none;
+      opacity: 0.38;
+      will-change: transform;
+      background-image:
+        repeating-linear-gradient(100deg, #fff 0%, #fff 7%, transparent 10%, transparent 12%, #fff 16%),
+        repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+      background-size: 300%, 200%;
+      background-position: 50% 50%, 50% 50%;
+      filter: blur(10px) invert(1);
+      animation: aurora 60s linear infinite;
+      /* Concentrate effect toward top-right (behind panel), fade toward copy */
+      mask-image: radial-gradient(ellipse at 92% 0%, black 10%, transparent 68%);
+      -webkit-mask-image: radial-gradient(ellipse at 92% 0%, black 10%, transparent 68%);
+    }
+    .hero-aurora::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(100deg, #fff 0%, #fff 7%, transparent 10%, transparent 12%, #fff 16%),
+        repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+      background-size: 200%, 100%;
+      background-attachment: fixed;
+      animation: aurora 60s linear infinite;
+      mix-blend-mode: difference;
+    }
+    /* Dark mode aurora — no invert, pure blue/indigo tones */
+    html.dark .hero-aurora {
+      background-image:
+        repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%),
+        repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+      filter: blur(10px);
+      opacity: 0.5;
+    }
+    html.dark .hero-aurora::after {
+      background-image:
+        repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%),
+        repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+    }
+    /* Ensure hero content sits above aurora */
+    .hero .container { position: relative; z-index: 1; }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 3rem; } }
+
+    .hero-headline {
+      font-size: clamp(2.75rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -.03em;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    html.dark .hero-headline { color: var(--dm-text); }
+    .hero-headline .navy { color: var(--navy); }
+
+    .hero-sub {
+      font-size: 1.0625rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+      max-width: 480px;
+    }
+    html.dark .hero-sub { color: var(--dm-subtle); }
+
+    .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+    .hero-trust { display: flex; flex-direction: column; gap: .625rem; }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: .625rem;
+      font-size: .8125rem;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+    .trust-check {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: rgba(28,58,138,.08); border: 1px solid rgba(28,58,138,.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: .6rem; color: var(--navy);
+    }
+
+    /* Hero data panel */
+    .hero-panel {
+      background: var(--white);
+      border: 1px solid rgba(28,58,138,.12);
+      border-top: 2.5px solid var(--navy);
+      border-radius: var(--radius-lg);
+      box-shadow:
+        0 0 0 1px rgba(28,58,138,.06),
+        0 8px 24px rgba(28,58,138,.12),
+        0 24px 64px rgba(0,0,0,.1),
+        0 1px 0 rgba(255,255,255,.9) inset;
+      padding: 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Subtle inner glow line at top */
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      background: linear-gradient(180deg, rgba(28,58,138,.04) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    html.dark .hero-panel {
+      background: var(--dm-surface);
+      border-color: rgba(74,144,217,.25);
+      border-top-color: var(--electric);
+      box-shadow:
+        0 0 0 1px rgba(74,144,217,.12),
+        0 8px 24px rgba(74,144,217,.18),
+        0 24px 64px rgba(0,0,0,.45);
+    }
+    html.dark .hero-panel::before {
+      background: linear-gradient(180deg, rgba(74,144,217,.07) 0%, transparent 100%);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--gray-100);
+      margin-bottom: 1.25rem;
+    }
+    html.dark .panel-header { border-bottom-color: var(--dm-border); }
+    .panel-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gray-400); }
+    .panel-badge {
+      display: flex; align-items: center; gap: .375rem;
+      font-size: .72rem; font-weight: 600; color: #16a34a;
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      padding: .25rem .75rem; border-radius: 100px;
+      box-shadow: 0 1px 4px rgba(22,163,74,.12);
+    }
+    html.dark .panel-badge { background: rgba(22,163,74,.15); border-color: rgba(22,163,74,.3); }
+    .panel-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #16a34a;
+      animation: blink 2s ease-in-out infinite;
+      box-shadow: 0 0 6px rgba(22,163,74,.6);
+    }
+    @keyframes blink { 0%,100%{opacity:1;box-shadow:0 0 6px rgba(22,163,74,.6);} 50%{opacity:.4;box-shadow:none;} }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--gray-100);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,.05) inset;
+    }
+    html.dark .kpi-grid { background: var(--dm-border); }
+    .kpi-cell {
+      background: var(--white); padding: 1.375rem 1.125rem;
+      transition: background .15s;
+    }
+    .kpi-cell:hover { background: rgba(28,58,138,.025); }
+    html.dark .kpi-cell { background: var(--dm-bg); }
+    html.dark .kpi-cell:hover { background: rgba(74,144,217,.06); }
+    .kpi-num {
+      font-size: 2.125rem; font-weight: 700; color: var(--navy);
+      letter-spacing: -.05em; line-height: 1; margin-bottom: .25rem;
+    }
+    html.dark .kpi-num { color: var(--electric); }
+    .kpi-label { font-size: .75rem; color: var(--gray-400); font-weight: 500; }
+    .kpi-change {
+      font-size: .72rem; font-weight: 600; color: #16a34a; margin-top: .25rem;
+      display: flex; align-items: center; gap: .2rem;
+    }
+    .panel-note {
+      font-size: .75rem; color: var(--gray-400); text-align: center;
+      padding-top: 1rem; border-top: 1px solid var(--gray-100);
+    }
+    html.dark .panel-note { border-top-color: var(--dm-border); }
+
+    /* ── TICKER ────────────────────────────────────────────── */
+    .ticker-wrap {
+      background: var(--off-white);
+      border-top: 1px solid var(--gray-100);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+    html.dark .ticker-wrap { background: var(--dm-surface); border-color: var(--dm-border); }
+    .ticker-track {
+      display: flex;
+      animation: ticker 28s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+    @keyframes ticker { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+    .ticker-item {
+      font-size: .78rem; font-weight: 600; color: var(--gray-400);
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 0 2rem;
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .ticker-item::after { content: '·'; color: var(--gold); font-size: 1.2rem; margin-left: 2rem; }
+
+    /* ── SERVICES ──────────────────────────────────────────── */
+    .services-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .services-section { background: var(--dm-surface); }
+
+    .services-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 2rem; margin-bottom: 3rem;
+    }
+    @media (max-width: 768px) { .services-header { flex-direction: column; align-items: flex-start; } }
+
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr; } }
+
+    .service-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); box-shadow: 0 2px 16px rgba(0,0,0,.05);
+      padding: 2rem; display: flex; flex-direction: column;
+      transition: transform .2s, box-shadow .2s, border-left .15s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.09); border-left: 3px solid var(--navy); }
+    html.dark .service-card { background: var(--dm-bg); border-color: var(--dm-border); }
+    html.dark .service-card:hover { border-left-color: var(--electric); }
+
+    .service-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: rgba(28,58,138,.07); border: 1px solid rgba(28,58,138,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-bottom: 1.25rem;
+    }
+    html.dark .service-icon { background: rgba(74,144,217,.12); border-color: rgba(74,144,217,.2); }
+    .service-card h3 { color: var(--charcoal); margin-bottom: .625rem; }
+    html.dark .service-card h3 { color: var(--dm-text); }
+    .service-card p { font-size: .9rem; line-height: 1.65; flex: 1; margin-bottom: 1.5rem; }
+    .card-link { font-size: .85rem; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: .375rem; transition: gap .15s; }
+    .card-link:hover { gap: .625rem; }
+    html.dark .card-link { color: var(--electric); }
+
+    /* ── WORK / PARTNERSHIPS ───────────────────────────────── */
+    .work-section { padding: var(--section-pad) 0; background: var(--white); }
+    html.dark .work-section { background: var(--dm-bg); }
+
+    .work-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    @media (max-width: 900px) { .work-inner { grid-template-columns: 1fr; gap: 3rem; } }
+    .work-copy h2 { margin-bottom: 1rem; }
+    .work-copy p { margin-bottom: 1.75rem; max-width: 420px; }
+
+    .logos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .logo-pill {
+      background: var(--off-white); border: 1px solid var(--gray-100);
+      border-radius: 8px; padding: .875rem 1rem;
+      font-size: .8125rem; font-weight: 600; color: var(--gray-600);
+      text-align: center; transition: border-color .15s, color .15s;
+    }
+    .logo-pill:hover { border-color: var(--navy); color: var(--navy); }
+    html.dark .logo-pill { background: var(--dm-surface); border-color: var(--dm-border); color: var(--dm-subtle); }
+    html.dark .logo-pill:hover { border-color: var(--electric); color: var(--dm-text); }
+
+    /* ── NUMBERS ───────────────────────────────────────────── */
+    .numbers-section { padding: var(--section-pad) 0; background: var(--navy-deep); }
+    .numbers-header { text-align: center; margin-bottom: 3.5rem; }
+    .numbers-header h2 { color: var(--white); font-size: clamp(1.75rem, 3vw, 2.25rem); margin-top: .75rem; }
+
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: rgba(255,255,255,.08);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    @media (max-width: 640px) { .stats-row { grid-template-columns: 1fr; } }
+    .stat { background: rgba(255,255,255,.04); padding: 2.5rem 2rem; text-align: center; }
+    .stat-num { font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 700; color: var(--white); letter-spacing: -.05em; line-height: 1; margin-bottom: .5rem; }
+    .stat-num .accent { color: var(--electric); }
+    .stat-num .gold   { color: var(--gold); }
+    .stat-label { font-size: .875rem; color: var(--dm-subtle); font-weight: 500; }
+
+    /* ── REVIEWS ───────────────────────────────────────────── */
+    .reviews-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .reviews-section { background: var(--dm-surface); }
+    .reviews-header { margin-bottom: 3rem; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+
+    .review-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); box-shadow: 0 2px 16px rgba(0,0,0,.05);
+      padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    html.dark .review-card { background: var(--dm-bg); border-color: var(--dm-border); }
+    .stars { color: var(--gold); font-size: .9375rem; letter-spacing: .05em; }
+    .review-text { font-size: .9375rem; color: var(--gray-600); line-height: 1.75; font-style: italic; flex: 1; }
+    html.dark .review-text { color: var(--dm-subtle); }
+    .reviewer { display: flex; align-items: center; gap: .875rem; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; flex-shrink: 0; }
+    .reviewer-name { font-size: .875rem; font-weight: 600; color: var(--charcoal); }
+    html.dark .reviewer-name { color: var(--dm-text); }
+    .reviewer-role { font-size: .78rem; color: var(--gray-400); }
+
+    /* ── FOUNDER ────────────────────────────────────────────── */
+    .founder-section { padding: var(--section-pad) 0; background: var(--white); }
+    html.dark .founder-section { background: var(--dm-bg); }
+
+    .founder-inner {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    @media (max-width: 860px) { .founder-inner { grid-template-columns: 1fr; gap: 3rem; } }
+
+    .founder-photo-col { display: flex; flex-direction: column; align-items: center; }
+
+    /* Swap src="" for a real photo — remove the initials span when adding img */
+    .founder-img {
+      width: 220px; height: 220px;
+      border-radius: var(--radius-lg);
+      background: var(--navy-deep);
+      overflow: hidden; position: relative;
+      border: 4px solid var(--white);
+      box-shadow: 0 12px 40px rgba(28,58,138,.2), 0 2px 8px rgba(0,0,0,.1);
+      margin-bottom: 1.25rem;
+    }
+    .founder-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .founder-initials {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; font-weight: 700; color: rgba(255,255,255,.9); letter-spacing: -.04em;
+      /* Remove this element entirely once you add a real photo */
+    }
+    .founder-name-col { text-align: center; }
+    .founder-name { font-size: 1.0625rem; font-weight: 700; color: var(--charcoal); margin-bottom: .2rem; }
+    html.dark .founder-name { color: var(--dm-text); }
+    .founder-role { font-size: .8125rem; color: var(--gray-400); margin-bottom: 1rem; }
+    .founder-socials { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    .founder-socials a {
+      font-size: .78rem; font-weight: 600; color: var(--navy);
+      background: rgba(28,58,138,.06); border: 1px solid rgba(28,58,138,.12);
+      padding: .3rem .875rem; border-radius: 100px; text-decoration: none;
+      transition: background .15s, color .15s;
+    }
+    .founder-socials a:hover { background: var(--navy); color: var(--white); }
+    html.dark .founder-socials a { color: var(--electric); background: rgba(74,144,217,.1); border-color: rgba(74,144,217,.2); }
+    html.dark .founder-socials a:hover { background: var(--electric); color: var(--white); }
+
+    .founder-copy blockquote {
+      font-size: 1.3125rem; font-weight: 500; line-height: 1.55;
+      color: var(--charcoal); letter-spacing: -.015em; font-style: italic;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem; margin: 0 0 1.75rem;
+    }
+    html.dark .founder-copy blockquote { color: var(--dm-text); }
+    .founder-copy p { color: var(--gray-600); line-height: 1.8; margin-bottom: 1.1rem; }
+    html.dark .founder-copy p { color: var(--dm-subtle); }
+    .founder-goal {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: var(--off-white); border: 1px solid var(--gray-100);
+      border-left: 3px solid var(--navy); border-radius: var(--radius);
+      padding: 1.25rem 1.5rem; margin-top: 2rem;
+    }
+    html.dark .founder-goal { background: var(--dm-surface); border-color: var(--dm-border); border-left-color: var(--electric); }
+    .founder-goal-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); margin-bottom: .375rem; }
+    .founder-goal p { font-size: .9rem; color: var(--charcoal); margin: 0; line-height: 1.65; font-weight: 500; }
+    html.dark .founder-goal p { color: var(--dm-text); }
+
+    /* ── WORK WITH ME ────────────────────────────────────────── */
+    .options-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .options-section { background: var(--dm-surface); }
+    .options-header { text-align: center; margin-bottom: 3rem; }
+    .options-header h2 { margin-top: .75rem; }
+    .options-header p { color: var(--gray-600); max-width: 520px; margin: .75rem auto 0; }
+    html.dark .options-header p { color: var(--dm-subtle); }
+
+    .options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .options-grid { grid-template-columns: 1fr; } }
+
+    .option-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 2rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.05);
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+    html.dark .option-card { background: var(--dm-bg); border-color: var(--dm-border); }
+    .option-card.featured {
+      border-top: 2.5px solid var(--navy);
+      box-shadow: 0 8px 32px rgba(28,58,138,.12), 0 2px 16px rgba(0,0,0,.06);
+    }
+    html.dark .option-card.featured { border-top-color: var(--electric); box-shadow: 0 8px 32px rgba(74,144,217,.15); }
+
+    .option-badge {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
+      color: var(--white); background: var(--navy);
+      padding: .2rem .625rem; border-radius: 100px;
+    }
+    html.dark .option-badge { background: var(--electric); }
+
+    .option-icon { font-size: 1.75rem; margin-bottom: 1.25rem; }
+    .option-type { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); margin-bottom: .5rem; }
+    .option-card h3 { font-size: 1.125rem; font-weight: 700; color: var(--charcoal); margin-bottom: .75rem; }
+    html.dark .option-card h3 { color: var(--dm-text); }
+    .option-card p { font-size: .9rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; flex: 1; }
+    html.dark .option-card p { color: var(--dm-subtle); }
+    .option-price { font-size: .8125rem; font-weight: 600; color: var(--gray-400); margin-bottom: 1.25rem; }
+
+    /* Newsletter option inline form */
+    .newsletter-form { display: flex; flex-direction: column; gap: .625rem; }
+    .newsletter-input {
+      width: 100%; height: 44px; padding: 0 .875rem;
+      border: 1.5px solid var(--gray-100); border-radius: 8px;
+      font-size: .9rem; font-family: inherit; color: var(--charcoal);
+      background: var(--off-white); outline: none;
+      transition: border-color .15s;
+    }
+    .newsletter-input:focus { border-color: var(--navy); background: var(--white); }
+    html.dark .newsletter-input { background: var(--dm-bg); border-color: var(--dm-border); color: var(--dm-text); }
+    html.dark .newsletter-input:focus { border-color: var(--electric); }
+    .newsletter-note { font-size: .72rem; color: var(--gray-400); text-align: center; }
+
+    /* ── CASE STUDY SNAPSHOT ───────────────────────────────── */
+    .case-snapshot {
+      background: var(--off-white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg); padding: 2rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.05);
+    }
+    html.dark .case-snapshot { background: var(--dm-surface); border-color: var(--dm-border); }
+    .case-snapshot-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .case-tag {
+      font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
+      color: #16a34a; background: #f0fdf4; border: 1px solid #bbf7d0;
+      padding: .25rem .75rem; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    }
+    html.dark .case-tag { background: rgba(22,163,74,.15); border-color: rgba(22,163,74,.3); }
+    .case-snapshot h3 { font-size: 1.0625rem; font-weight: 700; color: var(--charcoal); margin-bottom: .35rem; }
+    html.dark .case-snapshot h3 { color: var(--dm-text); }
+    .case-sub { font-size: .8125rem; color: var(--gray-400); }
+    .case-metrics {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--gray-100); border-radius: 8px; overflow: hidden;
+    }
+    html.dark .case-metrics { background: var(--dm-border); }
+    .case-metric { background: var(--white); padding: 1rem 1.125rem; }
+    html.dark .case-metric { background: var(--dm-bg); }
+    .case-metric-num { font-size: 1.5rem; font-weight: 700; color: var(--navy); letter-spacing: -.04em; }
+    html.dark .case-metric-num { color: var(--electric); }
+    .case-metric-label { font-size: .72rem; color: var(--gray-400); margin-top: .15rem; }
+    .case-context {
+      font-size: .8125rem; color: var(--gray-600); line-height: 1.65;
+      border-top: 1px solid var(--gray-100); padding-top: 1rem;
+    }
+    html.dark .case-context { color: var(--dm-subtle); border-top-color: var(--dm-border); }
+
+    /* ── BENCHMARKS ─────────────────────────────────────────── */
+    .bench-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .bench-section { background: var(--dm-surface); }
+    .bench-header { margin-bottom: 3rem; }
+    .bench-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .bench-grid { grid-template-columns: 1fr; } }
+    .bench-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 2rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.05);
+    }
+    html.dark .bench-card { background: var(--dm-bg); border-color: var(--dm-border); }
+    .bench-metric { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); margin-bottom: .75rem; }
+    .bench-card h3 { font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: 1.25rem; }
+    html.dark .bench-card h3 { color: var(--dm-text); }
+    .bench-comparison { display: flex; flex-direction: column; gap: .875rem; }
+    .bench-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .bench-row-label { font-size: .8125rem; color: var(--gray-600); }
+    html.dark .bench-row-label { color: var(--dm-subtle); }
+    .bench-val { font-size: .9375rem; font-weight: 700; }
+    .bench-val.our { color: var(--navy); }
+    html.dark .bench-val.our { color: var(--electric); }
+    .bench-val.avg { color: var(--gray-400); }
+    .bench-divider { height: 1px; background: var(--gray-100); }
+    html.dark .bench-divider { background: var(--dm-border); }
+    .bench-note { font-size: .8rem; color: var(--gray-400); margin-top: 1.25rem; line-height: 1.6; }
+
+    /* ── CTA BAND ──────────────────────────────────────────── */
+    .cta-band { padding: var(--section-pad) 0; background: var(--navy-deep); }
+    .cta-band-inner { text-align: center; max-width: 600px; margin: 0 auto; }
+    .cta-band-inner .eyebrow { justify-content: center; }
+    .cta-band-inner h2 { color: var(--white); font-size: clamp(1.75rem, 3vw, 2.25rem); margin: .75rem 0 1rem; }
+    .cta-band-inner p { color: var(--dm-subtle); margin-bottom: 2rem; }
+    .cta-actions { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .cta-band .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-band .btn-primary:hover { background: var(--off-white); }
+    .cta-band .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-band .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+    .cta-note { font-size: .8rem; color: var(--dm-subtle); margin-top: 1.25rem; opacity: .7; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/services.html">Services</a></li>
+            <li><a href="/work.html">Our Work</a></li>
+            <li><a href="/results.html">Results</a></li>
+            <li><a href="/reviews.html">Reviews</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-aurora" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-inner">
+
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <div class="gold-rule"></div>
+            <span class="section-label">Healthcare Marketing Agency</span>
+          </div>
+          <h1 class="hero-headline">
+            Your Patients Are Ready.<br>Is Your <span class="navy">Marketing?</span>
+          </h1>
+          <p class="hero-sub">
+            TC Scales builds Klaviyo email &amp; SMS systems, Meta lead generation campaigns, and AI-powered automations that turn healthcare practices into predictable revenue machines.
+          </p>
+          <div class="hero-actions">
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book a Free Strategy Call</a>
+            <a href="/services.html" class="btn btn-ghost">See How It Works →</a>
+          </div>
+          <div class="hero-trust">
+            <div class="trust-item"><div class="trust-check">✓</div>Email open rates 2× the industry standard</div>
+            <div class="trust-item"><div class="trust-check">✓</div>Meta leads at $18 — verified and ongoing</div>
+            <div class="trust-item"><div class="trust-check">✓</div>Klaviyo · Meta · AI Automation under one roof</div>
+            <div class="trust-item"><div class="trust-check">✓</div>No long-term contracts required to get started</div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="panel-header">
+            <span class="panel-title">Live Campaign Results</span>
+            <div class="panel-badge">
+              <div class="panel-dot"></div>
+              Verified
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <div class="kpi-cell">
+              <div class="kpi-num">56.8%</div>
+              <div class="kpi-label">Email Open Rate</div>
+              <div class="kpi-change">↑ 2× industry avg</div>
+            </div>
+            <div class="kpi-cell">
+              <div class="kpi-num">$18</div>
+              <div class="kpi-label">Cost Per Lead (Meta)</div>
+              <div class="kpi-change">↓ ongoing &amp; dropping</div>
+            </div>
+            <div class="kpi-cell">
+              <div class="kpi-num">13.7%</div>
+              <div class="kpi-label">SMS Click Rate</div>
+              <div class="kpi-change">↑ up to 7× avg</div>
+            </div>
+            <div class="kpi-cell">
+              <div class="kpi-num">$24.8K</div>
+              <div class="kpi-label">Email Revenue in 4 mo.</div>
+              <div class="kpi-change">↑ from $0</div>
+            </div>
+          </div>
+          <div class="panel-note">Healthcare vertical · Klaviyo + Meta · All results verified</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Meta Lead Generation</span>
+      <span class="ticker-item">Klaviyo Patient Journeys</span>
+      <span class="ticker-item">AI Follow-Up Automations</span>
+      <span class="ticker-item">DTC Patient Acquisition</span>
+      <span class="ticker-item">Appointment Funnel Systems</span>
+      <span class="ticker-item">High-Value Patient Targeting</span>
+      <span class="ticker-item">Practice Growth Agency</span>
+      <span class="ticker-item">Creative Strategy</span>
+      <span class="ticker-item">Meta Lead Generation</span>
+      <span class="ticker-item">Klaviyo Patient Journeys</span>
+      <span class="ticker-item">AI Follow-Up Automations</span>
+      <span class="ticker-item">DTC Patient Acquisition</span>
+      <span class="ticker-item">Appointment Funnel Systems</span>
+      <span class="ticker-item">High-Value Patient Targeting</span>
+      <span class="ticker-item">Practice Growth Agency</span>
+      <span class="ticker-item">Creative Strategy</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services-section">
+    <div class="container">
+      <div class="services-header">
+        <div>
+          <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">What We Do</span></div>
+          <h2>Every service built<br>to scale your brand</h2>
+        </div>
+        <p class="text-max" style="max-width:340px;">From the first click to the final conversion, we own every layer of your paid social funnel.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">✉️</div>
+          <h3>Klaviyo Email &amp; SMS Marketing</h3>
+          <p>We build patient journeys, automated flows, and segmented campaigns that generate real revenue from your existing list — without spending a dollar on ads. This is our proven core.</p>
+          <a href="/services.html#email" class="card-link">Learn more <span>→</span></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <h3>Meta Lead Generation</h3>
+          <p>Targeted Facebook &amp; Instagram campaigns built to put qualified, ready-to-buy patients in your pipeline — with cost-per-lead tracking from day one.</p>
+          <a href="/services.html#lead-gen" class="card-link">Learn more <span>→</span></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎯</div>
+          <h3>Creative Strategy &amp; Automations</h3>
+          <p>Ad creative, follow-up sequences, and AI-powered automations that keep your brand working around the clock — so you don't have to chase every lead manually.</p>
+          <a href="/services.html#creative" class="card-link">Learn more <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDY FEATURE -->
+  <section class="work-section">
+    <div class="container">
+      <div class="work-inner">
+        <div class="work-copy">
+          <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Our Work</span></div>
+          <h2>One Client.<br>Real Results.<br>No Hype.</h2>
+          <p>A doctor-led weight loss practice with six locations had thousands of patient contacts and no email strategy. We built a Klaviyo system from scratch. Four months later: $24,800 in revenue — generated from a list they already owned.</p>
+          <a href="/work.html" class="btn btn-primary" style="height:48px;">Read the Full Case Study →</a>
+        </div>
+        <div class="case-snapshot">
+          <div class="case-snapshot-header">
+            <div>
+              <h3>Weight Loss Practice · Email &amp; SMS</h3>
+              <div class="case-sub">Northeast U.S. · 6 Locations · 4 Months · Klaviyo</div>
+            </div>
+            <div class="case-tag">✓ Verified</div>
+          </div>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="case-metric-num">$24,800</div>
+              <div class="case-metric-label">Total Revenue Generated</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-num">56.8%</div>
+              <div class="case-metric-label">Email Open Rate</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-num">13.7%</div>
+              <div class="case-metric-label">SMS Click-Through Rate</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-num">$0</div>
+              <div class="case-metric-label">Paid Ad Spend</div>
+            </div>
+          </div>
+          <div class="case-context">Strategy: Educate-first Klaviyo flows covering insulin resistance, cortisol, and gut health — built trust before any sale. Automated sequences generated $3,615 in flow revenue with zero ongoing effort after setup.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="numbers-section">
+    <div class="container">
+      <div class="numbers-header">
+        <div class="eyebrow" style="justify-content:center;">
+          <div class="gold-rule"></div>
+          <span class="section-label">TC Scales in Numbers</span>
+        </div>
+        <h2>Results that speak for themselves</h2>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">56.8<span class="accent">%</span></div><div class="stat-label">Email Open Rate · 2× the Industry Average</div></div>
+        <div class="stat"><div class="stat-num">$24<span class="gold">K</span></div><div class="stat-label">Revenue Generated With Zero Ad Spend</div></div>
+        <div class="stat"><div class="stat-num">7<span class="accent">×</span></div><div class="stat-label">SMS Click Rate vs. Industry Average</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER STORY -->
+  <section class="founder-section">
+    <div class="container">
+      <div class="founder-inner">
+
+        <div class="founder-photo-col">
+          <div class="founder-img">
+            <img src="/founder.jpeg" alt="Tyler Cavo, Founder &amp; CEO of TC Scales" />
+          </div>
+          <div class="founder-name-col">
+            <div class="founder-name">Tyler Cavo</div>
+            <div class="founder-role">Founder &amp; CEO, TC Scales</div>
+            <div class="founder-socials">
+              <a href="#">LinkedIn</a>
+              <a href="#">Instagram</a>
+              <a href="/contact.html">Email</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="founder-copy">
+          <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">From the Founder</span></div>
+          <h2>Why I Built TC Scales</h2>
+          <blockquote>"Most healthcare practices are sitting on a goldmine — their own patient list. The problem isn't traffic. It's that nobody taught them how to use what they already have."</blockquote>
+          <p>I started TC Scales in 2025 to fix that. My first client was a doctor-led weight loss practice with six locations. They had thousands of email and SMS contacts and had never used them strategically. We built a Klaviyo system from zero — educational sequences on insulin resistance, cortisol, gut health — content that taught before it sold.</p>
+          <p>Four months later, that system had generated $24,800 in revenue with no paid ads, no new traffic, and no gimmicks. Just smart automation talking to people who already trusted the doctor.</p>
+          <p>TC Scales is deliberately small. I take on a limited number of clients and I'm personally involved in every campaign. You won't be handed off to a junior account manager six months in. When you work with TC Scales, you work with me — directly.</p>
+          <div class="founder-goal">
+            <div>
+              <div class="founder-goal-label">My Goal</div>
+              <p>To build the agency that healthcare and wellness practices think of first when they're ready to treat their marketing like a real investment — and to prove it works before asking for a long-term commitment.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BENCHMARKS -->
+  <section class="bench-section">
+    <div class="container">
+      <div class="bench-header">
+        <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">By the Numbers</span></div>
+        <h2>How our results compare<br>to industry benchmarks</h2>
+      </div>
+      <div class="bench-grid">
+
+        <div class="bench-card">
+          <div class="bench-metric">Email Performance</div>
+          <h3>Open Rate</h3>
+          <div class="bench-comparison">
+            <div class="bench-row">
+              <span class="bench-row-label">TC Scales client</span>
+              <span class="bench-val our">56.8%</span>
+            </div>
+            <div class="bench-divider"></div>
+            <div class="bench-row">
+              <span class="bench-row-label">Industry average</span>
+              <span class="bench-val avg">20–25%</span>
+            </div>
+          </div>
+          <p class="bench-note">2.3× above the industry average — built through content that teaches before it sells, tight segmentation, and send timing that respects the audience.</p>
+        </div>
+
+        <div class="bench-card">
+          <div class="bench-metric">SMS Performance</div>
+          <h3>Click-Through Rate</h3>
+          <div class="bench-comparison">
+            <div class="bench-row">
+              <span class="bench-row-label">TC Scales client</span>
+              <span class="bench-val our">13.7%</span>
+            </div>
+            <div class="bench-divider"></div>
+            <div class="bench-row">
+              <span class="bench-row-label">Industry average</span>
+              <span class="bench-val avg">2–5%</span>
+            </div>
+          </div>
+          <p class="bench-note">Up to 7× the industry benchmark. Driven by hyper-relevant messaging sent to the right segment at the right moment — not blasts.</p>
+        </div>
+
+        <div class="bench-card">
+          <div class="bench-metric">Revenue Per Transaction</div>
+          <h3>Average Order Value</h3>
+          <div class="bench-comparison">
+            <div class="bench-row">
+              <span class="bench-row-label">TC Scales client</span>
+              <span class="bench-val our">$58.60</span>
+            </div>
+            <div class="bench-divider"></div>
+            <div class="bench-row">
+              <span class="bench-row-label">Industry average</span>
+              <span class="bench-val avg">$40–55</span>
+            </div>
+          </div>
+          <p class="bench-note">Above-average transaction value — a direct result of educating patients on the value of the service before they ever see a price tag.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WAYS TO WORK WITH ME -->
+  <section class="options-section">
+    <div class="container">
+      <div class="options-header">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Work With TC Scales</span></div>
+        <h2>Three Ways to Get Started</h2>
+        <p>Whether you're ready to hand off your entire ad operation or just want to stay sharp — there's a path for you.</p>
+      </div>
+      <div class="options-grid">
+
+        <!-- Option 1: Full Agency -->
+        <div class="option-card featured">
+          <div class="option-badge">Most Popular</div>
+          <div class="option-icon">🚀</div>
+          <div class="option-type">Done-For-You</div>
+          <h3>Full Agency Management</h3>
+          <p>We build and run your entire Meta ad system — creative, targeting, Klaviyo flows, AI automations, and weekly reporting. You focus on your business; we scale it.</p>
+          <div class="option-price">Monthly retainer · Starting at $2,500/mo</div>
+          <a href="/contact.html" class="btn btn-primary" style="height:44px;">Book a Free Strategy Call →</a>
+        </div>
+
+        <!-- Option 2: One-Time Audit -->
+        <div class="option-card">
+          <div class="option-icon">🔍</div>
+          <div class="option-type">One-Time</div>
+          <h3>Ad Account Audit &amp; Strategy Session</h3>
+          <p>Not ready for a full engagement? We'll audit your existing Meta campaigns, identify exactly what's costing you money, and hand you a prioritized action plan to fix it.</p>
+          <div class="option-price">One-time · $497 flat</div>
+          <a href="/contact.html" class="btn btn-primary" style="height:44px;">Book Your Audit →</a>
+        </div>
+
+        <!-- Option 3: Newsletter -->
+        <div class="option-card">
+          <div class="option-icon">📬</div>
+          <div class="option-type">Free · Weekly</div>
+          <h3>The Scales Newsletter</h3>
+          <p>Klaviyo strategy, Meta campaign breakdowns, and honest takes on what's actually working in healthcare marketing — delivered to your inbox every week.</p>
+          <div class="option-price">Free · No spam ever</div>
+          <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+            <input class="newsletter-input" type="email" placeholder="your@email.com" required aria-label="Email address" />
+            <button type="submit" class="btn btn-primary" style="height:44px;width:100%;">Subscribe for Free →</button>
+            <div class="newsletter-note">No spam. Unsubscribe anytime.</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner">
+        <div class="eyebrow">
+          <div class="gold-rule"></div>
+          <span class="section-label">Ready to Scale?</span>
+        </div>
+        <h2>Your Patient List Is<br>Worth More Than You Think.</h2>
+        <p>Book a free strategy call and we'll show you exactly how much revenue your existing list could be generating — before you spend a dollar on ads.</p>
+        <div class="cta-actions">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
+          <a href="/services.html" class="btn btn-secondary" style="height:48px;">See Our Services</a>
+        </div>
+        <p class="cta-note">No commitment required · Response within 24 hours · No long-term contracts to start</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">TCScales</a>
+          <p>Healthcare marketing agency specializing in Klaviyo email &amp; SMS systems and Meta lead generation — helping medical practices grow from the audience they already have.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="/services.html#lead-gen">Lead Generation</a></li>
+            <li><a href="/services.html#ecommerce">E-Commerce Ads</a></li>
+            <li><a href="/services.html#retargeting">Retargeting</a></li>
+            <li><a href="/services.html#creative">Creative Strategy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/work.html">Case Studies</a></li>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/careers.html">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="/contact.html">Book a Call</a></li>
+            <li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 TC Scales Agency. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll shadow
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    // Newsletter form
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const input = e.target.querySelector('input');
+      // TODO: Replace with your Mailchimp / ConvertKit action URL
+      // e.g. fetch('https://your-mailchimp-url', { method: 'POST', body: ... })
+      btn.textContent = 'You\'re in! ✓';
+      btn.style.background = '#16a34a';
+      btn.style.borderColor = '#16a34a';
+      input.value = '';
+      setTimeout(() => {
+        btn.textContent = 'Subscribe for Free →';
+        btn.style.background = '';
+        btn.style.borderColor = '';
+      }, 3000);
+    }
+
+    // Dark mode toggle
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) {
+      html.classList.toggle('dark', dark);
+      toggle.textContent = dark ? '🌙' : '☀';
+    }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => {
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      applyTheme(isDark);
+    });
+  </script>
+</body>
+</html>

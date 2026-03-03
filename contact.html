@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Strategy Call — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      align-items: start;
+      padding: 64px 0 96px;
+    }
+    @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* Info panel */
+    .info-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .info-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    }
+    html.dark .info-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    .info-card-icon { font-size: 1.25rem; margin-bottom: .75rem; }
+    .info-card h3 { font-size: .9375rem; font-weight: 700; color: var(--charcoal); margin-bottom: .375rem; }
+    html.dark .info-card h3 { color: var(--dm-text); }
+    .info-card p, .info-card a { font-size: .875rem; color: var(--gray-600); line-height: 1.65; }
+    html.dark .info-card p { color: var(--dm-subtle); }
+    .info-card a { color: var(--navy); }
+    html.dark .info-card a { color: var(--electric); }
+    .info-card a:hover { text-decoration: underline; }
+
+    .perk-list { display: flex; flex-direction: column; gap: .625rem; margin-top: .75rem; }
+    .perk-item { display: flex; align-items: center; gap: .625rem; font-size: .85rem; color: var(--gray-600); }
+    html.dark .perk-item { color: var(--dm-subtle); }
+    .perk-check {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: rgba(28,58,138,.08); border: 1px solid rgba(28,58,138,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; color: var(--navy); flex-shrink: 0;
+    }
+
+    /* Form card */
+    .form-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg); padding: 2.5rem;
+      box-shadow: 0 2px 24px rgba(0,0,0,.06);
+    }
+    html.dark .form-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    .form-card h2 { font-size: 1.25rem; font-weight: 700; color: var(--charcoal); margin-bottom: .375rem; }
+    html.dark .form-card h2 { color: var(--dm-text); }
+    .form-card > p { font-size: .875rem; color: var(--gray-400); margin-bottom: 1.75rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: .375rem; margin-bottom: 1rem; }
+    .form-group label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--gray-400); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--off-white); border: 1px solid var(--gray-100);
+      border-radius: 6px; padding: .75rem 1rem;
+      font-family: 'Inter', sans-serif; font-size: .9375rem;
+      color: var(--charcoal); outline: none; width: 100%;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    html.dark .form-group input,
+    html.dark .form-group select,
+    html.dark .form-group textarea {
+      background: var(--dm-bg); border-color: var(--dm-border); color: var(--dm-text);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(28,58,138,.1); }
+    html.dark .form-group input:focus,
+    html.dark .form-group select:focus,
+    html.dark .form-group textarea:focus { border-color: var(--electric); box-shadow: 0 0 0 3px rgba(74,144,217,.15); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select option { background: var(--white); color: var(--charcoal); }
+
+    .form-submit {
+      width: 100%; height: 48px;
+      font-family: 'Inter', sans-serif; font-size: .9375rem; font-weight: 700;
+      background: var(--navy); color: var(--white);
+      border: none; border-radius: 6px; cursor: pointer;
+      transition: background .15s, transform .15s, box-shadow .15s;
+      margin-top: .5rem;
+    }
+    .form-submit:hover { background: var(--navy-mid); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(28,58,138,.25); }
+    .form-note { text-align: center; font-size: .78rem; color: var(--gray-400); margin-top: .875rem; }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Our Work</a></li>
+          <li><a href="/results.html">Results</a></li>
+          <li><a href="/reviews.html">Reviews</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <a href="/contact.html" class="btn btn-primary active">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Let's Talk</span></div>
+      <h1>Book Your Free<br>Strategy Call</h1>
+      <p>Tell us about your brand and goals. We'll map out a clear growth path — no pitch, no pressure, just a real conversation about results.</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-card-icon">📞</div>
+            <h3>What to Expect</h3>
+            <p>A 30-minute call with a TC Scales strategist. We'll review your current performance, identify growth levers, and give you a clear picture of what working together looks like.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">✉️</div>
+            <h3>Email Us Directly</h3>
+            <p><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a><br>We respond within 24 hours.</p>
+          </div>
+          <div class="info-card">
+            <h3>What's Included</h3>
+            <div class="perk-list">
+              <div class="perk-item"><div class="perk-check">✓</div>Free audit of your Meta ad account</div>
+              <div class="perk-item"><div class="perk-check">✓</div>Custom growth roadmap for your brand</div>
+              <div class="perk-item"><div class="perk-check">✓</div>No long-term contracts to start</div>
+              <div class="perk-item"><div class="perk-check">✓</div>HIPAA-aware strategy if applicable</div>
+              <div class="perk-item"><div class="perk-check">✓</div>Zero obligation — just real advice</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2>Get Your Free Strategy Call</h2>
+          <p>Fill out the form and we'll reach out within 24 hours to schedule your call.</p>
+          <form action="#" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="first_name" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="last_name" placeholder="Doe" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Business Email</label>
+              <input type="email" id="email" name="email" placeholder="you@yourbrand.com" required />
+            </div>
+            <div class="form-group">
+              <label for="website">Website</label>
+              <input type="url" id="website" name="website" placeholder="https://yourbrand.com" />
+            </div>
+            <div class="form-group">
+              <label for="budget">Monthly Ad Budget</label>
+              <select id="budget" name="budget" required>
+                <option value="" disabled selected>Select your budget range</option>
+                <option>Under $5,000/mo</option>
+                <option>$5,000 – $15,000/mo</option>
+                <option>$15,000 – $50,000/mo</option>
+                <option>$50,000+/mo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="goal">Primary Goal</label>
+              <select id="goal" name="goal">
+                <option value="" disabled selected>What's your #1 priority?</option>
+                <option>Generate more leads</option>
+                <option>Improve ROAS / reduce CAC</option>
+                <option>Scale existing campaigns</option>
+                <option>Launch new brand on Meta</option>
+                <option>Medical practice patient acquisition</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Anything else we should know?</label>
+              <textarea id="message" name="message" placeholder="Tell us about your brand, current challenges, or questions..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Book My Free Strategy Call →</button>
+            <p class="form-note">No commitment required · Response within 24 hours</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+</body>
+</html>

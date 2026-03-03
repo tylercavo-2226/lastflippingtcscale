@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agency Automations Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f0f13;
+      color: #e2e2e8;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 32px 40px 24px;
+      border-bottom: 1px solid #1e1e2a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .header-left h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .header-left p {
+      font-size: 13px;
+      color: #666;
+      margin-top: 3px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 24px;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Filters ── */
+    .filters {
+      padding: 18px 40px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #1e1e2a;
+    }
+
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #2a2a38;
+      background: transparent;
+      color: #888;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover { border-color: #a78bfa; color: #a78bfa; }
+    .filter-btn.active { background: #a78bfa20; border-color: #a78bfa; color: #a78bfa; font-weight: 600; }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 32px 40px;
+    }
+
+    /* ── Category Card ── */
+    .category-card {
+      background: #16161f;
+      border: 1px solid #1e1e2a;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .category-card:hover { border-color: #2e2e42; }
+
+    .card-header {
+      padding: 18px 20px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #1e1e2a;
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .card-title { font-size: 15px; font-weight: 600; }
+    .card-count { font-size: 11px; color: #555; margin-top: 2px; }
+
+    /* ── Automation Items ── */
+    .automation-list { padding: 12px 20px 16px; }
+
+    .automation-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #1e1e2a;
+      cursor: pointer;
+    }
+
+    .automation-item:last-child { border-bottom: none; }
+
+    .automation-item:hover .automation-name { color: #fff; }
+
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1.5px solid #2e2e42;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+
+    .checkbox.checked {
+      background: #a78bfa;
+      border-color: #a78bfa;
+    }
+
+    .checkbox.checked::after {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translateY(-1px);
+    }
+
+    .automation-content { flex: 1; }
+
+    .automation-name {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #ccc;
+      transition: color 0.15s;
+    }
+
+    .automation-item.checked .automation-name {
+      color: #555;
+      text-decoration: line-through;
+    }
+
+    .automation-desc {
+      font-size: 12px;
+      color: #444;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .priority-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .priority-high { background: #3d1f1f; color: #f87171; }
+    .priority-med  { background: #2d2210; color: #fbbf24; }
+    .priority-low  { background: #142010; color: #4ade80; }
+
+    /* ── Progress bar ── */
+    .progress-section {
+      padding: 0 40px 32px;
+    }
+
+    .progress-label {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar-track {
+      height: 4px;
+      background: #1e1e2a;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7c3aed, #a78bfa);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── Color themes per category ── */
+    .icon-client  { background: #1a1040; color: #a78bfa; }
+    .icon-ads     { background: #0f2030; color: #38bdf8; }
+    .icon-content { background: #0f2820; color: #34d399; }
+    .icon-reports { background: #201520; color: #f472b6; }
+    .icon-ops     { background: #201810; color: #fb923c; }
+
+    /* ── Hidden by filter ── */
+    .category-card.hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>Agency Automations Hub</h1>
+    <p>Track and implement your agency's automation stack</p>
+  </div>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num" id="total-count">18</div>
+      <div class="stat-label">Total</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="done-count">0</div>
+      <div class="stat-label">Implemented</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="pct-count">0%</div>
+      <div class="stat-label">Complete</div>
+    </div>
+  </div>
+</header>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+  <button class="filter-btn" onclick="filterCards('client', this)">Client Management</button>
+  <button class="filter-btn" onclick="filterCards('ads', this)">Ad Operations</button>
+  <button class="filter-btn" onclick="filterCards('content', this)">Content Production</button>
+  <button class="filter-btn" onclick="filterCards('reports', this)">Reporting</button>
+  <button class="filter-btn" onclick="filterCards('ops', this)">Agency Ops</button>
+</div>
+
+<div class="progress-section" style="padding-top: 20px;">
+  <div class="progress-label">Overall implementation progress</div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+  </div>
+</div>
+
+<div class="grid" id="grid">
+
+  <!-- CLIENT MANAGEMENT -->
+  <div class="category-card" data-category="client">
+    <div class="card-header">
+      <div class="card-icon icon-client">👥</div>
+      <div>
+        <div class="card-title">Client Management</div>
+        <div class="card-count">3 automations</div>
+      </div>
+    </div>
+    <div class="automation-list">
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Onboarding Workflow</div>
+          <div class="automation-desc">Auto-send intake forms, contracts, and welcome sequences when a new client is added to CRM</div>
+        </div>
+        <div class="priority-badge priority-high">High</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Reporting Cadence</div>
+          <div class="automation-desc">Auto-generate and email weekly/monthly performance reports from Meta and Google</div>
+        </div>
+        <div class="priority-badge priority-high">High</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Contract Renewal Alerts</div>
+          <div class="automation-desc">Trigger reminder sequences 30/60/90 days before contract end dates</div>
+        </div>
+        <div class="priority-badge priority-med">Med</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AD OPERATIONS -->
+  <div class="category-card" data-category="ads">
+    <div class="card-header">
+      <div class="card-icon icon-ads">📊</div>
+      <div>
+        <div class="card-title">Ad Operations</div>
+        <div class="card-count">3 automations</div>
+      </div>
+    </div>
+    <div class="automation-list">
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Ad Account Audits</div>
+          <div class="automation-desc">Scheduled scripts flagging underperforming ads, budget pacing issues, or policy violations</div>
+        </div>
+        <div class="priority-badge priority-high">High</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Creative Refresh Alerts</div>
+          <div class="automation-desc">Notify when ad frequency or CTR drops below threshold — ad fatigue detection</div>
+        </div>
+        <div class="priority-badge priority-high">High</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Budget Reallocation Rules</div>
+          <div class="automation-desc">Rules-based scripts that shift spend toward top performers automatically</div>
+        </div>
+        <div class="priority-badge priority-med">Med</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT PRODUCTION -->
+  <div class="category-card" data-category="content">
+    <div class="card-header">
+      <div class="card-icon icon-content">✍️</div>
+      <div>
+        <div class="card-title">Content Production</div>
+        <div class="card-count">3 automations</div>
+      </div>
+    </div>
+    <div class="automation-list">
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Content Calendar Generation</div>
+          <div class="automation-desc">Auto-populate calendars from strategy docs using AI</div>
+        </div>
+        <div class="priority-badge priority-med">Med</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Asset Delivery Pipeline</div>
+          <div class="automation-desc">When a creative is approved, auto-send to client and upload to ad manager</div>
+        </div>
+        <div class="priority-badge priority-med">Med</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Content Repurposing Workflow</div>
+          <div class="automation-desc">Convert long-form content into short clips, captions, and carousels automatically</div>
+        </div>
+        <div class="priority-badge priority-low">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORTING & ANALYTICS -->
+  <div class="category-card" data-category="reports">
+    <div class="card-header">
+      <div class="card-icon icon-reports">📈</div>
+      <div>
+        <div class="card-title">Reporting & Analytics</div>
+        <div class="card-count">3 automations</div>
+      </div>
+    </div>
+    <div class="automation-list">
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Dashboard Syncing</div>
+          <div class="automation-desc">Pull data from Meta, Google, and email platforms into a unified dashboard daily</div>
+        </div>
+        <div class="priority-badge priority-high">High</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Anomaly Alerts</div>
+          <div class="automation-desc">Slack/email notification if CPA spikes, ROAS drops, or spend stops delivering</div>
+        </div>
+        <div class="priority-badge priority-high">High</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Competitor Tracking</div>
+          <div class="automation-desc">Scheduled scrapes of competitor ad libraries or social activity</div>
+        </div>
+        <div class="priority-badge priority-low">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERNAL AGENCY OPS -->
+  <div class="category-card" data-category="ops">
+    <div class="card-header">
+      <div class="card-icon icon-ops">⚙️</div>
+      <div>
+        <div class="card-title">Internal Agency Ops</div>
+        <div class="card-count">3 automations</div>
+      </div>
+    </div>
+    <div class="automation-list">
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Invoice Generation</div>
+          <div class="automation-desc">Auto-create invoices when a project milestone is marked complete</div>
+        </div>
+        <div class="priority-badge priority-med">Med</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">Time Tracking Summaries</div>
+          <div class="automation-desc">Weekly rollup of hours per client for billing and capacity planning</div>
+        </div>
+        <div class="priority-badge priority-med">Med</div>
+      </div>
+      <div class="automation-item" onclick="toggleItem(this)">
+        <div class="checkbox"></div>
+        <div class="automation-content">
+          <div class="automation-name">New Lead Routing</div>
+          <div class="automation-desc">Inbound leads auto-assigned to an account manager based on industry or service</div>
+        </div>
+        <div class="priority-badge priority-low">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK WINS CARD -->
+  <div class="category-card" data-category="all-special" style="border-color: #2a1f3d;">
+    <div class="card-header" style="border-bottom-color: #2a1f3d;">
+      <div class="card-icon" style="background: #2a1f3d; color: #c4b5fd;">⚡</div>
+      <div>
+        <div class="card-title">Recommended Quick Wins</div>
+        <div class="card-count">Highest ROI — start here</div>
+      </div>
+    </div>
+    <div class="automation-list">
+      <div class="automation-item" style="cursor: default;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: #f87171; flex-shrink: 0; margin-top: 5px;"></div>
+        <div class="automation-content">
+          <div class="automation-name" style="color: #e2e2e8;">1. Dashboard Syncing</div>
+          <div class="automation-desc">Saves the most billable hours agency-wide</div>
+        </div>
+      </div>
+      <div class="automation-item" style="cursor: default;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: #fbbf24; flex-shrink: 0; margin-top: 5px;"></div>
+        <div class="automation-content">
+          <div class="automation-name" style="color: #e2e2e8;">2. Ad Performance Alerts</div>
+          <div class="automation-desc">Prevents budget waste in real time</div>
+        </div>
+      </div>
+      <div class="automation-item" style="cursor: default;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: #4ade80; flex-shrink: 0; margin-top: 5px;"></div>
+        <div class="automation-content">
+          <div class="automation-name" style="color: #e2e2e8;">3. Client Onboarding Workflow</div>
+          <div class="automation-desc">Creates a professional first impression every time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const TOTAL = 15; // checkable items
+
+  function toggleItem(el) {
+    el.classList.toggle('checked');
+    const cb = el.querySelector('.checkbox');
+    cb.classList.toggle('checked');
+    updateStats();
+  }
+
+  function updateStats() {
+    const done = document.querySelectorAll('.automation-item.checked').length;
+    const pct = Math.round((done / TOTAL) * 100);
+    document.getElementById('done-count').textContent = done;
+    document.getElementById('pct-count').textContent = pct + '%';
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.category-card').forEach(card => {
+      if (cat === 'all') {
+        card.classList.remove('hidden');
+      } else {
+        const match = card.dataset.category === cat || card.dataset.category === 'all-special';
+        card.classList.toggle('hidden', !match);
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
