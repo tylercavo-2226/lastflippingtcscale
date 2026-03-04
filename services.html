@@ -10,72 +10,510 @@
   <link rel="stylesheet" href="/style.css" />
   <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
   <style>
-    .service-section { padding: var(--section-pad) 0; border-top: 1px solid var(--gray-100); }
-    html.dark .service-section { border-top-color: var(--dm-border); }
-    .service-section:first-of-type { border-top: none; }
 
-    .service-inner {
+    /* ── SERVICES INTRO ─────────────────────────────────────── */
+    .services-intro {
+      padding: var(--section-pad) 0 2.5rem;
+    }
+    .services-intro .intro-sub {
+      font-size: 1rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+      max-width: 540px;
+      margin-top: .75rem;
+    }
+    html.dark .services-intro .intro-sub { color: var(--dm-subtle); }
+
+    /* ── 2×2 SERVICE CARDS ──────────────────────────────────── */
+    .services-cards-section {
+      padding: 0 0 var(--section-pad);
+      background: var(--off-white);
+    }
+    html.dark .services-cards-section { background: var(--dm-bg); }
+
+    .services-intro { background: var(--off-white); }
+    html.dark .services-intro { background: var(--dm-bg); }
+
+    .services-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+    }
+    @media (max-width: 860px) { .services-cards-grid { grid-template-columns: 1fr; } }
+
+    .svc-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 2.75rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07), 0 1px 4px rgba(0,0,0,.04);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .svc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.06);
+    }
+    /* Bold top accent bar — each card gets its own color */
+    .svc-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--navy);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .svc-card:nth-child(2)::before { background: var(--gold); }
+    .svc-card:nth-child(3)::before { background: var(--electric); }
+    .svc-card:nth-child(4)::before { background: linear-gradient(90deg, var(--navy), var(--electric)); }
+
+    html.dark .svc-card {
+      background: var(--dm-surface);
+      border-color: var(--dm-border);
+      box-shadow: 0 4px 24px rgba(0,0,0,.25), 0 1px 4px rgba(0,0,0,.15);
+    }
+    html.dark .svc-card:hover {
+      box-shadow: 0 16px 48px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.2);
+    }
+
+    .svc-tag {
+      display: flex;
+      align-items: center;
+      gap: .625rem;
+      margin-bottom: 1.5rem;
+    }
+    .svc-num {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--navy);
+      background: rgba(28,58,138,.09);
+      border: 1px solid rgba(28,58,138,.18);
+      padding: .3rem .75rem;
+      border-radius: 99px;
+    }
+    .svc-card:nth-child(2) .svc-num {
+      color: #92701a;
+      background: rgba(180,140,40,.1);
+      border-color: rgba(180,140,40,.2);
+    }
+    .svc-card:nth-child(3) .svc-num {
+      color: var(--electric);
+      background: rgba(74,144,217,.1);
+      border-color: rgba(74,144,217,.2);
+    }
+    .svc-card:nth-child(4) .svc-num {
+      color: var(--navy);
+      background: rgba(28,58,138,.09);
+      border-color: rgba(28,58,138,.18);
+    }
+    html.dark .svc-num,
+    html.dark .svc-card:nth-child(2) .svc-num,
+    html.dark .svc-card:nth-child(3) .svc-num,
+    html.dark .svc-card:nth-child(4) .svc-num {
+      background: rgba(74,144,217,.1);
+      border-color: rgba(74,144,217,.2);
+      color: var(--electric);
+    }
+    .svc-label {
+      font-size: .7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gray-400);
+    }
+
+    .svc-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.18;
+      margin-bottom: 1rem;
+      letter-spacing: -.02em;
+    }
+    html.dark .svc-card h2 { color: var(--dm-text); }
+
+    .svc-card p {
+      font-size: .9375rem;
+      color: var(--gray-600);
+      line-height: 1.78;
+      margin-bottom: 1.25rem;
+    }
+    html.dark .svc-card p { color: var(--dm-subtle); }
+
+    /* Result callout — email revenue, kept anonymous */
+    .result-callout {
+      background: rgba(28,58,138,.05);
+      border: 1px solid rgba(28,58,138,.12);
+      border-left: 3px solid var(--navy);
+      border-radius: 6px;
+      padding: 1rem 1.125rem;
+      margin-bottom: 1.25rem;
+      font-size: .875rem;
+      color: var(--charcoal);
+      line-height: 1.65;
+    }
+    html.dark .result-callout {
+      background: rgba(74,144,217,.07);
+      border-color: rgba(74,144,217,.2);
+      border-left-color: var(--electric);
+      color: var(--dm-text);
+    }
+    .result-callout strong { color: var(--navy); }
+    html.dark .result-callout strong { color: var(--electric); }
+
+    .svc-divider {
+      height: 1px;
+      background: var(--gray-100);
+      margin: 1.25rem 0 1.5rem;
+    }
+    html.dark .svc-divider { background: var(--dm-border); }
+
+    .svc-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: .625rem;
+      margin-bottom: 2rem;
+      flex: 1;
+    }
+    .svc-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      font-size: .875rem;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+    html.dark .svc-bullet { color: var(--dm-subtle); }
+    .svc-check {
+      width: 20px; height: 20px;
+      border-radius: 50%; flex-shrink: 0;
+      background: rgba(28,58,138,.08);
+      border: 1px solid rgba(28,58,138,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; color: var(--navy);
+      margin-top: 1px;
+    }
+    html.dark .svc-check {
+      background: rgba(74,144,217,.1);
+      border-color: rgba(74,144,217,.2);
+      color: var(--electric);
+    }
+
+    .svc-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      margin-top: auto;
+      padding: .75rem 1.25rem;
+      border: 1.5px solid var(--navy);
+      border-radius: 8px;
+      align-self: flex-start;
+      transition: background .18s, color .18s;
+    }
+    .svc-cta:hover { background: var(--navy); color: var(--white); text-decoration: none; }
+    html.dark .svc-cta { color: var(--electric); border-color: var(--electric); }
+    html.dark .svc-cta:hover { background: var(--electric); color: var(--navy-deep); }
+    .svc-cta::after { content: "→"; }
+
+    /* ── AI AGENTS SECTION ──────────────────────────────────── */
+    .agents-section {
+      background: var(--navy-deep);
+      padding: var(--section-pad) 0;
+    }
+    .agents-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
-      align-items: center;
+      align-items: start;
     }
-    @media (max-width: 860px) { .service-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
-    .service-section.flip .service-inner { direction: rtl; }
-    .service-section.flip .service-inner > * { direction: ltr; }
-    @media (max-width: 860px) { .service-section.flip .service-inner { direction: ltr; } }
+    @media (max-width: 900px) { .agents-inner { grid-template-columns: 1fr; gap: 3rem; } }
 
-    .service-copy h2 { margin-bottom: 1rem; }
-    .service-copy p { margin-bottom: 1.75rem; }
+    .agents-copy .section-label { color: rgba(255,255,255,.45); }
+    .agents-copy .gold-rule { background: var(--gold); }
 
-    .bullet-list { display: flex; flex-direction: column; gap: .625rem; margin-bottom: 2rem; }
-    .bullet-item { display: flex; align-items: flex-start; gap: .625rem; font-size: .9rem; color: var(--gray-600); }
-    html.dark .bullet-item { color: var(--dm-subtle); }
-    .bullet-check {
-      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
-      background: rgba(28,58,138,.08); border: 1px solid rgba(28,58,138,.15);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .6rem; color: var(--navy); margin-top: 2px;
+    .agents-headline {
+      font-size: clamp(2rem, 3.5vw, 2.625rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      margin: .75rem 0 1rem;
+    }
+    .agents-headline .accent { color: var(--electric); }
+
+    .agents-sub {
+      font-size: .9375rem;
+      color: rgba(255,255,255,.58);
+      line-height: 1.8;
+      margin-bottom: 2rem;
     }
 
-    /* Metric panel */
-    .metric-panel {
-      background: var(--white); border: 1px solid var(--gray-100);
-      border-radius: var(--radius-lg); overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    .founder-quote {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
     }
-    html.dark .metric-panel { background: var(--dm-surface); border-color: var(--dm-border); }
+    .founder-quote p {
+      font-size: .9rem;
+      color: rgba(255,255,255,.72);
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: .875rem;
+    }
+    .founder-quote cite {
+      font-size: .78rem;
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 600;
+    }
 
-    .metric-panel-header {
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--gray-100);
-      font-size: .72rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .1em; color: var(--gray-400);
+    .agents-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
-    html.dark .metric-panel-header { border-bottom-color: var(--dm-border); }
+    @media (max-width: 560px) { .agents-grid { grid-template-columns: 1fr; } }
 
-    .metric-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--gray-100);
+    .agent-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: background .2s;
     }
-    html.dark .metric-grid { background: var(--dm-border); }
-    .metric-cell { background: var(--white); padding: 1.5rem 1.25rem; }
-    html.dark .metric-cell { background: var(--dm-bg); }
-    .metric-num { font-size: 2rem; font-weight: 700; color: var(--navy); letter-spacing: -.04em; line-height: 1; margin-bottom: .25rem; }
-    html.dark .metric-num { color: var(--electric); }
-    .metric-lbl { font-size: .78rem; color: var(--gray-400); font-weight: 500; }
+    .agent-card:hover { background: rgba(255,255,255,.11); }
 
-    /* Bottom CTA */
-    .cta-strip {
-      background: var(--navy-deep); padding: 64px 0;
-      text-align: center;
+    .agent-icon {
+      font-size: 1.375rem;
+      display: block;
+      margin-bottom: .75rem;
     }
+    .agent-card h3 {
+      font-size: .9375rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .agent-card p {
+      font-size: .8125rem;
+      color: rgba(255,255,255,.52);
+      line-height: 1.65;
+    }
+
+    /* ── CTA STRIP ──────────────────────────────────────────── */
+    .cta-strip { background: var(--navy-deep); padding: 64px 0; text-align: center; border-top: 1px solid rgba(255,255,255,.08); }
     .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
     .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; }
     .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
     .cta-strip .btn-primary:hover { background: var(--off-white); }
     .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
     .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+
+    /* ── NAV QUIZ TRIGGER ───────────────────────────────────── */
+    .btn-quiz-trigger {
+      display: inline-flex; align-items: center; gap: .375rem;
+      font-size: .8125rem; font-weight: 700;
+      color: var(--gold);
+      background: rgba(180,140,40,.1);
+      border: 1.5px solid var(--gold);
+      border-radius: 8px;
+      padding: .45rem .875rem;
+      cursor: pointer;
+      letter-spacing: .01em;
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+    }
+    .btn-quiz-trigger:hover { background: var(--gold); color: var(--navy-deep); }
+    .btn-quiz-trigger::before { content: "🎁"; font-size: .85rem; }
+
+    /* ── QUIZ MODAL ─────────────────────────────────────────── */
+    .quiz-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(10,20,50,.7);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .quiz-overlay.active { opacity: 1; pointer-events: all; }
+
+    .quiz-modal {
+      background: var(--white);
+      border-radius: 20px;
+      width: 100%; max-width: 560px;
+      box-shadow: 0 32px 80px rgba(0,0,0,.22);
+      overflow: hidden;
+      transform: translateY(16px) scale(.98);
+      transition: transform .3s ease;
+    }
+    .quiz-overlay.active .quiz-modal { transform: translateY(0) scale(1); }
+    html.dark .quiz-modal { background: var(--dm-surface); }
+
+    .quiz-header {
+      background: var(--navy-deep);
+      padding: 2rem 2rem 1.5rem;
+      position: relative;
+    }
+    .quiz-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,.12); border: none;
+      color: rgba(255,255,255,.7); font-size: 1.125rem;
+      width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .quiz-close:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+    .quiz-progress-wrap { margin-bottom: 1rem; }
+    .quiz-progress-label {
+      font-size: .7rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: .4rem;
+    }
+    .quiz-progress-bar {
+      height: 3px; background: rgba(255,255,255,.15);
+      border-radius: 99px; overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%; background: var(--gold);
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+
+    .quiz-eyebrow {
+      font-size: .7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .12em; color: var(--gold); margin-bottom: .5rem;
+    }
+    .quiz-header h2 {
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--white); line-height: 1.25; margin: 0;
+    }
+
+    .quiz-body { padding: 1.75rem 2rem 2rem; }
+
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+
+    /* Intro step */
+    .quiz-intro-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .quiz-intro h3 { font-size: 1.375rem; font-weight: 700; color: var(--charcoal); margin-bottom: .75rem; line-height: 1.2; }
+    html.dark .quiz-intro h3 { color: var(--dm-text); }
+    .quiz-intro p { font-size: .9375rem; color: var(--gray-600); line-height: 1.7; margin-bottom: .5rem; }
+    html.dark .quiz-intro p { color: var(--dm-subtle); }
+    .quiz-deliverable {
+      background: var(--off-white); border: 1px solid var(--gray-100);
+      border-radius: 10px; padding: 1rem 1.125rem; margin: 1.25rem 0;
+    }
+    html.dark .quiz-deliverable { background: var(--dm-bg); border-color: var(--dm-border); }
+    .quiz-deliverable-label {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--navy); margin-bottom: .5rem;
+    }
+    html.dark .quiz-deliverable-label { color: var(--electric); }
+    .quiz-deliverable ul { list-style: none; display: flex; flex-direction: column; gap: .375rem; }
+    .quiz-deliverable li {
+      font-size: .875rem; color: var(--gray-600); display: flex; align-items: center; gap: .5rem;
+    }
+    html.dark .quiz-deliverable li { color: var(--dm-subtle); }
+    .quiz-deliverable li::before { content: "✓"; color: var(--navy); font-weight: 700; font-size: .75rem; }
+    html.dark .quiz-deliverable li::before { color: var(--electric); }
+
+    /* Question steps */
+    .quiz-q { font-size: 1.0625rem; font-weight: 700; color: var(--charcoal); margin-bottom: 1.25rem; line-height: 1.35; }
+    html.dark .quiz-q { color: var(--dm-text); }
+
+    .quiz-options { display: flex; flex-direction: column; gap: .625rem; }
+    .quiz-option {
+      display: flex; align-items: center; gap: .875rem;
+      padding: .875rem 1rem;
+      border: 1.5px solid var(--gray-100);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: .9rem; color: var(--charcoal);
+      transition: border-color .15s, background .15s;
+      background: var(--white);
+    }
+    html.dark .quiz-option { background: var(--dm-bg); border-color: var(--dm-border); color: var(--dm-text); }
+    .quiz-option:hover { border-color: var(--navy); background: rgba(28,58,138,.04); }
+    html.dark .quiz-option:hover { border-color: var(--electric); background: rgba(74,144,217,.07); }
+    .quiz-option.selected { border-color: var(--navy); background: rgba(28,58,138,.07); }
+    html.dark .quiz-option.selected { border-color: var(--electric); background: rgba(74,144,217,.12); }
+    .quiz-option-radio {
+      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s;
+    }
+    .quiz-option.selected .quiz-option-radio {
+      border-color: var(--navy);
+      background: var(--navy);
+    }
+    html.dark .quiz-option.selected .quiz-option-radio { border-color: var(--electric); background: var(--electric); }
+    .quiz-option-radio::after {
+      content: ""; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--white); display: none;
+    }
+    .quiz-option.selected .quiz-option-radio::after { display: block; }
+    .quiz-option-emoji { font-size: 1.1rem; }
+
+    /* Email capture step */
+    .quiz-capture h3 { font-size: 1.125rem; font-weight: 700; color: var(--charcoal); margin-bottom: .5rem; }
+    html.dark .quiz-capture h3 { color: var(--dm-text); }
+    .quiz-capture p { font-size: .875rem; color: var(--gray-600); line-height: 1.65; margin-bottom: 1.25rem; }
+    html.dark .quiz-capture p { color: var(--dm-subtle); }
+    .quiz-field { margin-bottom: .875rem; }
+    .quiz-field label { display: block; font-size: .78rem; font-weight: 600; color: var(--charcoal); margin-bottom: .35rem; }
+    html.dark .quiz-field label { color: var(--dm-text); }
+    .quiz-field input {
+      width: 100%; padding: .75rem 1rem;
+      border: 1.5px solid var(--gray-100); border-radius: 8px;
+      font-size: .9375rem; color: var(--charcoal);
+      background: var(--white);
+      transition: border-color .15s;
+      box-sizing: border-box;
+    }
+    html.dark .quiz-field input { background: var(--dm-bg); border-color: var(--dm-border); color: var(--dm-text); }
+    .quiz-field input:focus { outline: none; border-color: var(--navy); }
+    html.dark .quiz-field input:focus { border-color: var(--electric); }
+    .quiz-privacy { font-size: .75rem; color: var(--gray-400); text-align: center; margin-top: .75rem; }
+
+    /* Thank you step */
+    .quiz-thanks { text-align: center; padding: 1rem 0; }
+    .quiz-thanks-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .quiz-thanks h3 { font-size: 1.25rem; font-weight: 700; color: var(--charcoal); margin-bottom: .625rem; }
+    html.dark .quiz-thanks h3 { color: var(--dm-text); }
+    .quiz-thanks p { font-size: .9375rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; }
+    html.dark .quiz-thanks p { color: var(--dm-subtle); }
+
+    /* Footer / nav buttons */
+    .quiz-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.5rem; gap: 1rem;
+    }
+    .quiz-footer-right { display: flex; align-items: center; gap: .75rem; margin-left: auto; }
+    .btn-quiz-next {
+      display: inline-flex; align-items: center; gap: .375rem;
+      padding: .75rem 1.5rem; border-radius: 8px;
+      font-size: .9rem; font-weight: 700;
+      background: var(--navy); color: var(--white); border: none;
+      cursor: pointer; transition: background .18s, opacity .18s;
+    }
+    .btn-quiz-next:hover { background: #152e7a; }
+    .btn-quiz-next:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-quiz-back {
+      font-size: .875rem; font-weight: 600; color: var(--gray-400);
+      background: none; border: none; cursor: pointer; padding: .5rem;
+    }
+    .btn-quiz-back:hover { color: var(--charcoal); }
   </style>
 </head>
 <body>
@@ -87,12 +525,14 @@
         <nav><ul class="nav-links">
           <li><a href="/services.html" class="active">Services</a></li>
           <li><a href="/work.html">Our Work</a></li>
-          <li><a href="/results.html">Results</a></li>
-          <li><a href="/reviews.html">Reviews</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/process.html">How It Works</a></li>
         </ul></nav>
         <div class="nav-actions">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <button class="btn-quiz-trigger" id="quiz-trigger">Free Growth Audit</button>
           <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
       </div>
     </div>
@@ -101,138 +541,162 @@
   <div class="page-hero">
     <div class="container">
       <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">What We Do</span></div>
-      <h1>Services Built to<br>Scale Your Brand</h1>
-      <p>From the first click to the final conversion, we own every layer of your paid social funnel — with precision, creativity, and relentless optimization.</p>
+      <h1>Built for Healthcare.<br>Engineered to Scale.</h1>
+      <p>We don't run generic ads. We build growth systems purpose-built for healthcare practices — combining Meta advertising, email automation, and AI efficiency into one compounding engine.</p>
     </div>
   </div>
 
   <main>
 
-    <!-- Lead Gen -->
-    <section class="service-section" id="lead-gen">
+    <!-- ── SERVICES INTRO ──────────────────────────────────── -->
+    <div class="services-intro">
       <div class="container">
-        <div class="service-inner">
-          <div class="service-copy">
-            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Lead Generation</span></div>
-            <h2>Scale Your Pipeline with Paid Social</h2>
-            <p>We engineer high-converting lead gen funnels on Facebook &amp; Instagram — targeting the exact audience at the exact cost to fill your pipeline with qualified buyers, consistently.</p>
-            <div class="bullet-list">
-              <div class="bullet-item"><div class="bullet-check">✓</div>Hyper-targeted audience segmentation on Meta</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>A/B tested creative that stops the scroll</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Klaviyo email sequences that nurture leads to buyers</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>AI follow-up automations for every lead</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Weekly reporting with clear ROI attribution</div>
-            </div>
-            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
-          </div>
-          <div class="metric-panel">
-            <div class="metric-panel-header">Lead Gen — Portfolio Averages</div>
-            <div class="metric-grid">
-              <div class="metric-cell"><div class="metric-num">47+</div><div class="metric-lbl">New leads / month avg</div></div>
-              <div class="metric-cell"><div class="metric-num">$6.80</div><div class="metric-lbl">Cost per lead</div></div>
-              <div class="metric-cell"><div class="metric-num">14</div><div class="metric-lbl">Days to first leads</div></div>
-              <div class="metric-cell"><div class="metric-num">94%</div><div class="metric-lbl">Appt. show rate</div></div>
-            </div>
-          </div>
-        </div>
+        <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Our Services</span></div>
+        <h2>Four Ways We Grow Your Practice</h2>
+        <p class="intro-sub">Every service is built for healthcare — not adapted from generic agency playbooks. We know the compliance requirements, the patient psychology, and the economics of a growing practice.</p>
       </div>
-    </section>
+    </div>
 
-    <!-- E-Commerce -->
-    <section class="service-section flip" id="ecommerce" style="background:var(--off-white);">
-      <div class="container" style="background:inherit;">
-        <div class="service-inner">
-          <div class="service-copy">
-            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">E-Commerce</span></div>
-            <h2>Turn Ad Spend Into Predictable Revenue</h2>
-            <p>From cold prospecting to dynamic retargeting, we build full-funnel Meta ad systems that drive ROAS-positive growth for DTC brands at any stage.</p>
-            <div class="bullet-list">
-              <div class="bullet-item"><div class="bullet-check">✓</div>Full-funnel Meta ad architecture (TOFU → BOFU)</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Dynamic product catalog ads with smart audiences</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Klaviyo abandoned cart &amp; post-purchase sequences</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Creative testing frameworks to find winners fast</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Scaling playbooks for profitable growth</div>
-            </div>
-            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
-          </div>
-          <div class="metric-panel">
-            <div class="metric-panel-header">E-Commerce — Portfolio Averages</div>
-            <div class="metric-grid">
-              <div class="metric-cell"><div class="metric-num">4.2×</div><div class="metric-lbl">Average ROAS achieved</div></div>
-              <div class="metric-cell"><div class="metric-num">-60%</div><div class="metric-lbl">Reduction in CAC</div></div>
-              <div class="metric-cell"><div class="metric-num">90</div><div class="metric-lbl">Days to 4× ROAS</div></div>
-              <div class="metric-cell"><div class="metric-num">$10M</div><div class="metric-lbl">Ad spend managed</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Retargeting -->
-    <section class="service-section" id="retargeting">
+    <!-- ── 2×2 SERVICE CARDS ───────────────────────────────── -->
+    <div class="services-cards-section">
       <div class="container">
-        <div class="service-inner">
-          <div class="service-copy">
-            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Retargeting &amp; Scaling</span></div>
-            <h2>Re-Engage, Convert &amp; Scale Without Waste</h2>
-            <p>Smart retargeting sequences and creative-testing frameworks that recapture warm audiences, eliminate wasted spend, and scale winning campaigns with surgical precision.</p>
-            <div class="bullet-list">
-              <div class="bullet-item"><div class="bullet-check">✓</div>Custom audience segmentation (video viewers, web visitors)</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Sequential retargeting that moves people through the funnel</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Lookalike audience expansion for profitable scale</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Budget scaling frameworks that protect ROAS</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Cross-channel retargeting (Meta + Google)</div>
+        <div class="services-cards-grid">
+
+          <!-- 01 — Meta Ads -->
+          <div class="svc-card">
+            <div class="svc-tag">
+              <span class="svc-num">01</span>
+              <span class="svc-label">Meta Advertising</span>
             </div>
-            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
+            <h2>Meta Advertising That Fills Your Schedule</h2>
+            <p>We build full-funnel Meta campaigns targeting patients actively searching for your specialty — not just anyone with a heartbeat. Every creative angle is tested, every dollar is tracked, and every campaign is optimized for one outcome: booked appointments.</p>
+            <div class="svc-divider"></div>
+            <div class="svc-bullets">
+              <div class="svc-bullet"><div class="svc-check">✓</div>Awareness → lead → appointment campaign architecture</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Audience targeting by condition, symptom, and proximity</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Compliant ad copy that converts without compromising your brand</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Insurance and pricing objection handling built into creative</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Weekly reporting tied directly to appointments booked</div>
+            </div>
+            <a href="/contact.html" class="svc-cta">Start filling your schedule</a>
           </div>
-          <div class="metric-panel">
-            <div class="metric-panel-header">Retargeting — Results</div>
-            <div class="metric-grid">
-              <div class="metric-cell"><div class="metric-num">3×</div><div class="metric-lbl">Conversion rate lift</div></div>
-              <div class="metric-cell"><div class="metric-num">-40%</div><div class="metric-lbl">Wasted spend eliminated</div></div>
-              <div class="metric-cell"><div class="metric-num">7</div><div class="metric-lbl">Day retargeting window</div></div>
-              <div class="metric-cell"><div class="metric-num">50+</div><div class="metric-lbl">Clients scaled profitably</div></div>
+
+          <!-- 02 — Email Marketing -->
+          <div class="svc-card">
+            <div class="svc-tag">
+              <span class="svc-num">02</span>
+              <span class="svc-label">Email Marketing</span>
             </div>
+            <h2>Automated Sequences That Convert Leads Into Patients</h2>
+            <p>Most practices lose 70–80% of their leads because nobody follows up fast enough — or at all. We build email and SMS sequences that respond within minutes, nurture over weeks, and book appointments on autopilot.</p>
+            <div class="result-callout">
+              <strong>Real result:</strong> Generated <strong>$25,000</strong> in new patient revenue from email marketing alone — without increasing ad spend by a single dollar.
+            </div>
+            <div class="svc-divider"></div>
+            <div class="svc-bullets">
+              <div class="svc-bullet"><div class="svc-check">✓</div>Instant lead response automations (under 5 minutes)</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Multi-week nurture sequences for unconverted leads</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Post-consultation upsell and return visit flows</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Re-engagement campaigns for dormant patients</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Full Klaviyo/CRM setup and ongoing management</div>
+            </div>
+            <a href="/contact.html" class="svc-cta">Stop leaving revenue on the table</a>
+          </div>
+
+          <!-- 03 — Authority Content -->
+          <div class="svc-card">
+            <div class="svc-tag">
+              <span class="svc-num">03</span>
+              <span class="svc-label">Content &amp; Authority</span>
+            </div>
+            <h2>Position Your Physician as the Expert in the Room</h2>
+            <p>Patients don't just pick doctors — they pick doctors they trust. We build that trust before they ever call your office. Through strategic content and authority-positioning, we make your physician the obvious choice in their market.</p>
+            <div class="svc-divider"></div>
+            <div class="svc-bullets">
+              <div class="svc-bullet"><div class="svc-check">✓</div>Short-form video script frameworks (education-first, 60–90 sec)</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Social media content calendar and conversion copy</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Long-form blog and SEO content direction</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Reputation management and review strategy</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Brand voice development that builds trust at scale</div>
+            </div>
+            <a href="/contact.html" class="svc-cta">Build your physician's authority</a>
+          </div>
+
+          <!-- 04 — Full Stack -->
+          <div class="svc-card">
+            <div class="svc-tag">
+              <span class="svc-num">04</span>
+              <span class="svc-label">Full Growth Stack</span>
+            </div>
+            <h2>Paid Ads → Email → Content, All Working Together</h2>
+            <p>Siloed tactics deliver siloed results. We architect your entire growth stack so ads feed your email list, content amplifies your ads, and email turns cold leads into long-term patients. This compound effect is why our clients don't churn.</p>
+            <div class="svc-divider"></div>
+            <div class="svc-bullets">
+              <div class="svc-bullet"><div class="svc-check">✓</div>Unified messaging and brand voice across all channels</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Cross-channel attribution and consolidated reporting</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>CRM and ad platform integration and hygiene</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Monthly full-stack strategy reviews with your team</div>
+              <div class="svc-bullet"><div class="svc-check">✓</div>Scalable to multiple locations and new markets</div>
+            </div>
+            <a href="/contact.html" class="svc-cta">Build a system that compounds</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AI AGENTS SECTION ───────────────────────────────── -->
+    <div class="agents-section">
+      <div class="container">
+        <div class="agents-inner">
+
+          <div class="agents-copy">
+            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">What Sets Us Apart</span></div>
+            <h2 class="agents-headline">AI Agents Working While<br><span class="accent">You See Patients</span></h2>
+            <p class="agents-sub">We've built a suite of custom AI agents that handle the research, monitoring, and copy generation work that most agencies charge hourly for — or skip entirely. Your campaigns are never waiting on a human bottleneck.</p>
+            <div class="founder-quote">
+              <p>"Most agencies have a human writing your ad copy at 2pm on a Tuesday. We have an AI system that's already analyzed your top 50 competitors, pulled current patient sentiment data, and drafted five tested variants — before that human finishes their coffee."</p>
+              <cite>— Tyler Cavo, Founder, TCScales.Agency</cite>
+            </div>
+          </div>
+
+          <div class="agents-grid">
+
+            <div class="agent-card">
+              <span class="agent-icon">✍️</span>
+              <h3>Ad Copywriter Agent</h3>
+              <p>Generates compliant Meta ad copy trained on healthcare advertising principles and your brand voice — punchy, patient-first, and insurance-aware.</p>
+            </div>
+
+            <div class="agent-card">
+              <span class="agent-icon">🔍</span>
+              <h3>Competitor Research Team</h3>
+              <p>A 5-agent system that monitors competing practice positioning, ad creative, and messaging — so your campaigns are always a step ahead of the market.</p>
+            </div>
+
+            <div class="agent-card">
+              <span class="agent-icon">📡</span>
+              <h3>Patient Sentiment Analyst</h3>
+              <p>Continuously surfaces the exact language real patients use about their health struggles — feeding authentic, high-converting hooks into every ad and email.</p>
+            </div>
+
+            <div class="agent-card">
+              <span class="agent-icon">📧</span>
+              <h3>Email Sequence Builder</h3>
+              <p>Drafts full nurture sequences using proven healthcare frameworks — welcome flows, re-engagement, post-consultation — faster and more consistently than any human team.</p>
+            </div>
+
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Creative Strategy -->
-    <section class="service-section flip" id="creative" style="background:var(--off-white);">
-      <div class="container" style="background:inherit;">
-        <div class="service-inner">
-          <div class="service-copy">
-            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Creative Strategy</span></div>
-            <h2>Creative That Converts at Every Stage</h2>
-            <p>We build data-driven creative systems — from ideation and scripting to production and testing — that continuously identify your highest-performing angles.</p>
-            <div class="bullet-list">
-              <div class="bullet-item"><div class="bullet-check">✓</div>Ad concept ideation grounded in customer psychology</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>UGC, static, and video creative direction</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Rapid creative testing (5–10 new ads/month)</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Winning angle identification and scale-up</div>
-              <div class="bullet-item"><div class="bullet-check">✓</div>Landing page copy and CRO recommendations</div>
-            </div>
-            <a href="/contact.html" class="btn btn-primary" style="height:48px;">Get Started</a>
-          </div>
-          <div class="metric-panel">
-            <div class="metric-panel-header">Creative — Results</div>
-            <div class="metric-grid">
-              <div class="metric-cell"><div class="metric-num">10+</div><div class="metric-lbl">New creatives tested/mo</div></div>
-              <div class="metric-cell"><div class="metric-num">2×</div><div class="metric-lbl">CTR improvement avg</div></div>
-              <div class="metric-cell"><div class="metric-num">30</div><div class="metric-lbl">Days to winning angle</div></div>
-              <div class="metric-cell"><div class="metric-num">100%</div><div class="metric-lbl">Data-driven decisions</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <!-- ── CTA STRIP ───────────────────────────────────────── -->
     <div class="cta-strip">
       <div class="container">
         <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Ready to Scale?</span></div>
-        <h2>Ready to Scale Your Brand?</h2>
-        <p>Book a free strategy call and we'll map out exactly how to grow your brand with Meta ads.</p>
+        <h2>Let's Build Your Growth System.</h2>
+        <p>Book a free strategy call and we'll map out exactly how to grow your practice with Meta ads, email automation, and AI-powered efficiency.</p>
         <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
           <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
           <a href="/work.html" class="btn btn-secondary" style="height:48px;">See Case Studies</a>
@@ -246,13 +710,159 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
-        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#meta-ads">Meta Advertising</a></li><li><a href="/services.html#email">Email Marketing</a></li><li><a href="/services.html#content">Content &amp; Authority</a></li><li><a href="/services.html#full-stack">Full Growth Stack</a></li></ul></div>
         <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
         <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
       </div>
       <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
     </div>
   </footer>
+
+  <!-- ── QUIZ MODAL ─────────────────────────────────────────── -->
+  <div class="quiz-overlay" id="quiz-overlay" role="dialog" aria-modal="true" aria-label="Free Practice Growth Audit">
+    <div class="quiz-modal">
+
+      <div class="quiz-header">
+        <button class="quiz-close" id="quiz-close" aria-label="Close">✕</button>
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-label" id="quiz-progress-label">Step 0 of 4</div>
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="quiz-eyebrow">Free Practice Growth Audit</div>
+        <h2 id="quiz-header-title">Find Out What's Holding Your Practice Back</h2>
+      </div>
+
+      <div class="quiz-body">
+
+        <!-- Step 0: Intro -->
+        <div class="quiz-step active" data-step="0">
+          <div class="quiz-intro">
+            <div class="quiz-intro-icon">📋</div>
+            <h3>Get Your Free Patient Acquisition Blueprint</h3>
+            <p>Answer 4 quick questions and we'll build you a custom growth plan — specific to your practice type, budget, and biggest challenge.</p>
+            <div class="quiz-deliverable">
+              <div class="quiz-deliverable-label">You'll receive</div>
+              <ul>
+                <li>A personalized Meta ads strategy for your specialty</li>
+                <li>The exact email sequences we use to convert leads</li>
+                <li>A breakdown of where your biggest revenue leaks are</li>
+                <li>Recommended budget allocation based on your goals</li>
+              </ul>
+            </div>
+            <div class="quiz-footer">
+              <div class="quiz-footer-right">
+                <button class="btn-quiz-next" id="quiz-start">Start Free Audit →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Practice type -->
+        <div class="quiz-step" data-step="1">
+          <p class="quiz-q">What type of practice do you run?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="1" data-val="primary-care"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏥</span>Primary Care / Family Medicine</div>
+            <div class="quiz-option" data-q="1" data-val="specialty"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🩺</span>Specialty Practice (cardiology, ortho, neuro, etc.)</div>
+            <div class="quiz-option" data-q="1" data-val="dental"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🦷</span>Dental / Oral Health</div>
+            <div class="quiz-option" data-q="1" data-val="mental-health"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🧠</span>Mental Health / Therapy</div>
+            <div class="quiz-option" data-q="1" data-val="other"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">➕</span>Other Healthcare / Wellness</div>
+          </div>
+          <div class="quiz-footer">
+            <button class="btn-quiz-back quiz-back-btn">← Back</button>
+            <div class="quiz-footer-right">
+              <button class="btn-quiz-next quiz-next-btn" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Growth challenge -->
+        <div class="quiz-step" data-step="2">
+          <p class="quiz-q">What's your biggest marketing challenge right now?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="2" data-val="not-enough-leads"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📉</span>Not enough new patient leads coming in</div>
+            <div class="quiz-option" data-q="2" data-val="not-converting"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🔄</span>Leads aren't converting to booked appointments</div>
+            <div class="quiz-option" data-q="2" data-val="too-expensive"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💸</span>Marketing costs too much for the results I'm getting</div>
+            <div class="quiz-option" data-q="2" data-val="no-system"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🧩</span>I don't have a real system — everything feels scattered</div>
+          </div>
+          <div class="quiz-footer">
+            <button class="btn-quiz-back quiz-back-btn">← Back</button>
+            <div class="quiz-footer-right">
+              <button class="btn-quiz-next quiz-next-btn" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: New patients per month -->
+        <div class="quiz-step" data-step="3">
+          <p class="quiz-q">How many new patients are you looking to add each month?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="3" data-val="1-10"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🌱</span>1–10 new patients (just getting started)</div>
+            <div class="quiz-option" data-q="3" data-val="10-30"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📈</span>10–30 new patients (steady growth)</div>
+            <div class="quiz-option" data-q="3" data-val="30-60"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🚀</span>30–60 new patients (aggressive growth)</div>
+            <div class="quiz-option" data-q="3" data-val="60+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏆</span>60+ new patients (we're scaling fast)</div>
+          </div>
+          <div class="quiz-footer">
+            <button class="btn-quiz-back quiz-back-btn">← Back</button>
+            <div class="quiz-footer-right">
+              <button class="btn-quiz-next quiz-next-btn" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Budget -->
+        <div class="quiz-step" data-step="4">
+          <p class="quiz-q">What's your current monthly marketing budget?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="4" data-val="under-1k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>Under $1,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="1k-3k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$1,000 – $3,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="3k-10k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$3,000 – $10,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="10k+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$10,000+/month</div>
+          </div>
+          <div class="quiz-footer">
+            <button class="btn-quiz-back quiz-back-btn">← Back</button>
+            <div class="quiz-footer-right">
+              <button class="btn-quiz-next quiz-next-btn" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Email capture -->
+        <div class="quiz-step" data-step="5">
+          <div class="quiz-capture">
+            <h3>Where should we send your Blueprint?</h3>
+            <p>Your personalized Patient Acquisition Blueprint is ready. Enter your details and we'll send it straight to your inbox — plus a quick note from Tyler with your top recommended next step.</p>
+            <div class="quiz-field">
+              <label for="quiz-name">First Name</label>
+              <input type="text" id="quiz-name" placeholder="Dr. Smith" autocomplete="given-name" />
+            </div>
+            <div class="quiz-field">
+              <label for="quiz-email">Work Email</label>
+              <input type="email" id="quiz-email" placeholder="you@yourpractice.com" autocomplete="email" />
+            </div>
+            <div class="quiz-footer">
+              <button class="btn-quiz-back quiz-back-btn">← Back</button>
+              <div class="quiz-footer-right">
+                <button class="btn-quiz-next" id="quiz-submit">Send My Blueprint →</button>
+              </div>
+            </div>
+            <p class="quiz-privacy">🔒 No spam, ever. Unsubscribe anytime. We respect your inbox.</p>
+          </div>
+        </div>
+
+        <!-- Step 6: Thank you -->
+        <div class="quiz-step" data-step="6">
+          <div class="quiz-thanks">
+            <div class="quiz-thanks-icon">🎉</div>
+            <h3>Your Blueprint is On Its Way!</h3>
+            <p>Check your inbox in the next few minutes. Tyler will personally review your answers and send over your custom Patient Acquisition Blueprint.</p>
+            <p style="font-size:.875rem;color:var(--gray-400);">Want to skip the wait? Book a free 20-minute strategy call and we'll walk through your growth plan live.</p>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;display:inline-flex;align-items:center;">Book a Free Strategy Call</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <script>
     const nav = document.getElementById('site-nav');
@@ -262,6 +872,127 @@
     function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
     applyTheme(html.classList.contains('dark'));
     toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+
+    // ── QUIZ LOGIC ──────────────────────────────────────────────
+    const overlay   = document.getElementById('quiz-overlay');
+    const closeBtn  = document.getElementById('quiz-close');
+    const trigger   = document.getElementById('quiz-trigger');
+    const steps     = document.querySelectorAll('.quiz-step');
+    const progFill  = document.getElementById('quiz-progress-fill');
+    const progLabel = document.getElementById('quiz-progress-label');
+    const headerTitle = document.getElementById('quiz-header-title');
+    const TOTAL_Q   = 4;
+    let currentStep = 0;
+    const answers   = {};
+
+    const stepTitles = [
+      'Find Out What\'s Holding Your Practice Back',
+      'Tell Us About Your Practice',
+      'What\'s Your Biggest Challenge?',
+      'Set Your Growth Target',
+      'What\'s Your Marketing Budget?',
+      'Get Your Free Blueprint',
+      'Blueprint Sent!'
+    ];
+
+    function openQuiz() {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeQuiz() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function goToStep(n) {
+      steps[currentStep].classList.remove('active');
+      currentStep = n;
+      steps[currentStep].classList.add('active');
+      // Progress: questions are steps 1-4
+      const qStep = Math.max(0, currentStep - 1);
+      const pct = currentStep === 0 ? 0 : Math.min(100, Math.round((qStep / TOTAL_Q) * 100));
+      progFill.style.width = pct + '%';
+      if (currentStep === 0) {
+        progLabel.textContent = 'Takes about 1 minute';
+      } else if (currentStep <= TOTAL_Q) {
+        progLabel.textContent = `Question ${currentStep} of ${TOTAL_Q}`;
+      } else if (currentStep === TOTAL_Q + 1) {
+        progLabel.textContent = 'Almost done!';
+        progFill.style.width = '100%';
+      } else {
+        progLabel.textContent = 'Complete ✓';
+        progFill.style.width = '100%';
+      }
+      headerTitle.textContent = stepTitles[currentStep] || '';
+    }
+
+    // Open/close
+    trigger.addEventListener('click', openQuiz);
+    closeBtn.addEventListener('click', closeQuiz);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeQuiz(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeQuiz(); });
+
+    // Start button
+    document.getElementById('quiz-start').addEventListener('click', () => goToStep(1));
+
+    // Option selection — auto-advance after short delay
+    document.querySelectorAll('.quiz-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const q = opt.dataset.q;
+        document.querySelectorAll(`.quiz-option[data-q="${q}"]`).forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        answers[`q${q}`] = opt.dataset.val;
+        // Enable next button in this step
+        const step = opt.closest('.quiz-step');
+        const nextBtn = step.querySelector('.quiz-next-btn');
+        if (nextBtn) nextBtn.disabled = false;
+        // Auto-advance after 400ms
+        setTimeout(() => {
+          const stepNum = parseInt(step.dataset.step);
+          goToStep(stepNum + 1);
+          // Re-disable next btn for that new step if not answered
+          const newStep = document.querySelector(`.quiz-step[data-step="${stepNum + 1}"]`);
+          if (newStep) {
+            const nb = newStep.querySelector('.quiz-next-btn');
+            const qNum = stepNum + 1;
+            if (nb && !answers[`q${qNum}`]) nb.disabled = true;
+          }
+        }, 350);
+      });
+    });
+
+    // Next buttons (manual advance for answered steps)
+    document.querySelectorAll('.quiz-next-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = btn.closest('.quiz-step');
+        goToStep(parseInt(step.dataset.step) + 1);
+      });
+    });
+
+    // Back buttons
+    document.querySelectorAll('.quiz-back-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = btn.closest('.quiz-step');
+        goToStep(Math.max(0, parseInt(step.dataset.step) - 1));
+      });
+    });
+
+    // Submit
+    document.getElementById('quiz-submit').addEventListener('click', () => {
+      const name  = document.getElementById('quiz-name').value.trim();
+      const email = document.getElementById('quiz-email').value.trim();
+      if (!name || !email || !email.includes('@')) {
+        document.getElementById('quiz-email').focus();
+        return;
+      }
+      answers.name  = name;
+      answers.email = email;
+      // Here you'd POST to your email service (Klaviyo, Mailchimp, etc.)
+      // fetch('/api/subscribe', { method: 'POST', body: JSON.stringify(answers) });
+      console.log('Quiz submission:', answers);
+      goToStep(6);
+    });
   </script>
+  <script src="/nav.js"></script>
 </body>
 </html>

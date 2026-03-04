@@ -70,12 +70,13 @@
         <nav><ul class="nav-links">
           <li><a href="/services.html">Services</a></li>
           <li><a href="/work.html">Our Work</a></li>
-          <li><a href="/results.html">Results</a></li>
-          <li><a href="/reviews.html">Reviews</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/process.html">How It Works</a></li>
         </ul></nav>
         <div class="nav-actions">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
           <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
       </div>
     </div>
@@ -211,5 +212,6 @@
     applyTheme(html.classList.contains('dark'));
     toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
   </script>
+  <script src="/nav.js"></script>
 </body>
 </html>

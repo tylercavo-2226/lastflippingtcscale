@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+
+    /* ── HONEST PRICING BAND ──────────────────────────────────── */
+    .pricing-context {
+      background: var(--off-white);
+      padding: 64px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    html.dark .pricing-context { background: var(--dm-bg); border-bottom-color: var(--dm-border); }
+    .pricing-context-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    @media (max-width: 860px) { .pricing-context-inner { grid-template-columns: 1fr; gap: 2rem; } }
+    .pricing-context-copy h2 { margin-bottom: 1rem; }
+    .pricing-context-copy p { font-size: 1rem; color: var(--gray-600); line-height: 1.75; margin-bottom: 1rem; }
+    html.dark .pricing-context-copy p { color: var(--dm-subtle); }
+
+    .cost-breakdown {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    }
+    html.dark .cost-breakdown { background: var(--dm-surface); border-color: var(--dm-border); }
+    .cost-bd-header {
+      background: var(--navy-deep); padding: 1rem 1.5rem;
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: rgba(255,255,255,.5);
+    }
+    .cost-bd-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .875rem 1.5rem; border-bottom: 1px solid var(--gray-100);
+    }
+    html.dark .cost-bd-row { border-bottom-color: var(--dm-border); }
+    .cost-bd-row:last-child { border-bottom: none; }
+    .cost-bd-item { font-size: .875rem; color: var(--charcoal); }
+    html.dark .cost-bd-item { color: var(--dm-text); }
+    .cost-bd-price { font-size: .875rem; font-weight: 700; color: #ef4444; }
+    .cost-bd-total {
+      background: rgba(239,68,68,.06); padding: 1rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 2px solid rgba(239,68,68,.15);
+    }
+    .cost-bd-total-label { font-size: .875rem; font-weight: 700; color: var(--charcoal); }
+    html.dark .cost-bd-total-label { color: var(--dm-text); }
+    .cost-bd-total-num { font-size: 1.25rem; font-weight: 700; color: #ef4444; }
+
+    /* ── PRICING CARDS ────────────────────────────────────────── */
+    .pricing-section { padding: var(--section-pad) 0; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 1000px) { .pricing-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; } }
+
+    .price-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+      position: relative;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .price-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+    html.dark .price-card { background: var(--dm-surface); border-color: var(--dm-border); }
+
+    .price-card.featured {
+      border-color: var(--navy);
+      box-shadow: 0 8px 40px rgba(28,58,138,.15);
+      transform: translateY(-8px);
+    }
+    html.dark .price-card.featured { border-color: var(--electric); box-shadow: 0 8px 40px rgba(74,144,217,.15); }
+    .price-card.featured:hover { transform: translateY(-12px); }
+
+    .price-badge {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      background: var(--navy); color: var(--white);
+      font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      padding: .3rem .875rem; border-radius: 0 0 8px 8px;
+    }
+    html.dark .price-badge { background: var(--electric); }
+
+    .price-header {
+      padding: 2.25rem 1.75rem 1.5rem;
+      border-bottom: 1px solid var(--gray-100);
+      text-align: center;
+    }
+    html.dark .price-header { border-bottom-color: var(--dm-border); }
+    .price-card.featured .price-header { padding-top: 2.75rem; }
+
+    .price-tier-icon { font-size: 1.75rem; margin-bottom: .75rem; }
+    .price-tier-name {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .12em; color: var(--navy); margin-bottom: .375rem;
+    }
+    html.dark .price-tier-name { color: var(--electric); }
+    .price-card.featured .price-tier-name { color: var(--navy); }
+    html.dark .price-card.featured .price-tier-name { color: var(--electric); }
+
+    .price-tagline { font-size: .875rem; color: var(--gray-600); margin-bottom: 1.25rem; line-height: 1.5; }
+    html.dark .price-tagline { color: var(--dm-subtle); }
+
+    .price-amount {
+      display: flex; align-items: flex-end; justify-content: center; gap: .25rem;
+      margin-bottom: .25rem;
+    }
+    .price-currency { font-size: 1.25rem; font-weight: 700; color: var(--charcoal); padding-bottom: .375rem; }
+    html.dark .price-currency { color: var(--dm-text); }
+    .price-num { font-size: 3rem; font-weight: 700; color: var(--charcoal); letter-spacing: -.04em; line-height: 1; }
+    html.dark .price-num { color: var(--dm-text); }
+    .price-card.featured .price-num { color: var(--navy); }
+    html.dark .price-card.featured .price-num { color: var(--electric); }
+    .price-per { font-size: .875rem; color: var(--gray-400); padding-bottom: .375rem; }
+
+    .price-term {
+      font-size: .75rem; color: var(--gray-400); margin-bottom: 1.25rem;
+    }
+    .price-adspend {
+      display: inline-flex; align-items: center; gap: .375rem;
+      background: var(--off-white); border: 1px solid var(--gray-100);
+      border-radius: 99px; padding: .3rem .75rem;
+      font-size: .72rem; color: var(--gray-600); font-weight: 500;
+    }
+    html.dark .price-adspend { background: var(--dm-bg); border-color: var(--dm-border); color: var(--dm-subtle); }
+
+    .price-body { padding: 1.5rem 1.75rem; }
+    .price-cta {
+      display: block; text-align: center; text-decoration: none;
+      padding: .875rem; border-radius: var(--radius);
+      font-size: .9375rem; font-weight: 700;
+      transition: all .18s;
+      margin-bottom: 1.5rem;
+    }
+    .price-cta.outline {
+      border: 2px solid var(--gray-100); color: var(--charcoal);
+      background: transparent;
+    }
+    html.dark .price-cta.outline { border-color: var(--dm-border); color: var(--dm-text); }
+    .price-cta.outline:hover { border-color: var(--navy); color: var(--navy); background: rgba(28,58,138,.04); }
+    html.dark .price-cta.outline:hover { border-color: var(--electric); color: var(--electric); }
+    .price-cta.solid {
+      background: var(--navy); color: var(--white); border: 2px solid var(--navy);
+    }
+    html.dark .price-cta.solid { background: var(--electric); border-color: var(--electric); }
+    .price-cta.solid:hover { background: var(--navy-mid); }
+    html.dark .price-cta.solid:hover { background: #3a7fc7; }
+    .price-cta.gold {
+      background: var(--gold); color: var(--navy-deep); border: 2px solid var(--gold);
+    }
+    .price-cta.gold:hover { background: #b8993e; }
+
+    .price-features-label {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--gray-400); margin-bottom: .875rem;
+    }
+    .price-features { display: flex; flex-direction: column; gap: .5rem; }
+    .price-feature {
+      display: flex; align-items: flex-start; gap: .625rem;
+      font-size: .875rem; color: var(--charcoal); line-height: 1.45;
+    }
+    html.dark .price-feature { color: var(--dm-text); }
+    .price-feature .check {
+      flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(28,58,138,.08); border: 1px solid rgba(28,58,138,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; color: var(--navy); margin-top: .1rem; font-weight: 700;
+    }
+    html.dark .price-feature .check { background: rgba(74,144,217,.12); border-color: rgba(74,144,217,.2); color: var(--electric); }
+    .price-card.featured .price-feature .check { background: rgba(28,58,138,.1); }
+    .price-feature .check-gold {
+      flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(200,169,110,.12); border: 1px solid rgba(200,169,110,.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; color: var(--gold); margin-top: .1rem; font-weight: 700;
+    }
+
+    .price-divider { border: none; border-top: 1px solid var(--gray-100); margin: 1.25rem 0; }
+    html.dark .price-divider { border-top-color: var(--dm-border); }
+
+    .price-upsell {
+      background: rgba(200,169,110,.08); border: 1px solid rgba(200,169,110,.2);
+      border-radius: 8px; padding: .75rem 1rem; margin-top: 1.25rem;
+      font-size: .78rem; color: var(--gray-600); line-height: 1.55;
+    }
+    html.dark .price-upsell { color: var(--dm-subtle); }
+    .price-upsell strong { color: var(--gold); }
+
+    /* ── BASE INCLUDES BAND ───────────────────────────────────── */
+    .base-includes { padding: 64px 0; background: var(--off-white); }
+    html.dark .base-includes { background: var(--dm-bg); }
+    .base-includes-inner { text-align: center; }
+    .base-includes h2 { margin-bottom: .875rem; }
+    .base-includes > .container > p { font-size: 1rem; color: var(--gray-600); margin-bottom: 2.5rem; }
+    html.dark .base-includes > .container > p { color: var(--dm-subtle); }
+
+    .base-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;
+    }
+    .base-item {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1.25rem;
+      display: flex; align-items: flex-start; gap: .75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    html.dark .base-item { background: var(--dm-surface); border-color: var(--dm-border); }
+    .base-item-icon { font-size: 1.25rem; flex-shrink: 0; }
+    .base-item-text { font-size: .875rem; color: var(--charcoal); font-weight: 600; line-height: 1.4; }
+    html.dark .base-item-text { color: var(--dm-text); }
+    .base-item-sub { font-size: .78rem; color: var(--gray-600); margin-top: .2rem; font-weight: 400; }
+    html.dark .base-item-sub { color: var(--dm-subtle); }
+
+    /* ── FAQ ──────────────────────────────────────────────────── */
+    .faq-section { padding: var(--section-pad) 0; }
+    .faq-intro { text-align: center; max-width: 560px; margin: 0 auto 3rem; }
+    .faq-intro h2 { margin-bottom: .875rem; }
+    .faq-intro p { font-size: 1rem; color: var(--gray-600); line-height: 1.7; }
+    html.dark .faq-intro p { color: var(--dm-subtle); }
+
+    .faq-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+      max-width: 960px; margin: 0 auto;
+    }
+    @media (max-width: 700px) { .faq-grid { grid-template-columns: 1fr; } }
+    .faq-item {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    html.dark .faq-item { background: var(--dm-surface); border-color: var(--dm-border); }
+    .faq-q { font-size: .9375rem; font-weight: 700; color: var(--charcoal); margin-bottom: .625rem; line-height: 1.35; }
+    html.dark .faq-q { color: var(--dm-text); }
+    .faq-a { font-size: .875rem; color: var(--gray-600); line-height: 1.7; }
+    html.dark .faq-a { color: var(--dm-subtle); }
+    .faq-a strong { color: var(--navy); }
+    html.dark .faq-a strong { color: var(--electric); }
+
+    /* ── CTA ──────────────────────────────────────────────────── */
+    .cta-strip { background: var(--navy-deep); padding: 80px 0; text-align: center; }
+    .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-strip .btn-primary:hover { background: var(--off-white); }
+    .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Our Work</a></li>
+          <li><a href="/pricing.html" class="active">Pricing</a></li>
+          <li><a href="/process.html">How It Works</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <button class="btn-quiz-trigger" id="quiz-trigger">Free Growth Audit</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Pricing</span></div>
+      <h1>Transparent Pricing.<br>No Black Boxes.</h1>
+      <p>Most agencies make you jump through three calls before mentioning a number. Here's exactly what everything costs, what you get, and why it's a fraction of what you'd pay anywhere else.</p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ── WHAT OTHERS CHARGE ────────────────────────────────── -->
+    <section class="pricing-context">
+      <div class="container">
+        <div class="pricing-context-inner">
+          <div class="pricing-context-copy">
+            <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">The Real Cost of Marketing</span></div>
+            <h2>What You'd Pay Hiring This Separately</h2>
+            <p>To get everything TC Scales delivers — ads, email, website, copy, automation, reporting — you'd need to hire multiple specialists or sign with a large agency. Here's what that actually costs.</p>
+            <p>We deliver all of this for a fraction of the price because our AI agent stack handles the work that agencies bill you by the hour for. You get the same output, faster, with better reporting, and at a price that makes sense for a growth-stage business.</p>
+          </div>
+          <div class="cost-breakdown">
+            <div class="cost-bd-header">Market rate if hired separately</div>
+            <div class="cost-bd-row">
+              <div class="cost-bd-item">Paid Ads Manager</div>
+              <div class="cost-bd-price">$4,000–$8,000/mo</div>
+            </div>
+            <div class="cost-bd-row">
+              <div class="cost-bd-item">Email Marketing Specialist</div>
+              <div class="cost-bd-price">$3,000–$8,000/mo</div>
+            </div>
+            <div class="cost-bd-row">
+              <div class="cost-bd-item">Copywriter</div>
+              <div class="cost-bd-price">$2,000–$5,000/mo</div>
+            </div>
+            <div class="cost-bd-row">
+              <div class="cost-bd-item">Web Designer + Developer</div>
+              <div class="cost-bd-price">$5,000–$20,000 flat</div>
+            </div>
+            <div class="cost-bd-row">
+              <div class="cost-bd-item">Marketing Strategist</div>
+              <div class="cost-bd-price">$3,000–$7,000/mo</div>
+            </div>
+            <div class="cost-bd-row">
+              <div class="cost-bd-item">Automation / CRM Specialist</div>
+              <div class="cost-bd-price">$2,000–$6,000/mo</div>
+            </div>
+            <div class="cost-bd-total">
+              <div class="cost-bd-total-label">Total monthly cost</div>
+              <div class="cost-bd-total-num">$15,000–$40,000+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PRICING CARDS ─────────────────────────────────────── -->
+    <section class="pricing-section">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Choose Your Plan</span></div>
+        <h2 style="text-align:center;margin-bottom:3rem;">Three Ways to Work With Us</h2>
+
+        <div class="pricing-grid">
+
+          <!-- TIER 1: FOUNDATION -->
+          <div class="price-card">
+            <div class="price-header">
+              <div class="price-tier-icon">🔍</div>
+              <div class="price-tier-name">Foundation</div>
+              <div class="price-tagline">Your growth blueprint before spending a dollar on ads</div>
+              <div class="price-amount">
+                <span class="price-currency">$</span>
+                <span class="price-num">997</span>
+              </div>
+              <div class="price-term">One-time · Delivered in 5–7 days</div>
+            </div>
+            <div class="price-body">
+              <a href="/contact.html" class="price-cta outline">Get Started →</a>
+              <div class="price-features-label">What's included</div>
+              <div class="price-features">
+                <div class="price-feature"><div class="check">✓</div>Full Meta account audit (existing or fresh setup)</div>
+                <div class="price-feature"><div class="check">✓</div>5-competitor landscape analysis — positioning, creative, messaging</div>
+                <div class="price-feature"><div class="check">✓</div>Custom Growth Blueprint PDF — strategy, creative angles, budget recommendations</div>
+                <div class="price-feature"><div class="check">✓</div>Website &amp; funnel review with specific, actionable fixes</div>
+                <div class="price-feature"><div class="check">✓</div>Ideal customer profile + patient/buyer psychology deep-dive</div>
+                <div class="price-feature"><div class="check">✓</div>30-min strategy call to walk through every finding</div>
+              </div>
+              <div class="price-upsell"><strong>Credit toward any plan:</strong> Apply your $997 toward the Launch or Scale plan within 30 days — nothing wasted.</div>
+            </div>
+          </div>
+
+          <!-- TIER 2: LAUNCH (FEATURED) -->
+          <div class="price-card featured">
+            <div class="price-badge">Most Popular</div>
+            <div class="price-header">
+              <div class="price-tier-icon">🚀</div>
+              <div class="price-tier-name">Launch</div>
+              <div class="price-tagline">Website built, ads live, leads flowing — in 30 days</div>
+              <div class="price-amount">
+                <span class="price-currency">$</span>
+                <span class="price-num">3,000</span>
+                <span class="price-per">/mo</span>
+              </div>
+              <div class="price-term">3-month minimum · Then month-to-month</div>
+              <div class="price-adspend">⚡ Ad spend separate · Min. $1,000/mo recommended</div>
+            </div>
+            <div class="price-body">
+              <a href="/contact.html" class="price-cta solid">Start Launch Plan →</a>
+              <div class="price-features-label">What's included</div>
+              <div class="price-features">
+                <div class="price-feature"><div class="check">✓</div><strong>5-page website built in month 1</strong> — homepage, services, about, contact, landing page</div>
+                <div class="price-feature"><div class="check">✓</div>Meta ad campaign creation — creative strategy, ad copy, scripts, audience build, campaign launch</div>
+                <div class="price-feature"><div class="check">✓</div>Ongoing ads management — testing, optimization, budget pacing</div>
+                <div class="price-feature" style="font-size:.8rem;color:var(--gray-400);"><div class="check" style="background:none;border-color:transparent;"></div>Note: Ad copy &amp; scripts provided — client supplies visual assets (video/images)</div>
+                <div class="price-feature"><div class="check">✓</div>Email welcome + nurture flow setup (3–5 automated sequences)</div>
+                <div class="price-feature"><div class="check">✓</div>Lead capture funnel — landing page, form, CRM integration</div>
+                <div class="price-feature"><div class="check">✓</div>AI ad monitoring agents — 24/7 performance alerts, creative fatigue detection</div>
+                <div class="price-feature"><div class="check">✓</div>Weekly performance reports tied to leads, not vanity metrics</div>
+                <div class="price-feature"><div class="check">✓</div>Conversion copywriting for all ads, emails, and pages</div>
+              </div>
+              <hr class="price-divider" />
+              <div class="price-features-label">Also included</div>
+              <div class="price-features">
+                <div class="price-feature"><div class="check">✓</div>Competitor research at launch + monthly monitoring</div>
+                <div class="price-feature"><div class="check">✓</div>Direct access via email — no ticketing systems</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIER 3: SCALE -->
+          <div class="price-card">
+            <div class="price-header">
+              <div class="price-tier-icon">⚡</div>
+              <div class="price-tier-name">Scale</div>
+              <div class="price-tagline">The full growth stack. Every service. Full automation.</div>
+              <div class="price-amount">
+                <span class="price-currency">$</span>
+                <span class="price-num">4,500</span>
+                <span class="price-per">/mo</span>
+              </div>
+              <div class="price-term">3-month minimum · Then month-to-month</div>
+              <div class="price-adspend">⚡ Ad spend separate · Min. $2,000/mo recommended</div>
+            </div>
+            <div class="price-body">
+              <a href="/contact.html" class="price-cta gold">Apply for Scale →</a>
+              <div class="price-features-label">Everything in Launch, plus</div>
+              <div class="price-features">
+                <div class="price-feature"><div class="check-gold">✓</div><strong>Full website build — up to 10 pages</strong> with conversion copy on every page</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Full email + SMS automation system — welcome, nurture, re-engagement, post-purchase</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Complete AI agent stack — all 5 categories running 24/7</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Multi-funnel build — separate funnels per service or audience segment</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Retargeting campaigns — sequential 7-day re-engagement system</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Content strategy + social media calendar — monthly execution plan</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Competitor ad library monitoring — ongoing intelligence reports</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Monthly strategy call + priority Slack access</div>
+              </div>
+              <hr class="price-divider" />
+              <div class="price-features">
+                <div class="price-feature"><div class="check-gold">✓</div>CRM setup, integration, and hygiene maintenance</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Multi-location or multi-product scaling when ready</div>
+                <div class="price-feature"><div class="check-gold">✓</div>Automated reporting dashboard — every channel, one view</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BASE INCLUDES ─────────────────────────────────────── -->
+    <section class="base-includes">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Every Plan Includes</span></div>
+        <h2 style="text-align:center;margin-bottom:.875rem;">Our Non-Negotiables</h2>
+        <p style="text-align:center;font-size:1rem;color:var(--gray-600);margin-bottom:2.5rem;max-width:560px;margin-left:auto;margin-right:auto;">These aren't upsells. They're the baseline we hold ourselves to on every single engagement.</p>
+        <div class="base-grid">
+          <div class="base-item">
+            <div class="base-item-icon">📊</div>
+            <div><div class="base-item-text">Weekly Reports</div><div class="base-item-sub">Real numbers tied to leads and revenue — not impressions</div></div>
+          </div>
+          <div class="base-item">
+            <div class="base-item-icon">🤖</div>
+            <div><div class="base-item-text">AI Agent Stack</div><div class="base-item-sub">Automated monitoring, alerts, and ops running 24/7</div></div>
+          </div>
+          <div class="base-item">
+            <div class="base-item-icon">🔒</div>
+            <div><div class="base-item-text">No Long-Term Lock-In</div><div class="base-item-sub">3-month minimum, then month-to-month on your terms</div></div>
+          </div>
+          <div class="base-item">
+            <div class="base-item-icon">📬</div>
+            <div><div class="base-item-text">Direct Access</div><div class="base-item-sub">Email Tyler directly — no account managers, no ticketing</div></div>
+          </div>
+          <div class="base-item">
+            <div class="base-item-icon">🎯</div>
+            <div><div class="base-item-text">Data-Led Decisions</div><div class="base-item-sub">Every budget move, creative swap, and audience change is backed by numbers</div></div>
+          </div>
+          <div class="base-item">
+            <div class="base-item-icon">🔄</div>
+            <div><div class="base-item-text">Always Testing</div><div class="base-item-sub">New creatives, new angles, new audiences — we never let campaigns go stale</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────────── -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-intro">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Common Questions</span></div>
+          <h2>Answers Before You Ask</h2>
+          <p>If you have a question not covered here, book a call — we'll answer everything on the spot.</p>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-q">Is the ad spend included in the price?</div>
+            <div class="faq-a">No — ad spend is separate and paid directly to Meta (Facebook/Instagram). Our fee covers strategy, creation, and management. This is standard across every agency. We recommend <strong>$1,000/mo minimum</strong> on Launch and <strong>$2,000/mo minimum</strong> on Scale to give campaigns enough data to optimize properly.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Why is there a 3-month minimum?</div>
+            <div class="faq-a">Because ads take time to work. The first 30 days are data collection. Days 30–60 are optimization. Days 60–90 are when things compound. Agencies that let you cancel after 30 days are setting you up to quit right before results hit. <strong>We require 3 months</strong> because we're serious about delivering them.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What happens after the 3-month minimum?</div>
+            <div class="faq-a">It goes month-to-month. No contracts, no auto-renewals to fight, no retention tactics. If you want to stay, great. If not, we'll give you a clean handoff with all your assets, logins, and campaign data. <strong>Most clients stay 12+ months</strong> because results compound over time.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How quickly will I see results?</div>
+            <div class="faq-a">Realistically — <strong>first leads in weeks 2–3</strong>. Consistent, optimized flow by month 2. Compounding results by month 3. The email case study ($24,800 in under 4 months) started generating revenue within the first month. Paid ads typically show initial signal within 14 days of launch.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Do you work with businesses outside of healthcare?</div>
+            <div class="faq-a">Yes. Healthcare is a specialty, but the systems work across any industry — e-commerce, local services, SaaS, and professional services. The funnel architecture, email automation, and AI agent stack are industry-agnostic. <strong>If you sell something people want, we can scale it.</strong></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What's the Foundation package actually for?</div>
+            <div class="faq-a">It's for brands that aren't ready to commit to a retainer yet but want to see exactly what the opportunity looks like before spending on ads. You get a full audit, competitor breakdown, and custom growth blueprint. <strong>The $997 applies toward any monthly plan</strong> — so it's never money wasted.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What exactly are the AI agents doing?</div>
+            <div class="faq-a">Running in the background 24/7: monitoring ad performance, flagging budget issues, detecting creative fatigue, syncing dashboards, tracking competitors, routing leads, and triggering alerts the moment something needs attention. This replaces <strong>$3,000–8,000/month</strong> in labor most agencies charge you for.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I start with Foundation and upgrade?</div>
+            <div class="faq-a">That's exactly what it's designed for. You get the blueprint, see the opportunity clearly, and make an informed decision about which retainer tier fits your goals. We'll credit the $997 toward your first month. <strong>Most Foundation clients upgrade within 2 weeks.</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────────── -->
+    <div class="cta-strip">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Ready to Start</span></div>
+        <h2>Not Sure Which Plan Is Right?<br>Let's Figure It Out Together.</h2>
+        <p>Book a free 20-minute strategy call. We'll look at your current setup, identify your biggest opportunity, and recommend the right starting point — no pressure, no pitch.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book a Free Strategy Call</a>
+          <a href="/work.html" class="btn btn-secondary" style="height:48px;">See Our Work First</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <!-- ── QUIZ MODAL ─────────────────────────────────────────── -->
+  <div class="quiz-overlay" id="quiz-overlay" role="dialog" aria-modal="true" aria-label="Free Growth Audit">
+    <div class="quiz-modal">
+      <div class="quiz-header">
+        <button class="quiz-close" id="quiz-close" aria-label="Close">✕</button>
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-label" id="quiz-progress-label">Takes about 1 minute</div>
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="quiz-eyebrow">Free Growth Audit</div>
+        <h2 id="quiz-header-title">Find Out What's Holding Your Brand Back</h2>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-step active" data-step="0">
+          <div class="quiz-intro">
+            <div class="quiz-intro-icon">📋</div>
+            <h3>Get Your Free Growth Blueprint</h3>
+            <p>Answer 4 quick questions and we'll build you a custom growth plan — specific to your business type, budget, and biggest challenge.</p>
+            <div class="quiz-deliverable">
+              <div class="quiz-deliverable-label">You'll receive</div>
+              <ul>
+                <li>A personalized Meta ads strategy for your industry</li>
+                <li>The exact email sequences we use to convert leads</li>
+                <li>A breakdown of where your biggest revenue leaks are</li>
+                <li>Recommended budget allocation based on your goals</li>
+              </ul>
+            </div>
+            <div class="quiz-footer"><div class="quiz-footer-right"><button class="btn-quiz-next" id="quiz-start">Start Free Audit →</button></div></div>
+          </div>
+        </div>
+        <div class="quiz-step" data-step="1">
+          <p class="quiz-q">What type of business do you run?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="1" data-val="healthcare"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏥</span>Healthcare / Medical Practice</div>
+            <div class="quiz-option" data-q="1" data-val="ecommerce"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🛍️</span>E-Commerce / DTC Brand</div>
+            <div class="quiz-option" data-q="1" data-val="local"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📍</span>Local / Service Business</div>
+            <div class="quiz-option" data-q="1" data-val="saas"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💻</span>SaaS / B2B</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="2">
+          <p class="quiz-q">What's your biggest marketing challenge right now?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="2" data-val="not-enough-leads"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📉</span>Not enough leads coming in</div>
+            <div class="quiz-option" data-q="2" data-val="not-converting"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🔄</span>Leads aren't converting to customers</div>
+            <div class="quiz-option" data-q="2" data-val="too-expensive"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💸</span>Marketing costs too much for the results I'm getting</div>
+            <div class="quiz-option" data-q="2" data-val="no-system"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🧩</span>I don't have a real system — everything feels scattered</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="3">
+          <p class="quiz-q">What's your monthly revenue goal from marketing?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="3" data-val="under-10k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🌱</span>Under $10K/month</div>
+            <div class="quiz-option" data-q="3" data-val="10k-50k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📈</span>$10K – $50K/month</div>
+            <div class="quiz-option" data-q="3" data-val="50k-200k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🚀</span>$50K – $200K/month</div>
+            <div class="quiz-option" data-q="3" data-val="200k+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏆</span>$200K+/month</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="4">
+          <p class="quiz-q">What's your current monthly marketing budget?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="4" data-val="under-1k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>Under $1,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="1k-3k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$1,000 – $3,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="3k-10k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$3,000 – $10,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="10k+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$10,000+/month</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="5">
+          <div class="quiz-capture">
+            <h3>Where should we send your Blueprint?</h3>
+            <p>Your personalized Growth Blueprint is ready. Enter your details and we'll send it straight to your inbox — plus a quick note from Tyler with your top recommended next step.</p>
+            <div class="quiz-field"><label for="quiz-name">First Name</label><input type="text" id="quiz-name" placeholder="Your name" autocomplete="given-name" /></div>
+            <div class="quiz-field"><label for="quiz-email">Email Address</label><input type="email" id="quiz-email" placeholder="you@yourbusiness.com" autocomplete="email" /></div>
+            <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next" id="quiz-submit">Send My Blueprint →</button></div></div>
+            <p class="quiz-privacy">🔒 No spam, ever. Unsubscribe anytime.</p>
+          </div>
+        </div>
+        <div class="quiz-step" data-step="6">
+          <div class="quiz-thanks">
+            <div class="quiz-thanks-icon">🎉</div>
+            <h3>Your Blueprint is On Its Way!</h3>
+            <p>Check your inbox in the next few minutes. Tyler will personally review your answers and send over your custom Growth Blueprint.</p>
+            <p style="font-size:.875rem;color:var(--gray-400);">Want to skip the wait? Book a free 20-minute strategy call and we'll walk through your growth plan live.</p>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;display:inline-flex;align-items:center;">Book a Free Strategy Call</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/quiz.js"></script>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+  <script src="/nav.js"></script>
+</body>
+</html>

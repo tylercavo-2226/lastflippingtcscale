@@ -10,49 +10,418 @@
   <link rel="stylesheet" href="/style.css" />
   <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
   <style>
-    .case-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5rem;
-      padding: 64px 0 96px;
-    }
-    .case-card {
-      background: var(--white); border: 1px solid var(--gray-100);
-      border-radius: var(--radius); box-shadow: 0 2px 16px rgba(0,0,0,.05);
+
+    /* ── FEATURED CASE STUDY HERO ─────────────────────────────── */
+    .case-hero {
+      background: var(--navy-deep);
+      padding: 80px 0 0;
       overflow: hidden;
-      transition: transform .2s, box-shadow .2s, border-left .15s;
     }
-    .case-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.1); border-left: 3px solid var(--navy); }
-    html.dark .case-card { background: var(--dm-surface); border-color: var(--dm-border); }
-    html.dark .case-card:hover { border-left-color: var(--electric); }
+    .case-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 860px) { .case-hero-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
 
-    .case-thumb {
-      height: 160px; display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem; background: var(--off-white);
+    .case-hero-copy .case-tag-featured {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(200,169,110,.15); border: 1px solid rgba(200,169,110,.3);
+      color: var(--gold); font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+      padding: .35rem .75rem; border-radius: 99px; margin-bottom: 1.25rem;
+    }
+    .case-hero-copy h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.15; margin-bottom: 1.25rem;
+      letter-spacing: -.03em;
+    }
+    .case-hero-copy h2 span { color: var(--gold); }
+    .case-hero-copy p {
+      font-size: 1rem; color: var(--dm-subtle);
+      line-height: 1.75; margin-bottom: 1.75rem;
+    }
+
+    .hero-revenue-block {
+      display: flex; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .hero-rev-main .num {
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      font-weight: 700; color: var(--gold);
+      letter-spacing: -.05em; line-height: 1;
+    }
+    .hero-rev-main .lbl {
+      font-size: .8rem; color: rgba(255,255,255,.5);
+      text-transform: uppercase; letter-spacing: .08em;
+      margin-top: .375rem;
+    }
+    .hero-rev-split {
+      display: flex; flex-direction: column; gap: .75rem;
+      padding-left: 1.5rem;
+      border-left: 1px solid rgba(255,255,255,.12);
+    }
+    .rev-split-item .s-num { font-size: 1.375rem; font-weight: 700; color: var(--white); line-height: 1; }
+    .rev-split-item .s-lbl { font-size: .72rem; color: rgba(255,255,255,.45); margin-top: .15rem; }
+
+    /* Stats band below hero copy */
+    .case-stats-row {
+      display: flex; gap: 0;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .cs-stat {
+      flex: 1; padding: 1.25rem 1rem; text-align: center;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .cs-stat:last-child { border-right: none; }
+    .cs-stat .s-num { font-size: 1.5rem; font-weight: 700; color: var(--white); line-height: 1; }
+    .cs-stat .s-num.gold { color: var(--gold); }
+    .cs-stat .s-num.electric { color: var(--electric); }
+    .cs-stat .s-lbl { font-size: .68rem; color: rgba(255,255,255,.45); margin-top: .25rem; text-transform: uppercase; letter-spacing: .07em; }
+    .cs-stat .s-verdict { font-size: .68rem; color: #4ade80; font-weight: 700; margin-top: .2rem; }
+
+    /* Panel on right side */
+    .case-hero-panel {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .panel-header {
+      background: rgba(200,169,110,.12);
+      border-bottom: 1px solid rgba(200,169,110,.2);
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .panel-header-icon { font-size: 1.25rem; }
+    .panel-header-title { font-size: .9375rem; font-weight: 700; color: var(--white); }
+    .panel-header-sub { font-size: .78rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
+
+    .panel-table { width: 100%; }
+    .pt-row {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .pt-row:last-child { border-bottom: none; }
+    .pt-cell {
+      padding: .875rem 1rem; font-size: .8125rem;
+      color: rgba(255,255,255,.7);
+    }
+    .pt-row.header .pt-cell {
+      font-size: .65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .09em; color: rgba(255,255,255,.35);
+      padding-top: .75rem; padding-bottom: .75rem;
+    }
+    .pt-cell.highlight { color: var(--white); font-weight: 600; }
+    .pt-cell.green { color: #4ade80; font-weight: 700; }
+    .pt-cell.gold-c { color: var(--gold); font-weight: 700; }
+
+    /* Flow breakdown */
+    .flow-breakdown {
+      background: rgba(255,255,255,.03);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 1.25rem 1.5rem;
+    }
+    .flow-bd-title { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.35); margin-bottom: 1rem; }
+    .flow-items { display: flex; flex-direction: column; gap: .625rem; }
+    .flow-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .75rem 1rem;
+      background: rgba(255,255,255,.04); border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .flow-item-left { display: flex; align-items: center; gap: .75rem; }
+    .flow-icon { font-size: 1rem; }
+    .flow-name { font-size: .875rem; color: var(--white); font-weight: 600; }
+    .flow-desc { font-size: .72rem; color: rgba(255,255,255,.4); margin-top: .1rem; }
+    .flow-rev { font-size: 1rem; font-weight: 700; color: var(--gold); }
+    .flow-badge {
+      font-size: .62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; padding: .2rem .5rem; border-radius: 99px;
+    }
+    .flow-badge.auto { background: rgba(74,144,217,.15); color: var(--electric); }
+    .flow-badge.campaign { background: rgba(200,169,110,.12); color: var(--gold); }
+
+    /* Bottom ribbon of hero */
+    .case-hero-ribbon {
+      background: rgba(200,169,110,.08);
+      border-top: 1px solid rgba(200,169,110,.15);
+      padding: 1rem 0;
+      margin-top: 4rem;
+    }
+    .ribbon-inner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 2.5rem; flex-wrap: wrap;
+    }
+    .ribbon-item {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .8125rem; color: rgba(255,255,255,.6);
+    }
+    .ribbon-item span { color: var(--gold); font-weight: 700; }
+
+    /* ── WHAT DROVE RESULTS ───────────────────────────────────── */
+    .drivers-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .drivers-section { background: var(--dm-bg); }
+    .drivers-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem; margin-top: 2.5rem;
+    }
+    .driver-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    }
+    html.dark .driver-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    .driver-num {
+      font-size: 2rem; font-weight: 700; color: var(--navy);
+      letter-spacing: -.04em; line-height: 1; margin-bottom: .25rem;
+    }
+    html.dark .driver-num { color: var(--electric); }
+    .driver-card h3 { font-size: .9375rem; font-weight: 700; color: var(--charcoal); margin-bottom: .5rem; }
+    html.dark .driver-card h3 { color: var(--dm-text); }
+    .driver-card p { font-size: .875rem; color: var(--gray-600); line-height: 1.65; }
+    html.dark .driver-card p { color: var(--dm-subtle); }
+
+    /* ── VALUE COMPARISON ─────────────────────────────────────── */
+    .value-section { padding: var(--section-pad) 0; }
+    .value-intro {
+      max-width: 680px; margin: 0 auto; text-align: center; margin-bottom: 3rem;
+    }
+    .value-intro h2 { margin-bottom: 1rem; }
+    .value-intro p { font-size: 1.0625rem; color: var(--gray-600); line-height: 1.75; }
+    html.dark .value-intro p { color: var(--dm-subtle); }
+
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-bottom: 3rem;
+    }
+    @media (max-width: 700px) { .compare-grid { grid-template-columns: 1fr; } }
+
+    .compare-card {
+      border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--gray-100);
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    }
+    html.dark .compare-card { border-color: var(--dm-border); }
+    .compare-header {
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .compare-card.theirs .compare-header { background: var(--off-white); }
+    html.dark .compare-card.theirs .compare-header { background: var(--dm-bg); }
+    .compare-card.ours .compare-header { background: var(--navy-deep); }
+    .compare-header-icon { font-size: 1.5rem; }
+    .compare-header h3 {
+      font-size: 1rem; font-weight: 700;
+    }
+    .compare-card.theirs .compare-header h3 { color: var(--charcoal); }
+    html.dark .compare-card.theirs .compare-header h3 { color: var(--dm-text); }
+    .compare-card.ours .compare-header h3 { color: var(--white); }
+    .compare-header-price {
+      margin-left: auto; text-align: right;
+    }
+    .compare-header-price .big { font-size: 1.25rem; font-weight: 700; }
+    .compare-card.theirs .compare-header-price .big { color: #ef4444; }
+    .compare-card.ours .compare-header-price .big { color: var(--gold); }
+    .compare-header-price .per { font-size: .72rem; font-weight: 500; }
+    .compare-card.theirs .compare-header-price .per { color: var(--gray-400); }
+    .compare-card.ours .compare-header-price .per { color: rgba(255,255,255,.45); }
+
+    .compare-body { background: var(--white); padding: 0; }
+    html.dark .compare-body { background: var(--dm-surface); }
+    .compare-line {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: .875rem 1.5rem;
       border-bottom: 1px solid var(--gray-100);
+      gap: 1rem;
     }
-    html.dark .case-thumb { background: var(--dm-bg); border-bottom-color: var(--dm-border); }
-
-    .case-body { padding: 1.75rem; }
-    .case-tag {
-      font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--navy); margin-bottom: .625rem;
+    html.dark .compare-line { border-bottom-color: var(--dm-border); }
+    .compare-line:last-child { border-bottom: none; }
+    .compare-line-item {
+      font-size: .875rem; color: var(--charcoal); font-weight: 500;
+      display: flex; align-items: center; gap: .5rem;
     }
-    html.dark .case-tag { color: var(--electric); }
-    .case-body h3 { font-size: 1rem; font-weight: 700; color: var(--charcoal); margin-bottom: .625rem; line-height: 1.35; }
-    html.dark .case-body h3 { color: var(--dm-text); }
-    .case-body p { font-size: .875rem; color: var(--gray-600); line-height: 1.65; margin-bottom: 1.25rem; }
-    html.dark .case-body p { color: var(--dm-subtle); }
+    html.dark .compare-line-item { color: var(--dm-text); }
+    .compare-line-item .icon { font-size: .85rem; }
+    .compare-line-cost {
+      font-size: .875rem; font-weight: 700; white-space: nowrap;
+    }
+    .compare-card.theirs .compare-line-cost { color: #ef4444; }
+    .compare-card.ours .compare-line-cost { color: #22c55e; }
 
-    .case-metrics { display: flex; gap: 1.5rem; flex-wrap: wrap; border-top: 1px solid var(--gray-100); padding-top: 1.25rem; }
-    html.dark .case-metrics { border-top-color: var(--dm-border); }
-    .case-metric .num { font-size: 1.375rem; font-weight: 700; color: var(--navy); letter-spacing: -.03em; line-height: 1; }
-    html.dark .case-metric .num { color: var(--electric); }
-    .case-metric .lbl { font-size: .72rem; color: var(--gray-400); font-weight: 500; margin-top: .2rem; }
+    /* Full funnel includes badge */
+    .includes-band {
+      background: var(--navy-deep);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem; text-align: center;
+    }
+    .includes-band h3 { color: var(--white); font-size: 1.25rem; margin-bottom: .625rem; }
+    .includes-band p { color: var(--dm-subtle); margin-bottom: 2rem; font-size: .9375rem; }
+    .includes-chips {
+      display: flex; flex-wrap: wrap; gap: .625rem; justify-content: center;
+    }
+    .includes-chip {
+      display: inline-flex; align-items: center; gap: .375rem;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.85); font-size: .8125rem; font-weight: 600;
+      padding: .5rem 1rem; border-radius: 99px;
+    }
+    .includes-chip .chip-icon { font-size: .85rem; }
 
-    .cta-strip { background: var(--navy-deep); padding: 64px 0; text-align: center; }
+    /* ── AI AGENTS SECTION ────────────────────────────────────── */
+    .agents-section {
+      background: var(--navy-deep);
+      padding: var(--section-pad) 0;
+      position: relative; overflow: hidden;
+    }
+    .agents-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(74,144,217,.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .agents-intro {
+      max-width: 700px; text-align: center; margin: 0 auto 3.5rem;
+    }
+    .agents-intro h2 { color: var(--white); margin-bottom: 1rem; }
+    .agents-intro p { font-size: 1.0625rem; color: var(--dm-subtle); line-height: 1.75; }
+
+    /* Savings callout */
+    .agents-savings-row {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+    .savings-pill {
+      display: flex; align-items: center; gap: .625rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      min-width: 180px;
+    }
+    .savings-pill-icon { font-size: 1.5rem; }
+    .savings-pill-num { font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .savings-pill-lbl { font-size: .72rem; color: rgba(255,255,255,.45); margin-top: .15rem; text-transform: uppercase; letter-spacing: .06em; }
+
+    /* Agent category cards */
+    .agents-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem; margin-bottom: 3rem;
+    }
+    .agent-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .agent-card:hover {
+      border-color: rgba(74,144,217,.35);
+      transform: translateY(-3px);
+    }
+    .agent-card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: center; gap: .875rem;
+    }
+    .agent-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .agent-icon.client  { background: rgba(167,139,250,.15); }
+    .agent-icon.ads     { background: rgba(56,189,248,.15); }
+    .agent-icon.content { background: rgba(52,211,153,.15); }
+    .agent-icon.reports { background: rgba(244,114,182,.15); }
+    .agent-icon.ops     { background: rgba(251,146,60,.15); }
+    .agent-card-title { font-size: .9375rem; font-weight: 700; color: var(--white); }
+    .agent-card-sub { font-size: .72rem; color: rgba(255,255,255,.35); margin-top: .15rem; }
+
+    .agent-card-body { padding: 1rem 1.5rem 1.25rem; }
+    .agent-tasks { display: flex; flex-direction: column; gap: .5rem; }
+    .agent-task {
+      display: flex; align-items: flex-start; gap: .625rem;
+      font-size: .8125rem; color: rgba(255,255,255,.65); line-height: 1.45;
+    }
+    .agent-task::before {
+      content: "→"; color: var(--electric); font-weight: 700; font-size: .75rem;
+      flex-shrink: 0; margin-top: .05rem;
+    }
+
+    /* Autopilot quote */
+    .agents-quote {
+      max-width: 760px; margin: 0 auto;
+      background: rgba(200,169,110,.08);
+      border: 1px solid rgba(200,169,110,.2);
+      border-radius: var(--radius-lg); padding: 2.5rem;
+      text-align: center;
+    }
+    .agents-quote blockquote {
+      font-size: 1.125rem; color: rgba(255,255,255,.85); line-height: 1.75;
+      font-style: italic; margin-bottom: 1.25rem;
+    }
+    .agents-quote cite { font-size: .8125rem; color: var(--gold); font-style: normal; font-weight: 700; }
+
+    /* ── CAPABILITIES STRIP ───────────────────────────────────── */
+    .capabilities-section { padding: var(--section-pad) 0; background: var(--off-white); }
+    html.dark .capabilities-section { background: var(--dm-bg); }
+    .cap-intro { text-align: center; max-width: 640px; margin: 0 auto 3rem; }
+    .cap-intro h2 { margin-bottom: 1rem; }
+    .cap-intro p { font-size: 1rem; color: var(--gray-600); line-height: 1.7; }
+    html.dark .cap-intro p { color: var(--dm-subtle); }
+
+    .funnel-visual {
+      max-width: 900px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .funnel-stage {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
+      margin-bottom: 0;
+    }
+    @media (max-width: 640px) { .funnel-stage { grid-template-columns: 1fr; } }
+    .funnel-label {
+      background: var(--navy-deep);
+      border-radius: var(--radius);
+      padding: 1.25rem .875rem;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .375rem;
+    }
+    .funnel-label-icon { font-size: 1.4rem; }
+    .funnel-label-text { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.6); line-height: 1.3; }
+
+    .funnel-cards {
+      display: flex; gap: .75rem; flex-wrap: wrap; align-items: stretch;
+    }
+    .funnel-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1rem 1.25rem;
+      flex: 1; min-width: 140px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    html.dark .funnel-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    .funnel-card-icon { font-size: 1.1rem; margin-bottom: .375rem; }
+    .funnel-card-title { font-size: .8125rem; font-weight: 700; color: var(--charcoal); }
+    html.dark .funnel-card-title { color: var(--dm-text); }
+    .funnel-card-desc { font-size: .72rem; color: var(--gray-600); line-height: 1.55; margin-top: .25rem; }
+    html.dark .funnel-card-desc { color: var(--dm-subtle); }
+
+    .funnel-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding: .375rem 0;
+      color: var(--gold); font-size: 1.25rem;
+    }
+
+    /* ── CTA ─────────────────────────────────────────────────── */
+    .cta-strip { background: var(--navy-deep); padding: 80px 0; text-align: center; }
     .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
-    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; max-width: 540px; margin-left: auto; margin-right: auto; }
     .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
     .cta-strip .btn-primary:hover { background: var(--off-white); }
     .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
@@ -68,12 +437,14 @@
         <nav><ul class="nav-links">
           <li><a href="/services.html">Services</a></li>
           <li><a href="/work.html" class="active">Our Work</a></li>
-          <li><a href="/results.html">Results</a></li>
-          <li><a href="/reviews.html">Reviews</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/process.html">How It Works</a></li>
         </ul></nav>
         <div class="nav-actions">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <button class="btn-quiz-trigger" id="quiz-trigger">Free Growth Audit</button>
           <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
       </div>
     </div>
@@ -81,114 +452,606 @@
 
   <div class="page-hero">
     <div class="container">
-      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Case Studies</span></div>
-      <h1>Work That Speaks<br>for Itself</h1>
-      <p>Real campaigns, real results. Explore how we've helped brands across every vertical scale profitably with Meta ads.</p>
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">Case Studies & Work</span></div>
+      <h1>Real Systems.<br>Real Revenue.</h1>
+      <p>No hypotheticals. No inflated numbers. Just documented results from real clients — built with the same frameworks we'll apply to your brand.</p>
     </div>
   </div>
 
   <main>
-    <div class="container">
-      <div class="case-grid">
 
-        <div class="case-card">
-          <div class="case-thumb">🏥</div>
-          <div class="case-body">
-            <div class="case-tag">Medical Practice · Lead Gen</div>
-            <h3>Orthopedic Clinic — 47 New Patients/Month</h3>
-            <p>A 3-location orthopedic practice needed to fill their appointment book. We built a Meta funnel + Klaviyo automation that delivers 47+ qualified new patients per month.</p>
-            <div class="case-metrics">
-              <div class="case-metric"><div class="num">$6.80</div><div class="lbl">Cost per lead</div></div>
-              <div class="case-metric"><div class="num">94%</div><div class="lbl">Show rate</div></div>
-              <div class="case-metric"><div class="num">14d</div><div class="lbl">To launch</div></div>
+    <!-- ── FEATURED CASE STUDY ──────────────────────────────────── -->
+    <section class="case-hero">
+      <div class="container">
+        <div class="case-hero-inner">
+
+          <div class="case-hero-copy">
+            <div class="case-tag-featured">📧 Featured Case Study · Email Marketing</div>
+            <h2>From Zero to <span>$24,800</span><br>in Under 4 Months — With<br>No Paid Ads</h2>
+            <p>A board-certified physician running a 3-location practice had 100 organic leads coming in every month — and zero infrastructure to convert them. No welcome sequences. No nurture flows. No campaigns. Just a Klaviyo account sitting completely unused.</p>
+            <p>We built the entire email + SMS system from scratch. In under 4 months, it generated <strong style="color:var(--gold);">$24,800 in directly attributed revenue</strong> — and the automated flows now run 24/7 without lifting a finger.</p>
+
+            <div class="hero-revenue-block">
+              <div class="hero-rev-main">
+                <div class="num">$24,800</div>
+                <div class="lbl">Total Attributed Revenue</div>
+              </div>
+              <div class="hero-rev-split">
+                <div class="rev-split-item">
+                  <div class="s-num">$21,185</div>
+                  <div class="s-lbl">Broadcast campaign revenue</div>
+                </div>
+                <div class="rev-split-item">
+                  <div class="s-num">$3,615</div>
+                  <div class="s-lbl">Automated flow revenue (runs forever)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-stats-row">
+              <div class="cs-stat">
+                <div class="s-num gold">56.8%</div>
+                <div class="s-lbl">Open Rate</div>
+                <div class="s-verdict">2.3× industry avg</div>
+              </div>
+              <div class="cs-stat">
+                <div class="s-num electric">13.7%</div>
+                <div class="s-lbl">SMS Click Rate</div>
+                <div class="s-verdict">Up to 7× better</div>
+              </div>
+              <div class="cs-stat">
+                <div class="s-num">201K+</div>
+                <div class="s-lbl">People Reached</div>
+                <div class="s-verdict">Full list activated</div>
+              </div>
+              <div class="cs-stat">
+                <div class="s-num gold">$58.60</div>
+                <div class="s-lbl">Avg Order Value</div>
+                <div class="s-verdict">Above avg ↑</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-hero-panel">
+            <div class="panel-header">
+              <div class="panel-header-icon">📊</div>
+              <div>
+                <div class="panel-header-title">Performance vs. Industry Benchmarks</div>
+                <div class="panel-header-sub">Northeast U.S. Medical Practice · Klaviyo</div>
+              </div>
+            </div>
+            <div class="panel-table">
+              <div class="pt-row header">
+                <div class="pt-cell">Metric</div>
+                <div class="pt-cell">This Practice</div>
+                <div class="pt-cell">Industry Avg</div>
+                <div class="pt-cell">Verdict</div>
+              </div>
+              <div class="pt-row">
+                <div class="pt-cell">Email Open Rate</div>
+                <div class="pt-cell highlight">56.8%</div>
+                <div class="pt-cell">20–25%</div>
+                <div class="pt-cell green">2.3× better ↑</div>
+              </div>
+              <div class="pt-row">
+                <div class="pt-cell">SMS Click Rate</div>
+                <div class="pt-cell highlight">13.7%</div>
+                <div class="pt-cell">2–5%</div>
+                <div class="pt-cell green">Up to 7× better ↑</div>
+              </div>
+              <div class="pt-row">
+                <div class="pt-cell">Email Click Rate</div>
+                <div class="pt-cell highlight">0.844%</div>
+                <div class="pt-cell">0.5–1%</div>
+                <div class="pt-cell green">Top of range ↑</div>
+              </div>
+              <div class="pt-row">
+                <div class="pt-cell">Avg Order Value</div>
+                <div class="pt-cell highlight">$58.60</div>
+                <div class="pt-cell">$40–55</div>
+                <div class="pt-cell green">Above avg ↑</div>
+              </div>
+              <div class="pt-row">
+                <div class="pt-cell">Total Recipients</div>
+                <div class="pt-cell highlight">201K</div>
+                <div class="pt-cell">—</div>
+                <div class="pt-cell gold-c">Full list live ↑</div>
+              </div>
+            </div>
+
+            <div class="flow-breakdown">
+              <div class="flow-bd-title">Automated Flows Built</div>
+              <div class="flow-items">
+                <div class="flow-item">
+                  <div class="flow-item-left">
+                    <div class="flow-icon">🤖</div>
+                    <div>
+                      <div class="flow-name">Welcome & Nurture Sequence</div>
+                      <div class="flow-desc">Educates on insulin resistance, cortisol, metabolism</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;">
+                    <div class="flow-rev">$3,615</div>
+                    <div class="flow-badge auto">Autopilot</div>
+                  </div>
+                </div>
+                <div class="flow-item">
+                  <div class="flow-item-left">
+                    <div class="flow-icon">📣</div>
+                    <div>
+                      <div class="flow-name">Broadcast Campaign System</div>
+                      <div class="flow-desc">Consistent cadence driving supplement orders</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;">
+                    <div class="flow-rev">$21,185</div>
+                    <div class="flow-badge campaign">Campaigns</div>
+                  </div>
+                </div>
+                <div class="flow-item">
+                  <div class="flow-item-left">
+                    <div class="flow-icon">📲</div>
+                    <div>
+                      <div class="flow-name">SMS High-Intent Follow-Up</div>
+                      <div class="flow-desc">Short, direct, personal — highest CTR per send</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;">
+                    <div class="flow-rev">13.7% CTR</div>
+                    <div class="flow-badge auto">Autopilot</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-hero-ribbon">
+        <div class="container">
+          <div class="ribbon-inner">
+            <div class="ribbon-item">📍 Northeast U.S. · 3 Locations</div>
+            <div class="ribbon-item">⏱ <span>Under 4 months</span> to $24,800</div>
+            <div class="ribbon-item">💸 <span>$0</span> in paid ad spend</div>
+            <div class="ribbon-item">🔄 Flows still earning <span>on autopilot</span></div>
+            <div class="ribbon-item">🩺 Doctor-led practice</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHAT DROVE THE RESULTS ────────────────────────────── -->
+    <section class="drivers-section">
+      <div class="container">
+        <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">The Breakdown</span></div>
+        <h2>Why These Numbers Hit Different</h2>
+        <div class="drivers-grid">
+          <div class="driver-card">
+            <div class="driver-num">56.8%</div>
+            <h3>Open Rate — Not a Typo</h3>
+            <p>Industry average is 20–25%. We hit 56.8% by writing every email like it came from a person, not a brand. Education-first messaging and authority positioning made the doctor's emails something patients actually looked forward to.</p>
+          </div>
+          <div class="driver-card">
+            <div class="driver-num">7×</div>
+            <h3>SMS Performance</h3>
+            <p>A 13.7% SMS click rate — up to 7× the industry benchmark — because we used SMS correctly: short, personal, high-intent only. No spam, no noise. Just perfectly timed messages that feel like a direct text from the doctor.</p>
+          </div>
+          <div class="driver-card">
+            <div class="driver-num">$0</div>
+            <h3>Ad Spend Required</h3>
+            <p>Every dollar of revenue came from the existing list. 100 warm organic leads were already coming in every month — they just had no system to receive them. We built that system. The money was already there.</p>
+          </div>
+          <div class="driver-card">
+            <div class="driver-num">∞</div>
+            <h3>Flows That Never Stop</h3>
+            <p>The $3,615 in flow revenue isn't a one-time number — it compounds. Every new lead enters the same automated sequence and goes through the same journey. It earns while the doctor sees patients.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VALUE COMPARISON ──────────────────────────────────── -->
+    <section class="value-section">
+      <div class="container">
+        <div class="value-intro">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">The Real Cost of Marketing</span></div>
+          <h2>What Everyone Else Charges for What We Do</h2>
+          <p>Most businesses don't realize how expensive it is to build a real marketing operation — until they try to price it out. Here's the honest math.</p>
+        </div>
+
+        <div class="compare-grid">
+          <!-- THEIRS -->
+          <div class="compare-card theirs">
+            <div class="compare-header">
+              <div class="compare-header-icon">🏢</div>
+              <div>
+                <h3>Traditional Agency or In-House Team</h3>
+              </div>
+              <div class="compare-header-price">
+                <div class="big">$15K–$40K</div>
+                <div class="per">per month</div>
+              </div>
+            </div>
+            <div class="compare-body">
+              <div class="compare-line">
+                <div class="compare-line-item"><span class="icon">📊</span>Paid Ads Manager (salary or agency)</div>
+                <div class="compare-line-cost">$4,000–$8,000/mo</div>
+              </div>
+              <div class="compare-line">
+                <div class="compare-line-item"><span class="icon">📧</span>Email Marketing Specialist</div>
+                <div class="compare-line-cost">$3,000–$8,000/mo</div>
+              </div>
+              <div class="compare-line">
+                <div class="compare-line-item"><span class="icon">✍️</span>Copywriter</div>
+                <div class="compare-line-cost">$2,000–$5,000/mo</div>
+              </div>
+              <div class="compare-line">
+                <div class="compare-line-item"><span class="icon">🎨</span>Creative/Designer</div>
+                <div class="compare-line-cost">$3,000–$6,000/mo</div>
+              </div>
+              <div class="compare-line">
+                <div class="compare-line-item"><span class="icon">🌐</span>Web Designer (landing pages)</div>
+                <div class="compare-line-cost">$5,000–$15,000 flat</div>
+              </div>
+              <div class="compare-line">
+                <div class="compare-line-item"><span class="icon">📈</span>Strategist / Account Manager</div>
+                <div class="compare-line-cost">$3,000–$7,000/mo</div>
+              </div>
+              <div class="compare-line">
+                <div class="compare-line-item"><span class="icon">🤝</span>Agency Retainer (full service)</div>
+                <div class="compare-line-cost">$5,000–$15,000/mo</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OURS -->
+          <div class="compare-card ours">
+            <div class="compare-header">
+              <div class="compare-header-icon">⚡</div>
+              <div>
+                <h3 style="color:var(--white);">TC Scales — Full Growth Stack</h3>
+              </div>
+              <div class="compare-header-price">
+                <div class="big">Fraction of That</div>
+                <div class="per">everything included</div>
+              </div>
+            </div>
+            <div class="compare-body" style="background:rgba(255,255,255,.03);">
+              <div class="compare-line" style="border-bottom-color:rgba(255,255,255,.07);">
+                <div class="compare-line-item" style="color:rgba(255,255,255,.85);"><span class="icon">📊</span>Meta ads strategy + campaign management</div>
+                <div class="compare-line-cost">✓ Included</div>
+              </div>
+              <div class="compare-line" style="border-bottom-color:rgba(255,255,255,.07);">
+                <div class="compare-line-item" style="color:rgba(255,255,255,.85);"><span class="icon">📧</span>Full email system — flows, campaigns, SMS</div>
+                <div class="compare-line-cost">✓ Included</div>
+              </div>
+              <div class="compare-line" style="border-bottom-color:rgba(255,255,255,.07);">
+                <div class="compare-line-item" style="color:rgba(255,255,255,.85);"><span class="icon">✍️</span>Conversion copywriting for every touchpoint</div>
+                <div class="compare-line-cost">✓ Included</div>
+              </div>
+              <div class="compare-line" style="border-bottom-color:rgba(255,255,255,.07);">
+                <div class="compare-line-item" style="color:rgba(255,255,255,.85);"><span class="icon">🌐</span>Landing pages &amp; full website design</div>
+                <div class="compare-line-cost">✓ Included</div>
+              </div>
+              <div class="compare-line" style="border-bottom-color:rgba(255,255,255,.07);">
+                <div class="compare-line-item" style="color:rgba(255,255,255,.85);"><span class="icon">🔁</span>End-to-end funnel build — top to bottom</div>
+                <div class="compare-line-cost">✓ Included</div>
+              </div>
+              <div class="compare-line" style="border-bottom-color:rgba(255,255,255,.07);">
+                <div class="compare-line-item" style="color:rgba(255,255,255,.85);"><span class="icon">🤖</span>AI agent stack — automates your operations</div>
+                <div class="compare-line-cost">✓ Included</div>
+              </div>
+              <div class="compare-line" style="border-bottom-color:rgba(255,255,255,.07);">
+                <div class="compare-line-item" style="color:rgba(255,255,255,.85);"><span class="icon">📋</span>Weekly reports + direct strategy access</div>
+                <div class="compare-line-cost">✓ Included</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="case-card">
-          <div class="case-thumb">🛍️</div>
-          <div class="case-body">
-            <div class="case-tag">E-Commerce · ROAS Growth</div>
-            <h3>DTC Skincare Brand — 1.8× to 4.2× ROAS in 90 Days</h3>
-            <p>A DTC skincare brand plateauing at 1.8× ROAS. We overhauled their creative strategy, restructured Meta campaigns, and built Klaviyo flows that pushed ROAS to 4.2× in 90 days.</p>
-            <div class="case-metrics">
-              <div class="case-metric"><div class="num">4.2×</div><div class="lbl">ROAS achieved</div></div>
-              <div class="case-metric"><div class="num">-38%</div><div class="lbl">CAC reduction</div></div>
-              <div class="case-metric"><div class="num">90d</div><div class="lbl">Timeline</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-thumb">💻</div>
-          <div class="case-body">
-            <div class="case-tag">SaaS · Lead Gen</div>
-            <h3>B2B SaaS Startup — 60% Drop in Cost per Lead</h3>
-            <p>A SaaS startup paying $280 per qualified demo booking. We rebuilt their Meta funnel with new creative angles and retargeting sequences, cutting CPL by 60% in the first month.</p>
-            <div class="case-metrics">
-              <div class="case-metric"><div class="num">-60%</div><div class="lbl">Cost per lead</div></div>
-              <div class="case-metric"><div class="num">3×</div><div class="lbl">Demo volume</div></div>
-              <div class="case-metric"><div class="num">30d</div><div class="lbl">To result</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-thumb">🔄</div>
-          <div class="case-body">
-            <div class="case-tag">E-Commerce · Retargeting</div>
-            <h3>Fashion Brand — 3× Retargeting Conversion Rate</h3>
-            <p>A fashion brand with massive traffic but poor conversion. We built a 7-day sequential retargeting system that tripled their conversion rate and recovered 40% of abandoned carts.</p>
-            <div class="case-metrics">
-              <div class="case-metric"><div class="num">3×</div><div class="lbl">Retargeting CVR</div></div>
-              <div class="case-metric"><div class="num">40%</div><div class="lbl">Carts recovered</div></div>
-              <div class="case-metric"><div class="num">7d</div><div class="lbl">Window</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-thumb">📦</div>
-          <div class="case-body">
-            <div class="case-tag">DTC · Scale</div>
-            <h3>Supplement Brand — $0 to $500K/Mo in 6 Months</h3>
-            <p>A new supplement brand launching from zero. We built their entire paid social infrastructure from scratch, reaching $500K/mo in revenue in 6 months.</p>
-            <div class="case-metrics">
-              <div class="case-metric"><div class="num">$500K</div><div class="lbl">Monthly revenue</div></div>
-              <div class="case-metric"><div class="num">6mo</div><div class="lbl">Timeline</div></div>
-              <div class="case-metric"><div class="num">3.8×</div><div class="lbl">ROAS maintained</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="case-card">
-          <div class="case-thumb">🏠</div>
-          <div class="case-body">
-            <div class="case-tag">Home Services · Lead Gen</div>
-            <h3>HVAC Company — 120 Qualified Leads/Month</h3>
-            <p>A regional HVAC company relying on word-of-mouth. We launched a Meta lead gen campaign with CRM integration, delivering 120+ qualified service calls per month at under $12 per lead.</p>
-            <div class="case-metrics">
-              <div class="case-metric"><div class="num">120+</div><div class="lbl">Leads/month</div></div>
-              <div class="case-metric"><div class="num">$11.40</div><div class="lbl">Cost per lead</div></div>
-              <div class="case-metric"><div class="num">2×</div><div class="lbl">Revenue growth</div></div>
-            </div>
+        <div class="includes-band">
+          <h3>We Build the Entire Funnel. From First Click to Closed Sale.</h3>
+          <p>Most agencies hand you one piece of the puzzle. We deliver the whole machine — ads, pages, emails, automations, and design all working together.</p>
+          <div class="includes-chips">
+            <div class="includes-chip"><span class="chip-icon">🎯</span>Meta Ad Campaigns</div>
+            <div class="includes-chip"><span class="chip-icon">🌐</span>Website Design</div>
+            <div class="includes-chip"><span class="chip-icon">📄</span>Landing Page Build</div>
+            <div class="includes-chip"><span class="chip-icon">📧</span>Email Flows &amp; Sequences</div>
+            <div class="includes-chip"><span class="chip-icon">📲</span>SMS Marketing</div>
+            <div class="includes-chip"><span class="chip-icon">✍️</span>Ad Copywriting</div>
+            <div class="includes-chip"><span class="chip-icon">🎨</span>Creative Strategy</div>
+            <div class="includes-chip"><span class="chip-icon">🔁</span>Retargeting Systems</div>
+            <div class="includes-chip"><span class="chip-icon">🤖</span>AI Agent Automations</div>
+            <div class="includes-chip"><span class="chip-icon">📊</span>Weekly Performance Reports</div>
+            <div class="includes-chip"><span class="chip-icon">📈</span>Funnel Optimization</div>
+            <div class="includes-chip"><span class="chip-icon">🧠</span>Ongoing Strategy</div>
           </div>
         </div>
 
       </div>
-    </div>
+    </section>
 
+    <!-- ── AI AGENTS SECTION ─────────────────────────────────── -->
+    <section class="agents-section">
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="agents-intro">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Built-In AI Agent Stack</span></div>
+          <h2>Your Marketing Operations — Running on Autopilot</h2>
+          <p>Every client engagement comes with a full suite of AI agents working behind the scenes. These aren't gimmicks — they're systems that eliminate hours of manual work every week, slash your overhead, and make your entire marketing operation faster and smarter.</p>
+        </div>
+
+        <div class="agents-savings-row">
+          <div class="savings-pill">
+            <div class="savings-pill-icon">⏱</div>
+            <div>
+              <div class="savings-pill-num">20+ hrs</div>
+              <div class="savings-pill-lbl">Saved per week</div>
+            </div>
+          </div>
+          <div class="savings-pill">
+            <div class="savings-pill-icon">💰</div>
+            <div>
+              <div class="savings-pill-num">$3,000+</div>
+              <div class="savings-pill-lbl">Labor cost replaced monthly</div>
+            </div>
+          </div>
+          <div class="savings-pill">
+            <div class="savings-pill-icon">🚀</div>
+            <div>
+              <div class="savings-pill-num">10×</div>
+              <div class="savings-pill-lbl">Faster execution</div>
+            </div>
+          </div>
+          <div class="savings-pill">
+            <div class="savings-pill-icon">🔄</div>
+            <div>
+              <div class="savings-pill-num">24/7</div>
+              <div class="savings-pill-lbl">Always on, never sleeps</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agents-grid">
+          <div class="agent-card">
+            <div class="agent-card-header">
+              <div class="agent-icon client">👥</div>
+              <div>
+                <div class="agent-card-title">Client Management Agents</div>
+                <div class="agent-card-sub">Onboarding · Retention · Communication</div>
+              </div>
+            </div>
+            <div class="agent-card-body">
+              <div class="agent-tasks">
+                <div class="agent-task">Auto-send intake forms, contracts &amp; welcome sequences when a new client signs</div>
+                <div class="agent-task">Trigger renewal reminders 30/60/90 days before contract end — never lose a client to silence</div>
+                <div class="agent-task">Auto-generate and deliver weekly + monthly performance reports from Meta</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-card-header">
+              <div class="agent-icon ads">📊</div>
+              <div>
+                <div class="agent-card-title">Ad Operations Agents</div>
+                <div class="agent-card-sub">Performance · Spend · Creative Alerts</div>
+              </div>
+            </div>
+            <div class="agent-card-body">
+              <div class="agent-tasks">
+                <div class="agent-task">Scheduled scripts that flag underperforming ads, budget pacing issues, or policy violations in real time</div>
+                <div class="agent-task">Ad fatigue detection — notifies when CTR drops or frequency spikes so creatives get refreshed before performance falls</div>
+                <div class="agent-task">Rules-based budget reallocation that shifts spend toward top performers automatically</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-card-header">
+              <div class="agent-icon content">✍️</div>
+              <div>
+                <div class="agent-card-title">Content Production Agents</div>
+                <div class="agent-card-sub">Calendars · Assets · Repurposing</div>
+              </div>
+            </div>
+            <div class="agent-card-body">
+              <div class="agent-tasks">
+                <div class="agent-task">Auto-populate content calendars from strategy docs using AI — months of content planned in minutes</div>
+                <div class="agent-task">When creative is approved, auto-send to client and upload to ad manager — zero manual handoff</div>
+                <div class="agent-task">Convert long-form content into short clips, captions, and carousels automatically</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-card-header">
+              <div class="agent-icon reports">📈</div>
+              <div>
+                <div class="agent-card-title">Reporting &amp; Analytics Agents</div>
+                <div class="agent-card-sub">Dashboards · Alerts · Competitor Intel</div>
+              </div>
+            </div>
+            <div class="agent-card-body">
+              <div class="agent-tasks">
+                <div class="agent-task">Pull data from Meta, email platforms &amp; CRM into a unified dashboard every day — always current</div>
+                <div class="agent-task">Instant Slack/email alert if CPA spikes, ROAS drops, or spend stops delivering — catch problems in hours, not weeks</div>
+                <div class="agent-task">Scheduled competitor ad library tracking so we always know what's working in your market</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-card-header">
+              <div class="agent-icon ops">⚙️</div>
+              <div>
+                <div class="agent-card-title">Agency Operations Agents</div>
+                <div class="agent-card-sub">Billing · Time · Lead Routing</div>
+              </div>
+            </div>
+            <div class="agent-card-body">
+              <div class="agent-tasks">
+                <div class="agent-task">Auto-create invoices when project milestones are hit — billing runs itself</div>
+                <div class="agent-task">Weekly time tracking summaries per client for billing accuracy and capacity planning</div>
+                <div class="agent-task">New inbound leads auto-assigned and routed based on industry and service type</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-card" style="border-color:rgba(200,169,110,.25);">
+            <div class="agent-card-header" style="border-bottom-color:rgba(200,169,110,.15);">
+              <div class="agent-icon" style="background:rgba(200,169,110,.15);">⚡</div>
+              <div>
+                <div class="agent-card-title" style="color:var(--gold);">The Real Advantage</div>
+                <div class="agent-card-sub">What this means for your business</div>
+              </div>
+            </div>
+            <div class="agent-card-body">
+              <div class="agent-tasks">
+                <div class="agent-task">A traditional agency runs on people — expensive, slow, and limited to 40 hours a week. Our agent stack runs 24/7.</div>
+                <div class="agent-task">Replacing these capabilities in-house would cost $3,000–$8,000/month in labor alone. You get it as part of your engagement.</div>
+                <div class="agent-task">Every automation compounds. The more we build, the more time and money you save — permanently.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agents-quote">
+          <blockquote>"Most medical practices are sitting on a goldmine they don't know they have. A warm list of leads, a trusted physician, and a clinically proven approach — combined with a properly built system — generates consistent, compounding revenue from a channel that costs next to nothing to run."</blockquote>
+          <cite>— Tyler, Founder · TC Scales</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FULL FUNNEL CAPABILITIES ──────────────────────────── -->
+    <section class="capabilities-section">
+      <div class="container">
+        <div class="cap-intro">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">How We Work</span></div>
+          <h2>The Complete Growth Funnel</h2>
+          <p>We don't hand you a set of ads and walk away. We build and manage every layer of your growth system — from the first impression to the closed sale and beyond.</p>
+        </div>
+
+        <div class="funnel-visual">
+
+          <div class="funnel-stage">
+            <div class="funnel-label">
+              <div class="funnel-label-icon">🎯</div>
+              <div class="funnel-label-text">Attract</div>
+            </div>
+            <div class="funnel-cards">
+              <div class="funnel-card">
+                <div class="funnel-card-icon">📣</div>
+                <div class="funnel-card-title">Meta Ad Campaigns</div>
+                <div class="funnel-card-desc">Scroll-stopping creative + copy targeting your exact customer on Facebook &amp; Instagram</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">🎨</div>
+                <div class="funnel-card-title">Creative Strategy</div>
+                <div class="funnel-card-desc">10+ new creatives tested per month — angles, hooks, formats, and visual concepts built to win</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">📝</div>
+                <div class="funnel-card-title">Ad Copywriting</div>
+                <div class="funnel-card-desc">Conversion-focused copy written for every audience segment and campaign objective</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="funnel-arrow">↓</div>
+
+          <div class="funnel-stage">
+            <div class="funnel-label">
+              <div class="funnel-label-icon">🌐</div>
+              <div class="funnel-label-text">Convert</div>
+            </div>
+            <div class="funnel-cards">
+              <div class="funnel-card">
+                <div class="funnel-card-icon">📄</div>
+                <div class="funnel-card-title">Landing Page Design</div>
+                <div class="funnel-card-desc">High-converting landing pages built specifically for each campaign and audience segment</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">🏠</div>
+                <div class="funnel-card-title">Website Design</div>
+                <div class="funnel-card-desc">Full website builds or redesigns that convert visitors — not just look good in a portfolio</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">📋</div>
+                <div class="funnel-card-title">Lead Capture Systems</div>
+                <div class="funnel-card-desc">Forms, quizzes, and lead magnets engineered to maximize opt-in rates</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="funnel-arrow">↓</div>
+
+          <div class="funnel-stage">
+            <div class="funnel-label">
+              <div class="funnel-label-icon">🔁</div>
+              <div class="funnel-label-text">Nurture</div>
+            </div>
+            <div class="funnel-cards">
+              <div class="funnel-card">
+                <div class="funnel-card-icon">📧</div>
+                <div class="funnel-card-title">Email Flows</div>
+                <div class="funnel-card-desc">Welcome sequences, nurture flows, and post-purchase automations that work while you sleep</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">📲</div>
+                <div class="funnel-card-title">SMS Sequences</div>
+                <div class="funnel-card-desc">Short, personal, high-intent SMS that hit when the customer is most ready to act</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">🔄</div>
+                <div class="funnel-card-title">Retargeting Campaigns</div>
+                <div class="funnel-card-desc">Multi-step retargeting that recovers abandoned carts and brings warm leads back to convert</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="funnel-arrow">↓</div>
+
+          <div class="funnel-stage">
+            <div class="funnel-label">
+              <div class="funnel-label-icon">📈</div>
+              <div class="funnel-label-text">Scale</div>
+            </div>
+            <div class="funnel-cards">
+              <div class="funnel-card">
+                <div class="funnel-card-icon">🤖</div>
+                <div class="funnel-card-title">AI Agent Automations</div>
+                <div class="funnel-card-desc">Full automation stack running reporting, alerts, client ops, and content delivery 24/7</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">📊</div>
+                <div class="funnel-card-title">Performance Reporting</div>
+                <div class="funnel-card-desc">Weekly data reports, monthly strategy reviews — full visibility into every dollar spent</div>
+              </div>
+              <div class="funnel-card">
+                <div class="funnel-card-icon">🚀</div>
+                <div class="funnel-card-title">Budget Scaling</div>
+                <div class="funnel-card-desc">We scale what's working with precision — no wasted spend, no guessing, just data-backed growth</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────────── -->
     <div class="cta-strip">
       <div class="container">
-        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Ready to Scale?</span></div>
-        <h2>Want Results Like These?</h2>
-        <p>Book a free strategy call and let's map out what's possible for your brand.</p>
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Let's Build Yours</span></div>
+        <h2>Ready to See What's Possible<br>for Your Brand?</h2>
+        <p>Book a free strategy call and we'll show you exactly where your biggest revenue opportunities are — and how we'd go after them.</p>
         <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
           <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book Your Free Strategy Call</a>
-          <a href="/services.html" class="btn btn-secondary" style="height:48px;">View Services</a>
+          <a href="/services.html" class="btn btn-secondary" style="height:48px;">View All Services</a>
         </div>
       </div>
     </div>
+
   </main>
 
   <footer class="footer">
@@ -212,5 +1075,100 @@
     applyTheme(html.classList.contains('dark'));
     toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
   </script>
+
+  <!-- ── QUIZ MODAL ─────────────────────────────────────────── -->
+  <div class="quiz-overlay" id="quiz-overlay" role="dialog" aria-modal="true" aria-label="Free Growth Audit">
+    <div class="quiz-modal">
+      <div class="quiz-header">
+        <button class="quiz-close" id="quiz-close" aria-label="Close">✕</button>
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-label" id="quiz-progress-label">Takes about 1 minute</div>
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="quiz-eyebrow">Free Growth Audit</div>
+        <h2 id="quiz-header-title">Find Out What's Holding Your Brand Back</h2>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-step active" data-step="0">
+          <div class="quiz-intro">
+            <div class="quiz-intro-icon">📋</div>
+            <h3>Get Your Free Growth Blueprint</h3>
+            <p>Answer 4 quick questions and we'll build you a custom growth plan — specific to your business type, budget, and biggest challenge.</p>
+            <div class="quiz-deliverable">
+              <div class="quiz-deliverable-label">You'll receive</div>
+              <ul>
+                <li>A personalized Meta ads strategy for your industry</li>
+                <li>The exact email sequences we use to convert leads</li>
+                <li>A breakdown of where your biggest revenue leaks are</li>
+                <li>Recommended budget allocation based on your goals</li>
+              </ul>
+            </div>
+            <div class="quiz-footer"><div class="quiz-footer-right"><button class="btn-quiz-next" id="quiz-start">Start Free Audit →</button></div></div>
+          </div>
+        </div>
+        <div class="quiz-step" data-step="1">
+          <p class="quiz-q">What type of business do you run?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="1" data-val="healthcare"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏥</span>Healthcare / Medical Practice</div>
+            <div class="quiz-option" data-q="1" data-val="ecommerce"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🛍️</span>E-Commerce / DTC Brand</div>
+            <div class="quiz-option" data-q="1" data-val="local"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📍</span>Local / Service Business</div>
+            <div class="quiz-option" data-q="1" data-val="saas"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💻</span>SaaS / B2B</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="2">
+          <p class="quiz-q">What's your biggest marketing challenge right now?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="2" data-val="not-enough-leads"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📉</span>Not enough leads coming in</div>
+            <div class="quiz-option" data-q="2" data-val="not-converting"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🔄</span>Leads aren't converting to customers</div>
+            <div class="quiz-option" data-q="2" data-val="too-expensive"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💸</span>Marketing costs too much for the results I'm getting</div>
+            <div class="quiz-option" data-q="2" data-val="no-system"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🧩</span>I don't have a real system — everything feels scattered</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="3">
+          <p class="quiz-q">What's your monthly revenue goal from marketing?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="3" data-val="under-10k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🌱</span>Under $10K/month</div>
+            <div class="quiz-option" data-q="3" data-val="10k-50k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📈</span>$10K – $50K/month</div>
+            <div class="quiz-option" data-q="3" data-val="50k-200k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🚀</span>$50K – $200K/month</div>
+            <div class="quiz-option" data-q="3" data-val="200k+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏆</span>$200K+/month</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="4">
+          <p class="quiz-q">What's your current monthly marketing budget?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="4" data-val="under-1k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>Under $1,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="1k-3k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$1,000 – $3,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="3k-10k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$3,000 – $10,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="10k+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$10,000+/month</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="5">
+          <div class="quiz-capture">
+            <h3>Where should we send your Blueprint?</h3>
+            <p>Your personalized Growth Blueprint is ready. Enter your details and we'll send it straight to your inbox — plus a quick note from Tyler with your top recommended next step.</p>
+            <div class="quiz-field"><label for="quiz-name">First Name</label><input type="text" id="quiz-name" placeholder="Your name" autocomplete="given-name" /></div>
+            <div class="quiz-field"><label for="quiz-email">Email Address</label><input type="email" id="quiz-email" placeholder="you@yourbusiness.com" autocomplete="email" /></div>
+            <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next" id="quiz-submit">Send My Blueprint →</button></div></div>
+            <p class="quiz-privacy">🔒 No spam, ever. Unsubscribe anytime.</p>
+          </div>
+        </div>
+        <div class="quiz-step" data-step="6">
+          <div class="quiz-thanks">
+            <div class="quiz-thanks-icon">🎉</div>
+            <h3>Your Blueprint is On Its Way!</h3>
+            <p>Check your inbox in the next few minutes. Tyler will personally review your answers and send over your custom Growth Blueprint.</p>
+            <p style="font-size:.875rem;color:var(--gray-400);">Want to skip the wait? Book a free 20-minute strategy call and we'll walk through your growth plan live.</p>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;display:inline-flex;align-items:center;">Book a Free Strategy Call</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/quiz.js"></script>
+  <script src="/nav.js"></script>
 </body>
 </html>

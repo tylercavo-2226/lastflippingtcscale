@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — TC Scales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script>if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}</script>
+  <style>
+
+    /* ── FIT FILTER BAND ──────────────────────────────────────── */
+    .fit-section {
+      padding: 64px 0;
+      background: var(--off-white);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    html.dark .fit-section { background: var(--dm-bg); border-bottom-color: var(--dm-border); }
+    .fit-intro { text-align: center; max-width: 560px; margin: 0 auto 2.5rem; }
+    .fit-intro h2 { margin-bottom: .75rem; }
+    .fit-intro p { font-size: 1rem; color: var(--gray-600); line-height: 1.7; }
+    html.dark .fit-intro p { color: var(--dm-subtle); }
+
+    .fit-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 880px; margin: 0 auto;
+    }
+    @media (max-width: 680px) { .fit-grid { grid-template-columns: 1fr; } }
+
+    .fit-card {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    }
+    html.dark .fit-card { background: var(--dm-surface); border-color: var(--dm-border); }
+    .fit-card-header {
+      padding: 1rem 1.5rem; font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+    }
+    .fit-card.good .fit-card-header { background: rgba(34,197,94,.1); color: #16a34a; }
+    .fit-card.bad .fit-card-header { background: rgba(239,68,68,.08); color: #dc2626; }
+    html.dark .fit-card.good .fit-card-header { background: rgba(34,197,94,.12); }
+    html.dark .fit-card.bad .fit-card-header { background: rgba(239,68,68,.1); }
+    .fit-items { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: .875rem; }
+    .fit-item {
+      display: flex; align-items: flex-start; gap: .625rem;
+      font-size: .9rem; color: var(--charcoal); line-height: 1.45;
+    }
+    html.dark .fit-item { color: var(--dm-text); }
+    .fit-dot-good {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; color: #16a34a; font-weight: 700; margin-top: .1rem;
+    }
+    .fit-dot-bad {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; color: #dc2626; font-weight: 700; margin-top: .1rem;
+    }
+
+    /* ── PROCESS STEPS ────────────────────────────────────────── */
+    .process-section { padding: var(--section-pad) 0; }
+    .process-intro { text-align: center; max-width: 560px; margin: 0 auto 3.5rem; }
+    .process-intro h2 { margin-bottom: .75rem; }
+    .process-intro p { font-size: 1rem; color: var(--gray-600); line-height: 1.7; }
+    html.dark .process-intro p { color: var(--dm-subtle); }
+
+    .process-steps { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+
+    .process-step {
+      display: grid; grid-template-columns: 80px 1fr; gap: 0 1.5rem;
+      position: relative;
+    }
+    .process-step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 39px; top: 64px; bottom: -8px;
+      width: 2px; background: var(--gray-100);
+      z-index: 0;
+    }
+    html.dark .process-step:not(:last-child)::before { background: var(--dm-border); }
+
+    .step-num-col {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 1.5rem;
+    }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--navy); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.125rem; font-weight: 700;
+      position: relative; z-index: 1;
+      box-shadow: 0 4px 16px rgba(28,58,138,.25);
+      flex-shrink: 0;
+    }
+    html.dark .step-num { background: var(--electric); box-shadow: 0 4px 16px rgba(74,144,217,.3); }
+
+    .step-body {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg); padding: 1.75rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.05);
+    }
+    html.dark .step-body { background: var(--dm-surface); border-color: var(--dm-border); }
+    .step-timing {
+      font-size: .7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--gold); margin-bottom: .5rem;
+    }
+    .step-title { font-size: 1.125rem; font-weight: 700; color: var(--charcoal); margin-bottom: .625rem; }
+    html.dark .step-title { color: var(--dm-text); }
+    .step-desc { font-size: .9rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1rem; }
+    html.dark .step-desc { color: var(--dm-subtle); }
+    .step-bullets { display: flex; flex-direction: column; gap: .375rem; }
+    .step-bullet {
+      display: flex; align-items: flex-start; gap: .5rem;
+      font-size: .85rem; color: var(--charcoal); line-height: 1.45;
+    }
+    html.dark .step-bullet { color: var(--dm-text); }
+    .step-bullet-dot {
+      flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--navy); margin-top: .45rem;
+    }
+    html.dark .step-bullet-dot { background: var(--electric); }
+
+    /* ── WHAT YOU OWN ─────────────────────────────────────────── */
+    .own-section {
+      padding: 64px 0;
+      background: var(--navy-deep);
+    }
+    .own-inner { text-align: center; }
+    .own-inner h2 { color: var(--white); margin-bottom: .875rem; }
+    .own-inner > p { font-size: 1rem; color: var(--dm-subtle); max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .own-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;
+      max-width: 880px; margin: 0 auto;
+    }
+    .own-item {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); padding: 1.25rem; text-align: left;
+      display: flex; align-items: flex-start; gap: .75rem;
+    }
+    .own-item-icon { font-size: 1.25rem; flex-shrink: 0; }
+    .own-item-text { font-size: .875rem; color: var(--white); font-weight: 600; line-height: 1.4; }
+    .own-item-sub { font-size: .78rem; color: var(--dm-subtle); margin-top: .2rem; font-weight: 400; }
+
+    /* ── FAQ ──────────────────────────────────────────────────── */
+    .faq-section { padding: var(--section-pad) 0; }
+    .faq-intro { text-align: center; max-width: 560px; margin: 0 auto 3rem; }
+    .faq-intro h2 { margin-bottom: .875rem; }
+    .faq-intro p { font-size: 1rem; color: var(--gray-600); line-height: 1.7; }
+    html.dark .faq-intro p { color: var(--dm-subtle); }
+    .faq-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+      max-width: 960px; margin: 0 auto;
+    }
+    @media (max-width: 700px) { .faq-grid { grid-template-columns: 1fr; } }
+    .faq-item {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    html.dark .faq-item { background: var(--dm-surface); border-color: var(--dm-border); }
+    .faq-q { font-size: .9375rem; font-weight: 700; color: var(--charcoal); margin-bottom: .625rem; line-height: 1.35; }
+    html.dark .faq-q { color: var(--dm-text); }
+    .faq-a { font-size: .875rem; color: var(--gray-600); line-height: 1.7; }
+    html.dark .faq-a { color: var(--dm-subtle); }
+    .faq-a strong { color: var(--navy); }
+    html.dark .faq-a strong { color: var(--electric); }
+
+    /* ── CTA ──────────────────────────────────────────────────── */
+    .cta-strip { background: var(--navy-deep); padding: 80px 0; text-align: center; }
+    .cta-strip h2 { color: var(--white); margin-bottom: .875rem; }
+    .cta-strip p { color: var(--dm-subtle); margin-bottom: 2rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-strip .btn-primary { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .cta-strip .btn-primary:hover { background: var(--off-white); }
+    .cta-strip .btn-secondary { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.35); }
+    .cta-strip .btn-secondary:hover { background: rgba(255,255,255,.08); color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">TCScales</a>
+        <nav><ul class="nav-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Our Work</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/process.html" class="active">How It Works</a></li>
+        </ul></nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀</button>
+          <button class="btn-quiz-trigger" id="quiz-trigger">Free Growth Audit</button>
+          <a href="/contact.html" class="btn btn-primary">Book a Call</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow"><div class="gold-rule"></div><span class="section-label">How It Works</span></div>
+      <h1>Here's Exactly<br>What Happens.</h1>
+      <p>No mystery. No runaround. This is what working with TC Scales looks like — from the first conversation to compounding results.</p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ── IS THIS RIGHT FOR YOU ──────────────────────────────── -->
+    <section class="fit-section">
+      <div class="container">
+        <div class="fit-intro">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Fit Check</span></div>
+          <h2>Is TC Scales Right For Your Business?</h2>
+          <p>We're selective about who we work with — not because we're exclusive, but because we only take on clients we're confident we can actually move the needle for.</p>
+        </div>
+        <div class="fit-grid">
+          <div class="fit-card good">
+            <div class="fit-card-header">✓ &nbsp;Great fit</div>
+            <div class="fit-items">
+              <div class="fit-item"><div class="fit-dot-good">✓</div>You have a proven product or service people actually want</div>
+              <div class="fit-item"><div class="fit-dot-good">✓</div>You're ready to invest in ad spend ($1,000+/mo minimum)</div>
+              <div class="fit-item"><div class="fit-dot-good">✓</div>You want a growth system, not a one-off campaign</div>
+              <div class="fit-item"><div class="fit-dot-good">✓</div>You can commit to 90 days — enough time to see real results</div>
+              <div class="fit-item"><div class="fit-dot-good">✓</div>You're open to data-led decisions, not gut feelings</div>
+              <div class="fit-item"><div class="fit-dot-good">✓</div>You want one person who handles the whole system, not a committee</div>
+            </div>
+          </div>
+          <div class="fit-card bad">
+            <div class="fit-card-header">✕ &nbsp;Not a fit</div>
+            <div class="fit-items">
+              <div class="fit-item"><div class="fit-dot-bad">✕</div>You're expecting overnight results from ads</div>
+              <div class="fit-item"><div class="fit-dot-bad">✕</div>You're not willing or able to invest in ad spend</div>
+              <div class="fit-item"><div class="fit-dot-bad">✕</div>You want to micromanage every creative or copy decision</div>
+              <div class="fit-item"><div class="fit-dot-bad">✕</div>You're looking for the cheapest possible option</div>
+              <div class="fit-item"><div class="fit-dot-bad">✕</div>Your offer hasn't been validated — no customers yet</div>
+              <div class="fit-item"><div class="fit-dot-bad">✕</div>You need 48-hour turnarounds on everything</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROCESS STEPS ──────────────────────────────────────── -->
+    <section class="process-section">
+      <div class="container">
+        <div class="process-intro">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">The Process</span></div>
+          <h2>From First Call to Full Scale</h2>
+          <p>Every engagement follows the same proven path. Here's exactly what to expect — and when.</p>
+        </div>
+        <div class="process-steps">
+
+          <div class="process-step">
+            <div class="step-num-col"><div class="step-num">1</div></div>
+            <div class="step-body">
+              <div class="step-timing">Day 0 — Before anything else</div>
+              <div class="step-title">Discovery Call</div>
+              <div class="step-desc">A free 20-minute call. No pitch, no fluff — just an honest look at your current situation, your goals, and whether there's a fit. You'll leave knowing exactly what's holding your growth back.</div>
+              <div class="step-bullets">
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Walk through your current marketing setup</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Identify your biggest bottleneck — leads, conversion, or retention</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Recommend the right starting point (Foundation audit or direct retainer)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-num-col"><div class="step-num">2</div></div>
+            <div class="step-body">
+              <div class="step-timing">Days 1–7 — Onboarding</div>
+              <div class="step-title">Audit &amp; Strategy</div>
+              <div class="step-desc">Whether you're starting with the Foundation package or jumping straight into a retainer, week one is all about getting the full picture — your brand, your audience, your competitors, and your gaps.</div>
+              <div class="step-bullets">
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Ad account audit (existing accounts or fresh setup)</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>5-competitor landscape analysis — positioning, creative, messaging</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Ideal customer profile + buyer psychology deep-dive</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Custom Growth Blueprint — strategy, angles, budget recommendations</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-num-col"><div class="step-num">3</div></div>
+            <div class="step-body">
+              <div class="step-timing">Weeks 1–3 — Build phase</div>
+              <div class="step-title">Build Everything</div>
+              <div class="step-desc">This is where the infrastructure goes in. Website, email flows, lead funnel, ad copy, and campaign structure — all built in parallel so there's no waiting around.</div>
+              <div class="step-bullets">
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Website built and live (5–10 pages depending on plan)</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Email sequences written and loaded into Klaviyo or equivalent</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Lead capture funnel built — landing page, form, CRM integrated</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Ad campaigns structured, copy written, audiences built</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-num-col"><div class="step-num">4</div></div>
+            <div class="step-body">
+              <div class="step-timing">Weeks 3–4 — Go live</div>
+              <div class="step-title">Launch</div>
+              <div class="step-desc">Campaigns go live, email sequences activate, tracking is confirmed. AI agents start monitoring 24/7. First data starts coming in within days.</div>
+              <div class="step-bullets">
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Meta campaigns live with full pixel and conversion tracking confirmed</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Email welcome + nurture flows active</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>AI monitoring agents running — alerts set for budget, creative, and performance</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>First weekly report delivered</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-num-col"><div class="step-num">5</div></div>
+            <div class="step-body">
+              <div class="step-timing">Month 2 — Data in hand</div>
+              <div class="step-title">Optimize</div>
+              <div class="step-desc">This is where most agencies drop the ball. We don't. Month two is constant iteration — new creative angles, audience refinement, budget reallocation to what's working.</div>
+              <div class="step-bullets">
+                <div class="step-bullet"><div class="step-bullet-dot"></div>A/B testing creative hooks and copy angles</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Audience expansion and look-alike testing</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Email open rate and click-through optimization</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Budget shifted toward top-performing campaigns</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-num-col"><div class="step-num">6</div></div>
+            <div class="step-body">
+              <div class="step-timing">Month 3+ — Compounding</div>
+              <div class="step-title">Scale</div>
+              <div class="step-desc">By month three, the system has data, momentum, and optimized creative. This is when spend efficiency improves and results compound — retargeting layers, new audiences, expanded email sequences.</div>
+              <div class="step-bullets">
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Retargeting campaigns layered on top of prospecting</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>New audience segments unlocked based on performance data</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Email flows expanded — re-engagement, post-purchase, referral</div>
+                <div class="step-bullet"><div class="step-bullet-dot"></div>Monthly strategy call to review results and plan the next 30 days</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHAT YOU OWN ────────────────────────────────────────── -->
+    <section class="own-section">
+      <div class="container">
+        <div class="own-inner">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Your Assets</span></div>
+          <h2>Everything We Build Is Yours. Full Stop.</h2>
+          <p>When you work with us, everything we create belongs to you — not us. If you ever pause, cancel, or move on, you walk away with everything we built, fully documented.</p>
+          <div class="own-grid">
+            <div class="own-item">
+              <div class="own-item-icon">🌐</div>
+              <div><div class="own-item-text">Your Website</div><div class="own-item-sub">Full ownership. Hosted where you choose.</div></div>
+            </div>
+            <div class="own-item">
+              <div class="own-item-icon">📧</div>
+              <div><div class="own-item-text">Email Flows</div><div class="own-item-sub">All sequences stay in your Klaviyo account.</div></div>
+            </div>
+            <div class="own-item">
+              <div class="own-item-icon">📣</div>
+              <div><div class="own-item-text">Ad Accounts</div><div class="own-item-sub">All campaigns, audiences, and pixels are yours.</div></div>
+            </div>
+            <div class="own-item">
+              <div class="own-item-icon">📊</div>
+              <div><div class="own-item-text">All Data &amp; Reports</div><div class="own-item-sub">Every report and dashboard you receive is yours to keep.</div></div>
+            </div>
+            <div class="own-item">
+              <div class="own-item-icon">🔑</div>
+              <div><div class="own-item-text">All Logins &amp; Access</div><div class="own-item-sub">No lock-in tactics. You always have full access.</div></div>
+            </div>
+            <div class="own-item">
+              <div class="own-item-icon">📄</div>
+              <div><div class="own-item-text">Full Documentation</div><div class="own-item-sub">Clean handoff with SOPs if you ever want to take it in-house.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────────── -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-intro">
+          <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Common Questions</span></div>
+          <h2>What People Usually Ask</h2>
+          <p>The questions prospects ask before deciding to book a call. Answered honestly.</p>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-q">What do I need to provide to get started?</div>
+            <div class="faq-a">Not much. Access to your ad accounts (we can set them up if you don't have them), your brand assets (logo, colors, any existing copy), and a clear description of your offer and ideal customer. We handle the rest — research, copy, creative strategy, build, and launch.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How often do we communicate?</div>
+            <div class="faq-a">You get a <strong>weekly performance report</strong> every week. On Launch and Scale plans, you have direct email access to Tyler. Scale clients also get a <strong>monthly strategy call</strong>. There are no account managers or support tickets — you talk directly to the person doing the work.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What happens if results are slow?</div>
+            <div class="faq-a">We'll tell you directly, explain why, and show you what we're testing to fix it. Slow results in month one are normal — it's a data collection phase. If something isn't working by month two, we change the creative strategy, audience, or offer angle. <strong>We don't hide behind vanity metrics.</strong></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I pause or cancel?</div>
+            <div class="faq-a">After the 3-month minimum, it's month-to-month with 30 days notice. We don't do auto-renewal traps or retention calls. If you want to pause, we'll pause — and you keep everything we've built. <strong>We'd rather earn your continued business than lock you in.</strong></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Do you work with businesses already running ads?</div>
+            <div class="faq-a">Yes — and often those are our best engagements. You've got data to work with. We'll audit what's running, identify what's bleeding budget, restructure the account, and build from there. Prior ad spend isn't wasted — it's a head start.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What platforms and tools do you use?</div>
+            <div class="faq-a">Meta Ads (Facebook/Instagram) for paid traffic, <strong>Klaviyo</strong> for email and SMS, and custom AI agents for monitoring and reporting. For websites, we build in clean HTML/CSS or integrate with your existing CMS. We're platform-agnostic — we use whatever gives you the best results.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Do you sign NDAs or contracts?</div>
+            <div class="faq-a">Yes to both. We sign a standard NDA at the start of any engagement — your business data, strategy, and competitive intelligence are completely confidential. The service agreement outlines deliverables, timelines, and terms clearly. <strong>No surprises in the fine print.</strong></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What if I only want one service — just ads, or just email?</div>
+            <div class="faq-a">We can have that conversation. The retainer plans are structured as integrated systems because that's how results compound — ads + email + funnel outperform any single channel alone. But if you have a specific scope in mind, <strong>book a call and we'll figure out the right structure</strong> for your situation.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────────── -->
+    <div class="cta-strip">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center;"><div class="gold-rule"></div><span class="section-label">Ready to Start</span></div>
+        <h2>Ready to See If You're a Fit?</h2>
+        <p>Book a free 20-minute call. We'll look at your current setup, identify the fastest path to growth, and tell you honestly whether we're the right partner — no pressure either way.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;">
+          <a href="/contact.html" class="btn btn-primary" style="height:48px;">Book a Free Strategy Call</a>
+          <a href="/pricing.html" class="btn btn-secondary" style="height:48px;">See Pricing First</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="/" class="footer-logo">TCScales</a><p>Elite Meta advertising agency helping ambitious brands dominate Facebook &amp; Instagram with data-driven creative systems that scale.</p></div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="/services.html#lead-gen">Lead Generation</a></li><li><a href="/services.html#ecommerce">E-Commerce Ads</a></li><li><a href="/services.html#retargeting">Retargeting</a></li><li><a href="/services.html#creative">Creative Strategy</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="/about.html">About Us</a></li><li><a href="/work.html">Case Studies</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/careers.html">Careers</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="/contact.html">Book a Call</a></li><li><a href="mailto:TCScales.Agency@outlook.com">TCScales.Agency@outlook.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 TC Scales Agency. All rights reserved.</p><div class="footer-legal"><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></div></div>
+    </div>
+  </footer>
+
+  <!-- ── QUIZ MODAL ─────────────────────────────────────────── -->
+  <div class="quiz-overlay" id="quiz-overlay" role="dialog" aria-modal="true" aria-label="Free Growth Audit">
+    <div class="quiz-modal">
+      <div class="quiz-header">
+        <button class="quiz-close" id="quiz-close" aria-label="Close">✕</button>
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-label" id="quiz-progress-label">Takes about 1 minute</div>
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="quiz-eyebrow">Free Growth Audit</div>
+        <h2 id="quiz-header-title">Find Out What's Holding Your Brand Back</h2>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-step active" data-step="0">
+          <div class="quiz-intro">
+            <div class="quiz-intro-icon">📋</div>
+            <h3>Get Your Free Growth Blueprint</h3>
+            <p>Answer 4 quick questions and we'll build you a custom growth plan — specific to your business type, budget, and biggest challenge.</p>
+            <div class="quiz-deliverable">
+              <div class="quiz-deliverable-label">You'll receive</div>
+              <ul>
+                <li>A personalized Meta ads strategy for your industry</li>
+                <li>The exact email sequences we use to convert leads</li>
+                <li>A breakdown of where your biggest revenue leaks are</li>
+                <li>Recommended budget allocation based on your goals</li>
+              </ul>
+            </div>
+            <div class="quiz-footer"><div class="quiz-footer-right"><button class="btn-quiz-next" id="quiz-start">Start Free Audit →</button></div></div>
+          </div>
+        </div>
+        <div class="quiz-step" data-step="1">
+          <p class="quiz-q">What type of business do you run?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="1" data-val="healthcare"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏥</span>Healthcare / Medical Practice</div>
+            <div class="quiz-option" data-q="1" data-val="ecommerce"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🛍️</span>E-Commerce / DTC Brand</div>
+            <div class="quiz-option" data-q="1" data-val="local"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📍</span>Local / Service Business</div>
+            <div class="quiz-option" data-q="1" data-val="saas"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💻</span>SaaS / B2B</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="2">
+          <p class="quiz-q">What's your biggest marketing challenge right now?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="2" data-val="not-enough-leads"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📉</span>Not enough leads coming in</div>
+            <div class="quiz-option" data-q="2" data-val="not-converting"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🔄</span>Leads aren't converting to customers</div>
+            <div class="quiz-option" data-q="2" data-val="too-expensive"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💸</span>Marketing costs too much for the results I'm getting</div>
+            <div class="quiz-option" data-q="2" data-val="no-system"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🧩</span>I don't have a real system — everything feels scattered</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="3">
+          <p class="quiz-q">What's your monthly revenue goal from marketing?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="3" data-val="under-10k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🌱</span>Under $10K/month</div>
+            <div class="quiz-option" data-q="3" data-val="10k-50k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">📈</span>$10K – $50K/month</div>
+            <div class="quiz-option" data-q="3" data-val="50k-200k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🚀</span>$50K – $200K/month</div>
+            <div class="quiz-option" data-q="3" data-val="200k+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">🏆</span>$200K+/month</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="4">
+          <p class="quiz-q">What's your current monthly marketing budget?</p>
+          <div class="quiz-options">
+            <div class="quiz-option" data-q="4" data-val="under-1k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>Under $1,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="1k-3k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$1,000 – $3,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="3k-10k"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$3,000 – $10,000/month</div>
+            <div class="quiz-option" data-q="4" data-val="10k+"><div class="quiz-option-radio"></div><span class="quiz-option-emoji">💰</span>$10,000+/month</div>
+          </div>
+          <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next quiz-next-btn" disabled>Next →</button></div></div>
+        </div>
+        <div class="quiz-step" data-step="5">
+          <div class="quiz-capture">
+            <h3>Where should we send your Blueprint?</h3>
+            <p>Your personalized Growth Blueprint is ready. Enter your details and we'll send it straight to your inbox — plus a quick note from Tyler with your top recommended next step.</p>
+            <div class="quiz-field"><label for="quiz-name">First Name</label><input type="text" id="quiz-name" placeholder="Your name" autocomplete="given-name" /></div>
+            <div class="quiz-field"><label for="quiz-email">Email Address</label><input type="email" id="quiz-email" placeholder="you@yourbusiness.com" autocomplete="email" /></div>
+            <div class="quiz-footer"><button class="btn-quiz-back quiz-back-btn">← Back</button><div class="quiz-footer-right"><button class="btn-quiz-next" id="quiz-submit">Send My Blueprint →</button></div></div>
+            <p class="quiz-privacy">🔒 No spam, ever. Unsubscribe anytime.</p>
+          </div>
+        </div>
+        <div class="quiz-step" data-step="6">
+          <div class="quiz-thanks">
+            <div class="quiz-thanks-icon">🎉</div>
+            <h3>Your Blueprint is On Its Way!</h3>
+            <p>Check your inbox in the next few minutes. Tyler will personally review your answers and send over your custom Growth Blueprint.</p>
+            <p style="font-size:.875rem;color:var(--gray-400);">Want to skip the wait? Book a free 20-minute strategy call and we'll walk through your growth plan live.</p>
+            <a href="/contact.html" class="btn btn-primary" style="height:48px;display:inline-flex;align-items:center;">Book a Free Strategy Call</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/quiz.js"></script>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function applyTheme(dark) { html.classList.toggle('dark', dark); toggle.textContent = dark ? '🌙' : '☀'; }
+    applyTheme(html.classList.contains('dark'));
+    toggle.addEventListener('click', () => { const d = html.classList.toggle('dark'); localStorage.setItem('theme', d ? 'dark' : 'light'); applyTheme(d); });
+  </script>
+  <script src="/nav.js"></script>
+</body>
+</html>
