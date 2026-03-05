@@ -102,10 +102,11 @@
     .panel-header-title { font-size: .9375rem; font-weight: 700; color: var(--white); }
     .panel-header-sub { font-size: .78rem; color: rgba(255,255,255,.45); margin-top: .1rem; }
 
-    .panel-table { width: 100%; }
+    .panel-table { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .pt-row {
       display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
       border-bottom: 1px solid rgba(255,255,255,.06);
+      min-width: 480px;
     }
     .pt-row:last-child { border-bottom: none; }
     .pt-cell {
@@ -249,7 +250,7 @@
     html.dark .compare-line-item { color: var(--dm-text); }
     .compare-line-item .icon { font-size: .85rem; }
     .compare-line-cost {
-      font-size: .875rem; font-weight: 700; white-space: nowrap;
+      font-size: .875rem; font-weight: 700;
     }
     .compare-card.theirs .compare-line-cost { color: #ef4444; }
     .compare-card.ours .compare-line-cost { color: #22c55e; }
@@ -310,7 +311,7 @@
 
     /* Agent category cards */
     .agents-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(min(310px, 100%), 1fr));
       gap: 1.25rem; margin-bottom: 3rem;
     }
     .agent-card {

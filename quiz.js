@@ -103,9 +103,10 @@
       document.getElementById('quiz-email').focus();
       return;
     }
-    answers.name  = name;
-    answers.email = email;
-    answers._subject = 'New Free Growth Audit Submission';
+    answers.name     = name;
+    answers.email    = email;
+    answers._replyto = email;
+    answers._subject = 'New Free Growth Audit Submission — TCScales';
     try {
       const res = await fetch('https://formspree.io/f/mdawnkkk', {
         method: 'POST',
