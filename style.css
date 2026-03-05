@@ -276,8 +276,15 @@ html.dark .theme-toggle:hover { background: rgba(255,255,255,.07); color: #fffff
 @media (max-width: 768px) {
   .nav-inner { gap: .75rem; }
 
-  /* Hide the nav wrapper — links drop down via absolute panel */
-  .nav-inner > nav { display: none; }
+  /* Collapse nav wrapper to zero space — keeps .nav-links in render tree so dropdown works */
+  .nav-inner > nav {
+    flex: 0 0 0;
+    overflow: visible;
+    height: 0;
+  }
+
+  /* Push nav-actions (theme toggle + hamburger) to far right */
+  .nav-actions { margin-left: auto; }
 
   .nav-hamburger { display: flex; }
 
