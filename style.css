@@ -270,9 +270,22 @@ html.dark .theme-toggle:hover { background: rgba(255,255,255,.07); color: #fffff
 
 /* Mobile nav */
 @media (max-width: 768px) {
+  .nav-inner { gap: .75rem; }
+
+  /* Hide the nav wrapper — links drop down via absolute panel */
+  .nav-inner > nav { display: none; }
+
   .nav-hamburger { display: flex; }
+
   .btn-quiz-trigger,
   .theme-toggle { display: none; }
+
+  /* Shrink Book a Call on mobile so it fits */
+  .nav .btn-primary {
+    height: 38px;
+    font-size: .8rem;
+    padding: 0 .875rem;
+  }
 
   .nav-links {
     display: flex !important;
