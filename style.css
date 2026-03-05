@@ -56,6 +56,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin: 0 auto;
   padding: 0 2rem;
 }
+@media (max-width: 480px) {
+  .container { padding: 0 1.125rem; }
+  :root { --section-pad: 60px; }
+}
 .section-pad { padding: var(--section-pad) 0; }
 .text-max    { max-width: 680px; }
 
@@ -277,8 +281,7 @@ html.dark .theme-toggle:hover { background: rgba(255,255,255,.07); color: #fffff
 
   .nav-hamburger { display: flex; }
 
-  .btn-quiz-trigger,
-  .theme-toggle { display: none; }
+  .btn-quiz-trigger { display: none; }
 
   /* Shrink Book a Call on mobile so it fits */
   .nav .btn-primary {
@@ -449,7 +452,7 @@ html.dark .divider { border-top-color: var(--dm-border); }
 
 .quiz-overlay {
   position: fixed; inset: 0; z-index: 9999;
-  background: rgba(10,20,50,.7);
+  background: rgba(10,20,50,.75);
   backdrop-filter: blur(6px);
   display: flex; align-items: center; justify-content: center;
   padding: 1rem;
@@ -461,12 +464,26 @@ html.dark .divider { border-top-color: var(--dm-border); }
   background: var(--white);
   border-radius: 20px;
   width: 100%; max-width: 560px;
+  max-height: 90dvh;
+  display: flex; flex-direction: column;
   box-shadow: 0 32px 80px rgba(0,0,0,.22);
   overflow: hidden;
   transform: translateY(16px) scale(.98);
   transition: transform .3s ease;
 }
 .quiz-overlay.active .quiz-modal { transform: translateY(0) scale(1); }
+.quiz-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.75rem 2rem 2rem;
+}
+/* Remove expensive blur on low-power mobile */
+@media (max-width: 768px) {
+  .quiz-overlay { backdrop-filter: none; background: rgba(10,20,50,.88); }
+  .quiz-modal { border-radius: 16px; max-height: 92dvh; }
+  .quiz-header { padding: 1.25rem 1.25rem 1rem; }
+  .quiz-body { padding: 1.25rem 1.25rem 1.5rem; }
+}
 html.dark .quiz-modal { background: var(--dm-surface); }
 .quiz-header { background: var(--navy-deep); padding: 2rem 2rem 1.5rem; position: relative; }
 .quiz-close {
@@ -490,7 +507,6 @@ html.dark .quiz-modal { background: var(--dm-surface); }
   letter-spacing: .12em; color: var(--gold); margin-bottom: .5rem;
 }
 .quiz-header h2 { font-size: 1.25rem; font-weight: 700; color: var(--white); line-height: 1.25; margin: 0; }
-.quiz-body { padding: 1.75rem 2rem 2rem; }
 .quiz-step { display: none; }
 .quiz-step.active { display: block; }
 .quiz-intro-icon { font-size: 2.5rem; margin-bottom: 1rem; }

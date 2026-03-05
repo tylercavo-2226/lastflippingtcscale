@@ -105,7 +105,12 @@
     }
     answers.name  = name;
     answers.email = email;
-    console.log('Quiz submission:', answers);
+    answers._subject = 'New Free Growth Audit Submission';
+    fetch('https://formspree.io/f/mdawnkkk', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(answers)
+    });
     goToStep(6);
   });
 })();
