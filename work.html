@@ -23,7 +23,36 @@
       gap: 4rem;
       align-items: center;
     }
-    @media (max-width: 860px) { .case-hero-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+    @media (max-width: 860px) { .case-hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+
+    @media (max-width: 640px) {
+      .case-hero { padding: 40px 0 0; }
+
+      .case-hero-copy h2 { font-size: 1.5rem; }
+      .case-hero-copy p { font-size: .9rem; margin-bottom: 1.25rem; }
+
+      /* Shrink the big $24,800 number */
+      .hero-rev-main .num { font-size: 2.25rem; }
+      .hero-rev-split { padding-left: 1rem; gap: .5rem; }
+      .rev-split-item .s-num { font-size: 1.1rem; }
+
+      /* Stats row: 2×2 grid instead of 4 in a row */
+      .case-stats-row { flex-wrap: wrap; }
+      .cs-stat { flex: 0 0 50%; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .cs-stat:nth-child(2) { border-right: none; }
+      .cs-stat .s-num { font-size: 1.2rem; }
+
+      /* Flow items: stack label and revenue vertically */
+      .flow-item { flex-direction: column; align-items: flex-start; gap: .5rem; }
+      .flow-item > div:last-child { align-self: flex-end; flex-direction: row; gap: .5rem; }
+
+      /* Panel header text */
+      .panel-header-title { font-size: .85rem; }
+      .panel-header-sub { font-size: .7rem; }
+
+      /* Ribbon: smaller text */
+      .ribbon-item { font-size: .75rem; }
+    }
 
     .case-hero-copy .case-tag-featured {
       display: inline-flex; align-items: center; gap: .5rem;
