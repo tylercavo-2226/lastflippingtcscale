@@ -96,7 +96,7 @@
     });
   });
 
-  document.getElementById('quiz-submit').addEventListener('click', () => {
+  document.getElementById('quiz-submit').addEventListener('click', async () => {
     const name  = document.getElementById('quiz-name').value.trim();
     const email = document.getElementById('quiz-email').value.trim();
     if (!name || !email || !email.includes('@')) {
@@ -106,11 +106,17 @@
     answers.name  = name;
     answers.email = email;
     answers._subject = 'New Free Growth Audit Submission';
-    fetch('https://formspree.io/f/mdawnkkk', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(answers)
-    });
+    try {
+      const res = await fetch('https://formspree.io/f/mdawnkkk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(answers)
+      });
+      if (!res.ok) throw new Error('server');
+    } catch (e) {
+      alert('Submission failed — please email us directly at TCScales.Agency@outlook.com');
+      return;
+    }
     goToStep(6);
   });
 })();

@@ -283,12 +283,8 @@ html.dark .theme-toggle:hover { background: rgba(255,255,255,.07); color: #fffff
 
   .btn-quiz-trigger { display: none; }
 
-  /* Shrink Book a Call on mobile so it fits */
-  .nav .btn-primary {
-    height: 38px;
-    font-size: .8rem;
-    padding: 0 .875rem;
-  }
+  /* Hide Book a Call from top bar — it lives in the dropdown instead */
+  .nav-actions .btn-primary { display: none; }
 
   .nav-links {
     display: flex !important;
@@ -318,7 +314,17 @@ html.dark .theme-toggle:hover { background: rgba(255,255,255,.07); color: #fffff
     color: #ffffff;
     background: rgba(255,255,255,.04);
   }
+
+  .nav-mobile-cta { display: block; }
+  .nav-mobile-cta a {
+    color: #ffffff !important;
+    font-weight: 700;
+    background: rgba(255,255,255,.06);
+  }
 }
+
+/* Mobile CTA hidden on desktop */
+.nav-mobile-cta { display: none; }
 
 /* ── FOOTER ───────────────────────────────────────────────── */
 .footer {
