@@ -56,8 +56,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin: 0 auto;
   padding: 0 2rem;
 }
+@media (max-width: 768px) {
+  .container { padding: 0 1.25rem; }
+  /* Prevent any element from causing horizontal overflow */
+  img, video, iframe, table, pre { max-width: 100%; }
+  /* Break long words/URLs so they don't push content off-screen */
+  p, h1, h2, h3, h4, li, td, th { overflow-wrap: break-word; word-break: break-word; }
+}
 @media (max-width: 480px) {
-  .container { padding: 0 1.125rem; }
+  .container { padding: 0 1rem; }
   :root { --section-pad: 60px; }
 }
 .section-pad { padding: var(--section-pad) 0; }
@@ -197,7 +204,9 @@ html.dark .card:hover { border-left-color: var(--electric); }
 .nav-links {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
+  flex: 1;
 }
 .nav-links a {
   font-size: .9375rem;
@@ -274,14 +283,9 @@ html.dark .theme-toggle:hover { background: rgba(255,255,255,.07); color: #fffff
 
 /* Mobile nav */
 @media (max-width: 768px) {
-  .nav-inner { gap: .75rem; }
-
-  /* Collapse nav wrapper to zero space — keeps .nav-links in render tree so dropdown works */
-  .nav-inner > nav {
-    flex: 0 0 0;
-    overflow: visible;
-    height: 0;
-  }
+  .nav-inner { gap: .5rem; height: 60px; }
+  .nav-logo { font-size: 1.1rem; }
+  .theme-toggle { width: 34px; height: 34px; font-size: .875rem; }
 
   /* Push nav-actions (theme toggle + hamburger) to far right */
   .nav-actions { margin-left: auto; }
@@ -293,12 +297,13 @@ html.dark .theme-toggle:hover { background: rgba(255,255,255,.07); color: #fffff
   /* Hide Book a Call from top bar — it lives in the dropdown instead */
   .nav-actions .btn-primary { display: none; }
 
+  /* Nav links become the absolute slide-down dropdown */
   .nav-links {
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     gap: 0;
     position: absolute;
-    top: 80px;
+    top: 60px;
     left: 0; right: 0;
     background: #1e2130;
     border-top: 1px solid rgba(255,255,255,.08);
